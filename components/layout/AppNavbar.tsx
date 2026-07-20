@@ -1,7 +1,6 @@
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
@@ -21,7 +20,6 @@ export function AppNavbar() {
         </div>
         
         <div className="flex items-center gap-4 ml-auto">
-          <ThemeToggle />
         </div>
       </div>
     </header>

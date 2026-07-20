@@ -4,7 +4,6 @@ import { useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Circle, Scissors, Shirt, Package, Truck, Calendar } from "lucide-react";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function OrderTrackingPage() {
   const params = useParams();
@@ -27,7 +26,6 @@ export default function OrderTrackingPage() {
             আপনার অর্ডারের বর্তমান অবস্থা দেখুন।
           </p>
         </div>
-        <ThemeToggle />
       </div>
 
       <Card className="w-full max-w-2xl overflow-hidden border-t-4 border-t-primary">

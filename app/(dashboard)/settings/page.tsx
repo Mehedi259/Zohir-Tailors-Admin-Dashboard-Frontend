@@ -6,7 +6,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Save } from "lucide-react";
 import { toast } from "sonner";
-import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function SettingsPage() {
   const handleSave = (e: React.FormEvent) => {
@@ -48,9 +47,8 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between">
               <div className="space-y-0.5">
                 <Label>থিম (Theme)</Label>
-                <div className="text-sm text-muted-foreground">ডার্ক বা লাইট মোড নির্বাচন করুন</div>
+                <div className="text-sm text-muted-foreground">শুধুমাত্র লাইট মোড সাপোর্টেড</div>
               </div>
-              <ThemeToggle />
             </div>
             <div className="space-y-2 pt-4">
               <Label htmlFor="currency">কারেন্সি সিম্বল</Label>
