@@ -15,8 +15,30 @@ export const customersData = [
 ];
 
 export const measurementsData = [
-  { customerId: "CUST-001", name: "রাহিম মিয়া", shirt: { length: "28", chest: "38", waist: "36", shoulder: "17", sleeve: "24", neck: "15.5", armhole: "18", bicep: "14", cuff: "9" }, pant: { length: "40", waist: "34", hip: "40", thigh: "24", knee: "18", hem: "14", rise: "11", inseam: "30" } },
-  { customerId: "CUST-002", name: "করিম উল্লাহ", shirt: { length: "29", chest: "40", waist: "38", shoulder: "18", sleeve: "25", neck: "16", armhole: "19", bicep: "15", cuff: "9.5" }, pant: { length: "41", waist: "36", hip: "42", thigh: "25", knee: "19", hem: "15", rise: "11.5", inseam: "31" } }
+  {
+    id: "M-1001",
+    customer: "রাহিম মিয়া",
+    customerId: "CUST-001",
+    type: "Shirt",
+    measurements: { length: "28", chest: "38", waist: "36", shoulder: "17", sleeve: "24", neck: "15.5", armhole: "18", bicep: "14", cuff: "9" },
+    date: "12 May 2024",
+  },
+  {
+    id: "M-1002",
+    customer: "রাহিম মিয়া",
+    customerId: "CUST-001",
+    type: "Pant",
+    measurements: { length: "40", waist: "34", hip: "40", thigh: "24", knee: "18", hem: "14", rise: "11", inseam: "30" },
+    date: "12 May 2024",
+  },
+  {
+    id: "M-1003",
+    customer: "করিম উল্লাহ",
+    customerId: "CUST-002",
+    type: "Shirt",
+    measurements: { length: "29", chest: "40", waist: "38", shoulder: "18", sleeve: "25", neck: "16", armhole: "19", bicep: "15", cuff: "9.5" },
+    date: "14 May 2024",
+  },
 ];
 
 export const ordersData = [
