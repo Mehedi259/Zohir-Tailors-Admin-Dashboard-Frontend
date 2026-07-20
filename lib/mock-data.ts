@@ -26,3 +26,18 @@ export const ordersData = [
   { id: "ORD-1004", customerName: "জামাল ভূঁইয়া", customerId: "CUST-004", items: ["১x স্যুট"], totalPrice: 8500, dueAmount: 4000, status: "In Progress", orderDate: "May 01, 2024", deliveryDate: "May 25, 2024", advancePayment: 4500 },
   { id: "ORD-1005", customerName: "মাহমুদুল্লাহ রিয়াদ", customerId: "CUST-005", items: ["১x প্যান্ট"], totalPrice: 1200, dueAmount: 0, status: "Delivered", orderDate: "May 05, 2024", deliveryDate: "May 12, 2024", advancePayment: 1200 },
 ];
+
+export const monthlyRevenue = [
+  { name: "Jan", revenue: 12400, orders: 42 },
+  { name: "Feb", revenue: 15600, orders: 55 },
+  { name: "Mar", revenue: 18200, orders: 68 },
+  { name: "Apr", revenue: 22000, orders: 85 },
+  { name: "May", revenue: 26500, orders: 110 },
+  { name: "Jun", revenue: 28000, orders: 120 },
+  { name: "Jul", revenue: 25400, orders: 95 },
+  { name: "Aug", revenue: 21000, orders: 78 },
+  { name: "Sep", revenue: 24500, orders: 88 },
+  { name: "Oct", revenue: 29000, orders: 130 },
+  { name: "Nov", revenue: 35000, orders: 150 },
+  { name: "Dec", revenue: 42000, orders: 185 },
+];
