@@ -16,7 +16,7 @@ import {
 import {
   LayoutDashboard,
   Users,
-  ShoppingCart,
+  ShoppingBag,
   Scissors,
   CreditCard,
   Wallet,

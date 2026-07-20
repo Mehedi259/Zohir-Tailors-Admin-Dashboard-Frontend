@@ -1,9 +1,9 @@
 export const recentSales = [
-  { name: "রাহিম মিয়া", email: "rahim@example.com", amount: "৳১,২০০.০০", status: "Completed", date: "১০ মিনিট আগে" },
-  { name: "করিম উল্লাহ", email: "karim@example.com", amount: "৳৩,৪০০.০০", status: "Pending", date: "২ ঘণ্টা আগে" },
-  { name: "সাকিব হাসান", email: "sakib@example.com", amount: "৳৪,০০০.০০", status: "Completed", date: "৫ ঘণ্টা আগে" },
-  { name: "জামাল ভূঁইয়া", email: "jamal@example.com", amount: "৳২,১০০.০০", status: "Cutting", date: "গতকাল" },
-  { name: "মাহমুদুল্লাহ রিয়াদ", email: "riyad@example.com", amount: "৳১,৫০০.০০", status: "Ready", date: "২ দিন আগে" },
+  { id: "ORD-1234", customer: "রাহিম মিয়া", email: "rahim@example.com", amount: "৳১,২০০.০০", status: "Completed", date: "১০ মিনিট আগে" },
+  { id: "ORD-1235", customer: "করিম উল্লাহ", email: "karim@example.com", amount: "৳৩,৪০০.০০", status: "Pending", date: "২ ঘণ্টা আগে" },
+  { id: "ORD-1236", customer: "সাকিব হাসান", email: "sakib@example.com", amount: "৳৪,০০০.০০", status: "Completed", date: "৫ ঘণ্টা আগে" },
+  { id: "ORD-1237", customer: "জামাল ভূঁইয়া", email: "jamal@example.com", amount: "৳২,১০০.০০", status: "Cutting", date: "গতকাল" },
+  { id: "ORD-1238", customer: "মাহমুদুল্লাহ রিয়াদ", email: "riyad@example.com", amount: "৳১,৫০০.০০", status: "Ready", date: "২ দিন আগে" },
 ];
 
 export const customersData = [
@@ -22,6 +22,7 @@ export const measurementsData = [
     type: "Shirt",
     measurements: { length: "28", chest: "38", waist: "36", shoulder: "17", sleeve: "24", neck: "15.5", armhole: "18", bicep: "14", cuff: "9" },
     date: "12 May 2024",
+    notes: "Fit type: Slim fit",
   },
   {
     id: "M-1002",
@@ -30,6 +31,7 @@ export const measurementsData = [
     type: "Pant",
     measurements: { length: "40", waist: "34", hip: "40", thigh: "24", knee: "18", hem: "14", rise: "11", inseam: "30" },
     date: "12 May 2024",
+    notes: "Extra length for folding",
   },
   {
     id: "M-1003",
@@ -38,6 +40,7 @@ export const measurementsData = [
     type: "Shirt",
     measurements: { length: "29", chest: "40", waist: "38", shoulder: "18", sleeve: "25", neck: "16", armhole: "19", bicep: "15", cuff: "9.5" },
     date: "14 May 2024",
+    notes: "Regular fit",
   },
 ];
 
