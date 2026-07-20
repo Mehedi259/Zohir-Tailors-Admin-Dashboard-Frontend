@@ -11,8 +11,8 @@ const hindSiliguri = Hind_Siliguri({
 });
 
 export const metadata: Metadata = {
-  title: "Zohir Tailors Admin Dashboard",
-  description: "Premium SaaS dashboard for Zohir Tailors",
+  title: "Johir Tailors Admin Dashboard",
+  description: "Premium SaaS dashboard for Johir Tailors",
 };
 
 export default function RootLayout({

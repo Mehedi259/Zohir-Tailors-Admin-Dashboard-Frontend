@@ -144,7 +144,7 @@ export function AppSidebar() {
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
                       <span className="truncate font-semibold">অ্যাডমিন ইউজার</span>
-                      <span className="truncate text-xs text-muted-foreground">admin@zohir.com</span>
+                      <span className="truncate text-xs text-muted-foreground">admin@johir.com</span>
                     </div>
                   </div>
                 </DropdownMenuLabel>
