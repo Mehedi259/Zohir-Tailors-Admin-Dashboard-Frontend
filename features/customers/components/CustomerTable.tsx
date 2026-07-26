@@ -23,18 +23,36 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { customersData } from "@/lib/mock-data";
-import { MoreHorizontal, ArrowUpDown, Plus } from "lucide-react";
+import { useAppStore } from "@/store/useAppStore";
+import { MoreHorizontal, ArrowUpDown, Plus, Printer, Phone } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Customer } from "@/store/useAppStore";
 
-type Customer = typeof customersData[0];
+const CustomerActions = ({ customer }: { customer: Customer }) => {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0 border-none outline-none focus:outline-none focus-visible:outline-none">
+        <span className="sr-only">মেনু খুলুন</span>
+        <MoreHorizontal className="h-4 w-4" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem>প্রোফাইল দেখুন</DropdownMenuItem>
+        <DropdownMenuItem>অর্ডার ইতিহাস</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => window.open(`/print/statement/${customer.id}`, '_blank')}>
+          <Printer className="mr-2 h-4 w-4" /> স্টেটমেন্ট প্রিন্ট করুন
+        </DropdownMenuItem>
+        <DropdownMenuItem>নতুন অর্ডার তৈরি করুন</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 export const columns: ColumnDef<Customer>[] = [
   {
@@ -99,33 +117,19 @@ export const columns: ColumnDef<Customer>[] = [
     id: "actions",
     cell: ({ row }) => {
       const customer = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">মেনু খুলুন</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>অ্যাকশনসমূহ</DropdownMenuLabel>
-            <DropdownMenuItem>প্রোফাইল দেখুন</DropdownMenuItem>
-            <DropdownMenuItem>অর্ডার ইতিহাস</DropdownMenuItem>
-            <DropdownMenuItem>নতুন অর্ডার তৈরি করুন</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <CustomerActions customer={customer} />;
     },
   },
 ];
 
 export function CustomerTable() {
+  const router = useRouter();
+  const { customers } = useAppStore();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
-    data: customersData,
+    data: customers,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -141,20 +145,22 @@ export function CustomerTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center justify-between gap-2 py-4">
         <Input
           placeholder="নাম বা মোবাইল নম্বর দিয়ে খুঁজুন..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="flex-1 md:max-w-sm"
         />
-        <Button>
-          <Plus className="mr-2 h-4 w-4" /> নতুন গ্রাহক
+        <Button className="shrink-0" onClick={() => router.push('/customers/new')}>
+          <Plus className="mr-1 h-4 w-4" /> <span className="hidden md:inline">নতুন গ্রাহক</span><span className="md:hidden">গ্রাহক</span>
         </Button>
       </div>
-      <div className="rounded-md border">
+
+      {/* Desktop Table View */}
+      <div className="hidden md:block rounded-md border bg-card">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -204,6 +210,63 @@ export function CustomerTable() {
           </TableBody>
         </Table>
       </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {table.getRowModel().rows?.length ? (
+          table.getRowModel().rows.map((row) => {
+            const customer = row.original;
+            
+            return (
+              <div key={customer.id} className="border rounded-xl p-4 bg-card shadow-sm flex flex-col gap-3">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10 border shadow-sm">
+                      <AvatarImage src={`https://avatar.vercel.sh/${customer.name}.png`} />
+                      <AvatarFallback>{customer.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-bold text-base">{customer.name}</div>
+                      <div className="text-xs text-muted-foreground mt-0.5">আইডি: {customer.id}</div>
+                    </div>
+                  </div>
+                  <Badge variant={customer.status === "Active" ? "default" : "secondary"} className="shrink-0">
+                    {customer.status}
+                  </Badge>
+                </div>
+                
+                <div className="flex items-center text-sm mt-1 text-muted-foreground">
+                  <Phone className="h-4 w-4 mr-2" />
+                  <span className="font-medium text-foreground">{customer.phone}</span>
+                </div>
+
+                <div className="flex justify-between items-center text-sm border-t border-b py-2 my-1">
+                  <div>
+                    <span className="text-muted-foreground block text-xs mb-0.5">মোট অর্ডার</span>
+                    <span className="font-semibold">{customer.totalOrders} টি</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-muted-foreground block text-xs mb-0.5">মোট খরচ</span>
+                    <span className="font-semibold text-emerald-600">৳{customer.totalSpent}</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between items-center pt-1">
+                  <div className="text-xs text-muted-foreground">
+                    যোগদান: <span className="font-medium text-foreground">{customer.joinDate}</span>
+                  </div>
+                  <CustomerActions customer={customer} />
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="text-center p-8 border rounded-lg bg-card text-muted-foreground">
+            কোনো গ্রাহক পাওয়া যায়নি।
+          </div>
+        )}
+      </div>
+
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
           variant="outline"

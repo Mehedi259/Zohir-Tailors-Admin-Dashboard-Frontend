@@ -15,6 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useState } from "react";
+import { Upload, X } from "lucide-react";
+import Image from "next/image";
 
 const formSchema = z.object({
   type: z.enum(["Shirt", "Pant"]),
@@ -29,6 +32,7 @@ const formSchema = z.object({
   bottom: z.string().optional(),
   knee: z.string().optional(),
   notes: z.string().optional(),
+  photoUrl: z.string().optional(),
 });
 
 type MeasurementFormValues = z.infer<typeof formSchema>;
@@ -39,6 +43,8 @@ interface MeasurementFormProps {
 }
 
 export function MeasurementForm({ type, defaultValues }: MeasurementFormProps) {
+  const [photoPreview, setPhotoPreview] = useState<string | null>(defaultValues?.photoUrl || null);
+
   const form = useForm<MeasurementFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,8 +53,21 @@ export function MeasurementForm({ type, defaultValues }: MeasurementFormProps) {
     },
   });
 
+  function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const result = reader.result as string;
+        setPhotoPreview(result);
+        form.setValue("photoUrl", result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   function onSubmit(data: MeasurementFormValues) {
-    toast.success("মাপ সফলভাবে সেভ হয়েছে!");
+    toast.success("মাপ ও ড্রেসের ছবি সফলভাবে সেভ হয়েছে!");
     console.log(data);
   }
 
@@ -97,7 +116,38 @@ export function MeasurementForm({ type, defaultValues }: MeasurementFormProps) {
           )}
         />
 
-        <Button type="submit">মাপ সেভ করুন</Button>
+        <div className="space-y-3">
+          <FormLabel>ড্রেসের নমুনা ছবি (ঐচ্ছিক)</FormLabel>
+          {photoPreview ? (
+            <div className="relative w-40 h-40 rounded-lg overflow-hidden border">
+              <Image src={photoPreview} alt="Dress Sample" fill className="object-cover" />
+              <Button
+                type="button"
+                variant="destructive"
+                size="icon"
+                className="absolute top-1 right-1 h-6 w-6"
+                onClick={() => {
+                  setPhotoPreview(null);
+                  form.setValue("photoUrl", undefined);
+                }}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full max-w-sm">
+              <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-muted/50 hover:bg-muted">
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <Upload className="w-8 h-8 mb-2 text-muted-foreground" />
+                  <p className="mb-2 text-sm text-muted-foreground"><span className="font-semibold">ছবি আপলোড করতে ক্লিক করুন</span></p>
+                </div>
+                <input id="dropzone-file" type="file" className="hidden" accept="image/*" onChange={handlePhotoUpload} />
+              </label>
+            </div>
+          )}
+        </div>
+
+        <Button type="submit">মাপ ও ছবি সেভ করুন</Button>
       </form>
     </Form>
   );
