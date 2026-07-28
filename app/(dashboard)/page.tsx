@@ -1,33 +1,20 @@
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
-import { 
-  BarChart3, 
-  Calculator, 
-  PackagePlus, 
-  UserPlus, 
-  Receipt, 
-  ListTodo, 
-  Wallet, 
-  Banknote,
-  Box,
-  Truck,
-  Settings,
-  FilePlus
-} from "lucide-react";
+import Image from "next/image";
 
 const dashboardLinks = [
-  { title: "ড্যাশবোর্ড", icon: BarChart3, href: "/", color: "text-orange-500", bg: "bg-orange-100" },
-  { title: "অর্ডার পরিচালনা করুন", icon: Settings, href: "/orders/manage", color: "text-purple-600", bg: "bg-purple-100" },
-  { title: "নতুন অর্ডার অ্যাড", icon: FilePlus, href: "/orders/new", color: "text-blue-600", bg: "bg-blue-100" },
-  { title: "স্টেটমেন্ট", icon: Calculator, href: "/reports", color: "text-blue-500", bg: "bg-blue-100" },
-  { title: "পণ্য যোগ করুন", icon: PackagePlus, href: "/orders/new", color: "text-teal-600", bg: "bg-teal-100" },
-  { title: "ক্রেতা যোগ করুন", icon: UserPlus, href: "/customers/new", color: "text-rose-500", bg: "bg-rose-100" },
-  { title: "রশিদ", icon: Receipt, href: "/payments", color: "text-indigo-500", bg: "bg-indigo-100" },
-  { title: "বাকির হিসাব", icon: ListTodo, href: "/wallet", color: "text-slate-600", bg: "bg-slate-100" },
-  { title: "প্রতিদিনের খরচ", icon: Wallet, href: "/expenses/daily", color: "text-amber-600", bg: "bg-amber-100" },
-  { title: "মাসিক খরচ", icon: Banknote, href: "/expenses/monthly", color: "text-emerald-500", bg: "bg-emerald-100" },
-  { title: "পণ্যর হিসাব", icon: Box, href: "/inventory", color: "text-cyan-500", bg: "bg-cyan-100" },
-  { title: "ডেলিভারি রিপোর্ট", icon: Truck, href: "/delivery", color: "text-fuchsia-500", bg: "bg-fuchsia-100" },
+  { title: "ড্যাশবোর্ড", image: "/icons/dashboard.png", href: "/" },
+  { title: "অর্ডার পরিচালনা করুন", image: "/icons/order-management.png", href: "/orders/manage" },
+  { title: "নতুন অর্ডার অ্যাড", image: "/icons/new-order.png", href: "/orders/new" },
+  { title: "স্টেটমেন্ট", image: "/icons/financial-report.png", href: "/reports" },
+  { title: "পণ্য যোগ করুন", image: "/icons/add-product.png", href: "/orders/new" },
+  { title: "ক্রেতা যোগ করুন", image: "/icons/new-customer.png", href: "/customers/new" },
+  { title: "রশিদ", image: "/icons/invoice.png", href: "/payments" },
+  { title: "বাকির হিসাব", image: "/icons/ledger.png", href: "/wallet" },
+  { title: "প্রতিদিনের খরচ", image: "/icons/daily-expense.png", href: "/expenses/daily" },
+  { title: "মাসিক খরচ", image: "/icons/monthly-expense.png", href: "/expenses/monthly" },
+  { title: "পণ্যর হিসাব", image: "/icons/inventory.png", href: "/inventory" },
+  { title: "ডেলিভারি রিপোর্ট", image: "/icons/delivery-truck.png", href: "/delivery" },
 ];
 
 export default function DashboardPage() {
@@ -38,18 +25,20 @@ export default function DashboardPage() {
         <h2 className="text-lg md:text-xl font-bold mb-4 px-1 text-slate-800 dark:text-slate-200">কুইক লিংকস</h2>
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4">
           {dashboardLinks.map((link, index) => {
-            const Icon = link.icon;
             return (
               <Link key={index} href={link.href} className="block h-full">
                 <Card className="group relative overflow-hidden bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-200 dark:border-slate-800 hover:border-primary/40 hover:-translate-y-1 h-full">
-                  {/* Subtle hover background effect */}
-                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity ${link.bg}`}></div>
-                  
                   <CardContent className="p-3 md:p-5 flex flex-col items-center justify-center text-center h-full relative z-10">
-                    <div className={`p-2.5 md:p-4 rounded-2xl ${link.bg} ring-1 ring-black/5 dark:ring-white/5 shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300 mb-2.5 md:mb-4`}>
-                      <Icon className={`w-5 h-5 md:w-7 md:h-7 ${link.color}`} strokeWidth={2} />
+                    <div className="mb-2.5 md:mb-4 group-hover:scale-110 transition-all duration-300">
+                      <Image 
+                        src={link.image} 
+                        alt={link.title} 
+                        width={48} 
+                        height={48} 
+                        className="w-10 h-10 md:w-14 md:h-14 object-contain drop-shadow-sm"
+                      />
                     </div>
-                    <h3 className="font-semibold text-[11px] md:text-[15px] text-slate-700 dark:text-slate-200 leading-tight md:leading-snug">
+                    <h3 className="font-bold text-[12px] md:text-[15px] text-slate-700 dark:text-slate-200 leading-tight md:leading-snug">
                       {link.title}
                     </h3>
                   </CardContent>
