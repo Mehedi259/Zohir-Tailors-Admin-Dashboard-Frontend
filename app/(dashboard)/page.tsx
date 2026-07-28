@@ -10,11 +10,15 @@ import {
   Wallet, 
   Banknote,
   Box,
-  Truck
+  Truck,
+  Settings,
+  FilePlus
 } from "lucide-react";
 
 const dashboardLinks = [
   { title: "ড্যাশবোর্ড", icon: BarChart3, href: "/", color: "text-orange-500", bg: "bg-orange-100" },
+  { title: "অর্ডার পরিচালনা করুন", icon: Settings, href: "/orders/manage", color: "text-purple-600", bg: "bg-purple-100" },
+  { title: "নতুন অর্ডার অ্যাড", icon: FilePlus, href: "/orders/new", color: "text-blue-600", bg: "bg-blue-100" },
   { title: "স্টেটমেন্ট", icon: Calculator, href: "/reports", color: "text-blue-500", bg: "bg-blue-100" },
   { title: "পণ্য যোগ করুন", icon: PackagePlus, href: "/orders/new", color: "text-teal-600", bg: "bg-teal-100" },
   { title: "ক্রেতা যোগ করুন", icon: UserPlus, href: "/customers/new", color: "text-rose-500", bg: "bg-rose-100" },
@@ -28,30 +32,27 @@ const dashboardLinks = [
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-6 pb-20 md:pb-6">
-      {/* Top Greeting */}
-      <div className="bg-primary text-primary-foreground p-6 rounded-xl shadow-sm mb-6 mt-2">
-        <h1 className="text-2xl font-bold">Hello, Johir E. TailoR</h1>
-        <p className="text-primary-foreground/80 mt-1">আপনার ড্যাশবোর্ডে স্বাগতম</p>
-      </div>
-
-      {/* Grid Menu */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {dashboardLinks.map((link, index) => {
-          const Icon = link.icon;
-          return (
-            <Link key={index} href={link.href}>
-              <Card className="hover:bg-accent transition-colors cursor-pointer border-2 hover:border-primary/50">
-                <CardContent className="p-6 flex flex-col items-center justify-center text-center space-y-4">
-                  <div className={`p-4 rounded-xl ${link.bg}`}>
-                    <Icon className={`w-10 h-10 ${link.color}`} />
-                  </div>
-                  <h3 className="font-medium text-muted-foreground">{link.title}</h3>
-                </CardContent>
-              </Card>
-            </Link>
-          );
-        })}
+    <div className="space-y-6 pb-20 md:pb-6 mt-2">
+      {/* Quick Links Grid */}
+      <div>
+        <h2 className="text-lg md:text-xl font-bold mb-4 px-1 text-slate-800 dark:text-slate-200">কুইক লিংকস</h2>
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4">
+          {dashboardLinks.map((link, index) => {
+            const Icon = link.icon;
+            return (
+              <Link key={index} href={link.href}>
+                <Card className="hover:bg-accent transition-colors cursor-pointer border md:border-2 hover:border-primary/50 h-full">
+                  <CardContent className="p-2 md:p-4 flex flex-col items-center justify-center text-center space-y-1.5 md:space-y-3 h-full">
+                    <div className={`p-2 md:p-3 rounded-full ${link.bg}`}>
+                      <Icon className={`w-4 h-4 md:w-6 md:h-6 ${link.color}`} />
+                    </div>
+                    <h3 className="font-medium text-[9px] md:text-sm text-muted-foreground leading-tight">{link.title}</h3>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
