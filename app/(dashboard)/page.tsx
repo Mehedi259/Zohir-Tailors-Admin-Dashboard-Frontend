@@ -40,13 +40,18 @@ export default function DashboardPage() {
           {dashboardLinks.map((link, index) => {
             const Icon = link.icon;
             return (
-              <Link key={index} href={link.href}>
-                <Card className="hover:bg-accent transition-colors cursor-pointer border md:border-2 hover:border-primary/50 h-full">
-                  <CardContent className="p-2 md:p-4 flex flex-col items-center justify-center text-center space-y-1.5 md:space-y-3 h-full">
-                    <div className={`p-2 md:p-3 rounded-full ${link.bg}`}>
-                      <Icon className={`w-4 h-4 md:w-6 md:h-6 ${link.color}`} />
+              <Link key={index} href={link.href} className="block h-full">
+                <Card className="group relative overflow-hidden bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-200 dark:border-slate-800 hover:border-primary/40 hover:-translate-y-1 h-full">
+                  {/* Subtle hover background effect */}
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-[0.03] transition-opacity ${link.bg}`}></div>
+                  
+                  <CardContent className="p-3 md:p-5 flex flex-col items-center justify-center text-center h-full relative z-10">
+                    <div className={`p-2.5 md:p-4 rounded-2xl ${link.bg} ring-1 ring-black/5 dark:ring-white/5 shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300 mb-2.5 md:mb-4`}>
+                      <Icon className={`w-5 h-5 md:w-7 md:h-7 ${link.color}`} strokeWidth={2} />
                     </div>
-                    <h3 className="font-medium text-[9px] md:text-sm text-muted-foreground leading-tight">{link.title}</h3>
+                    <h3 className="font-semibold text-[11px] md:text-[15px] text-slate-700 dark:text-slate-200 leading-tight md:leading-snug">
+                      {link.title}
+                    </h3>
                   </CardContent>
                 </Card>
               </Link>
