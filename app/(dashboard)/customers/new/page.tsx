@@ -22,32 +22,46 @@ export default function NewCustomerPage() {
             <ArrowLeft className="w-5 h-5" />
           </Button>
         </Link>
-        <h2 className="text-2xl font-bold tracking-tight">ক্রেতা যোগ করুন</h2>
+        <h2 className="text-2xl font-bold tracking-tight">নতুন কাস্টমার যোগ করুন</h2>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>নতুন ক্রেতার তথ্য</CardTitle>
+          <CardTitle>নতুন কাস্টমারের তথ্য</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSave} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="customerName">ক্রেতার নাম</Label>
-              <Input id="customerName" placeholder="ক্রেতার নাম লিখুন" required />
+              <Label htmlFor="customerName" className="font-semibold text-slate-700">কাস্টমারের নাম</Label>
+              <Input id="customerName" placeholder="কাস্টমারের নাম লিখুন" required className="bg-slate-50 border-slate-200" />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="phone">মোবাইল নম্বর</Label>
-              <Input id="phone" type="tel" placeholder="০১৭..." required />
+              <Label htmlFor="phone" className="font-semibold text-slate-700">মোবাইল নম্বর</Label>
+              <Input id="phone" type="tel" placeholder="০১৭..." required className="bg-slate-50 border-slate-200" />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address">ঠিকানা</Label>
-              <Input id="address" placeholder="ঠিকানা লিখুন (ঐচ্ছিক)" />
+              <Label htmlFor="address" className="font-semibold text-slate-700">ঠিকানা</Label>
+              <Input id="address" placeholder="ঠিকানা লিখুন (ঐচ্ছিক)" className="bg-slate-50 border-slate-200" />
             </div>
 
-            <Button type="submit" className="w-full mt-4">
-              <Save className="mr-2 h-4 w-4" /> সেভ করুন
+            <div className="space-y-2 pt-2">
+              <Label className="text-sm font-semibold text-slate-700">কাস্টমার সিলেক্ট করুন (নারী/পুরুষ)</Label>
+              <div className="flex gap-4">
+                <label className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 p-3 rounded-lg cursor-pointer border border-slate-200 transition-colors">
+                  <input type="radio" name="gender" value="male" className="accent-black w-4 h-4" defaultChecked />
+                  <span className="font-medium">পুরুষ</span>
+                </label>
+                <label className="flex-1 flex items-center justify-center gap-2 bg-slate-100 hover:bg-slate-200 p-3 rounded-lg cursor-pointer border border-slate-200 transition-colors">
+                  <input type="radio" name="gender" value="female" className="accent-black w-4 h-4" />
+                  <span className="font-medium">নারী</span>
+                </label>
+              </div>
+            </div>
+
+            <Button type="submit" className="w-full mt-6 bg-[#1a1a1a] hover:bg-black text-white h-12 rounded-xl text-lg font-medium shadow-sm transition-all">
+              <Save className="mr-2 h-5 w-5" /> সেভ করুন
             </Button>
           </form>
         </CardContent>
