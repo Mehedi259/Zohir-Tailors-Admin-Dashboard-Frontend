@@ -1,4 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -20,6 +23,32 @@ const dashboardLinks = [
 export default function DashboardPage() {
   return (
     <div className="space-y-6 pb-20 md:pb-6 mt-2">
+      {/* Search Section */}
+      <div className="mb-8">
+        <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="relative z-10">
+            <h2 className="text-lg md:text-xl font-bold mb-3 text-slate-800 dark:text-slate-200">
+              কাস্টমার ও অর্ডার খুঁজুন
+            </h2>
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Input 
+                  type="text" 
+                  placeholder="কাস্টমার আইডি অথবা মোবাইল নাম্বার..." 
+                  className="pl-10 h-12 md:h-14 text-sm md:text-base rounded-xl bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 focus-visible:ring-primary focus-visible:border-primary shadow-inner"
+                />
+              </div>
+              <Button className="h-12 md:h-14 px-5 md:px-8 rounded-xl font-bold text-sm md:text-base shadow-sm">
+                <span className="hidden md:inline">সার্চ করুন</span>
+                <span className="md:hidden">সার্চ</span>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Quick Links Grid */}
       <div>
         <h2 className="text-lg md:text-xl font-bold mb-4 px-1 text-slate-800 dark:text-slate-200">কুইক লিংকস</h2>
