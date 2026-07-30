@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { MeasurementForm } from "@/features/measurements/components/MeasurementForm";
 import { customersData, measurementsData } from "@/lib/mock-data";
 import {
@@ -14,8 +15,10 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 
-export default function MeasurementsPage() {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string>("");
+function MeasurementsContent() {
+  const searchParams = useSearchParams();
+  const defaultCustomerId = searchParams.get("customerId") || "";
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string>(defaultCustomerId);
 
   const selectedCustomer = customersData.find((c) => c.id === selectedCustomerId);
   
@@ -100,5 +103,13 @@ export default function MeasurementsPage() {
         </Card>
       )}
     </div>
+  );
+}
+
+export default function MeasurementsPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center text-muted-foreground">লোড হচ্ছে...</div>}>
+      <MeasurementsContent />
+    </Suspense>
   );
 }

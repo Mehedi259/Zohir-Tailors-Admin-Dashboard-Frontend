@@ -6,10 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Save, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Save, ArrowLeft, CheckCircle2, Plus } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { Separator } from "@/components/ui/separator";
+import { useRouter } from "next/navigation";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function NewOrderPage() {
   const [clothCost, setClothCost] = useState(0);
@@ -17,29 +26,36 @@ export default function NewOrderPage() {
   const [courierCharge, setCourierCharge] = useState(0);
   const [otherCharge, setOtherCharge] = useState(0);
   const [previousDue, setPreviousDue] = useState(0); // This would typically be fetched automatically based on the customer
+  const [advanceDeposit, setAdvanceDeposit] = useState(2000);
   const [depositDeduction, setDepositDeduction] = useState(0);
-  const [advanceDeposit, setAdvanceDeposit] = useState(0);
+  const [isAdvanceDepositEditable, setIsAdvanceDepositEditable] = useState(false);
 
   const [totalBill, setTotalBill] = useState(0);
-  const [dueBalance, setDueBalance] = useState(0);
+  const [payableAmount, setPayableAmount] = useState(0);
+  
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const total = clothCost + sewingCost + courierCharge + otherCharge + previousDue;
     setTotalBill(total);
-    setDueBalance(total - depositDeduction - advanceDeposit);
-  }, [clothCost, sewingCost, courierCharge, otherCharge, previousDue, depositDeduction, advanceDeposit]);
+    setDepositDeduction(Math.round(total * 0.3));
+  }, [clothCost, sewingCost, courierCharge, otherCharge, previousDue]);
+
+  useEffect(() => {
+    setPayableAmount(Math.max(0, totalBill - depositDeduction));
+  }, [totalBill, depositDeduction]);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("অর্ডার সফলভাবে কনফার্ম করা হয়েছে!");
+    setShowSuccessDialog(true);
   };
 
-  // Mock auto-fetch for previous due
+  // Mock auto-fetch for previous due or deposit
   const handleMobileBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value.length >= 11) {
-      // Mocking finding a customer with previous due
-      toast.info("পূর্বের বাকি অটোমেটিক যুক্ত করা হয়েছে।");
-      setPreviousDue(250); 
+      toast.success("কাস্টমারের পূর্বের রেকর্ড পাওয়া গেছে!");
+      setPreviousDue(250); // Mocking finding a customer with previous due
     }
   };
 
@@ -149,7 +165,10 @@ export default function NewOrderPage() {
                     </div>
                     <div className="flex items-center justify-between pt-2 border-t border-dashed">
                       <Label htmlFor="previousDue" className="text-sm text-amber-600 font-medium">পূর্বের বাকি (অটো)</Label>
-                      <Input id="previousDue" type="number" className="w-32 text-right font-medium text-amber-600 focus-visible:ring-amber-500" value={previousDue || ''} onChange={e => setPreviousDue(Number(e.target.value) || 0)} placeholder="0" />
+                      <Input id="previousDue" type="number" className="w-32 text-right font-medium text-amber-600 focus-visible:ring-amber-500" value={previousDue === 0 ? '' : previousDue} onChange={e => {
+                        const val = Number(e.target.value) || 0;
+                        setPreviousDue(val);
+                      }} placeholder="0" />
                     </div>
                   </div>
                 </div>
@@ -167,18 +186,43 @@ export default function NewOrderPage() {
                     </div>
                     
                     <div className="flex items-center justify-between pt-2">
-                      <Label htmlFor="depositDeduction" className="text-sm">জামানত কর্তন</Label>
-                      <Input id="depositDeduction" type="number" min="0" className="w-32 text-right focus-visible:ring-emerald-500" value={depositDeduction || ''} onChange={e => setDepositDeduction(Number(e.target.value) || 0)} placeholder="0" />
+                      <Label htmlFor="depositDeduction" className="text-sm">জামানত কর্তন <span className="text-muted-foreground text-xs">(৩০%)</span></Label>
+                      <Input id="depositDeduction" type="number" min="0" className="w-32 text-right focus-visible:ring-emerald-500" value={depositDeduction === 0 ? '' : depositDeduction} onChange={e => {
+                        const val = Number(e.target.value) || 0;
+                        setDepositDeduction(val);
+                      }} placeholder="0" />
                     </div>
                     
                     <div className="flex items-center justify-between">
                       <Label htmlFor="advanceDeposit" className="text-sm font-medium">অগ্রিম জমা</Label>
-                      <Input id="advanceDeposit" type="number" min="0" className="w-32 text-right font-medium focus-visible:ring-emerald-500 border-emerald-200 bg-emerald-50 dark:bg-emerald-950" value={advanceDeposit || ''} onChange={e => setAdvanceDeposit(Number(e.target.value) || 0)} placeholder="0" />
+                      <div className="flex items-center space-x-2">
+                        <Input id="advanceDeposit" type="number" min="0" className="w-24 text-right font-medium focus-visible:ring-emerald-500 border-emerald-200 bg-emerald-50 dark:bg-emerald-950" value={advanceDeposit || ''} readOnly={!isAdvanceDepositEditable} onChange={e => {
+                          const val = Number(e.target.value) || 0;
+                          setAdvanceDeposit(val);
+                        }} placeholder="0" />
+                        <Button 
+                          type="button" 
+                          variant="outline" 
+                          size="icon" 
+                          className="h-10 w-10 shrink-0" 
+                          onClick={() => setIsAdvanceDepositEditable(!isAdvanceDepositEditable)}
+                          title="অগ্রিম জমা আপডেট করুন"
+                        >
+                          <Plus className="h-4 w-4 text-emerald-600" />
+                        </Button>
+                      </div>
                     </div>
 
-                    <div className={`flex items-center justify-between p-3 rounded-lg border mt-4 ${dueBalance > 0 ? 'bg-red-50 border-red-200 text-red-700 dark:bg-red-950 dark:border-red-900 dark:text-red-400' : 'bg-green-50 border-green-200 text-green-700 dark:bg-green-950 dark:border-green-900 dark:text-green-400'}`}>
-                      <Label className="text-base font-bold">বাকি ব্যালেন্স</Label>
-                      <span className="text-xl font-bold">৳ {dueBalance}</span>
+                    <div className="flex items-center justify-between bg-emerald-100/50 dark:bg-emerald-900/20 p-2.5 rounded-md border border-emerald-200/50 dark:border-emerald-800/30 mt-2">
+                      <Label className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">বর্তমান জামানত ব্যালেন্স</Label>
+                      <span className="text-sm font-bold text-emerald-700 dark:text-emerald-400">
+                        ৳ {Math.max(0, advanceDeposit - depositDeduction)}
+                      </span>
+                    </div>
+
+                    <div className={`flex items-center justify-between p-3 rounded-lg border mt-4 ${payableAmount > 0 ? 'bg-amber-50 border-amber-200 text-amber-700 dark:bg-amber-950 dark:border-amber-900 dark:text-amber-400' : 'bg-green-50 border-green-200 text-green-700 dark:bg-green-950 dark:border-green-900 dark:text-green-400'}`}>
+                      <Label className="text-base font-bold">বর্তমান প্রদেয়</Label>
+                      <span className="text-xl font-bold">৳ {payableAmount}</span>
                     </div>
                   </div>
                 </div>
@@ -200,6 +244,34 @@ export default function NewOrderPage() {
           </Card>
         </div>
       </form>
+
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl text-emerald-600 flex flex-col items-center gap-3">
+              <CheckCircle2 className="h-12 w-12" />
+              অর্ডার সফলভাবে কনফার্ম হয়েছে!
+            </DialogTitle>
+            <DialogDescription className="text-center text-base pt-2">
+              আপনি এখন কাস্টমারের অর্ডার রশিদ প্রিন্ট করতে পারেন অথবা তার মাপ নিতে পারেন।
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex flex-col sm:flex-row gap-2 mt-4 sm:justify-center flex-wrap">
+            <Button onClick={() => window.open("/print/order/ORD-1001", "_blank")} className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white">
+              প্রিন্ট বিল
+            </Button>
+            <Button onClick={() => window.open("/track/ORD-1001", "_blank")} variant="outline" className="w-full sm:w-auto border-blue-200 hover:bg-blue-50 text-blue-700">
+              ট্র্যাকিং লিংক
+            </Button>
+            <Button onClick={() => router.push("/measurements?customerId=CUST-001")} className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white">
+              মাপ নিন
+            </Button>
+            <Button variant="outline" onClick={() => setShowSuccessDialog(false)} className="w-full sm:w-auto">
+              বন্ধ করুন
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

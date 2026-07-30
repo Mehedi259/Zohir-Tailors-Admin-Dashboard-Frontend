@@ -4,14 +4,27 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Save, ArrowLeft } from "lucide-react";
+import { Save, ArrowLeft, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function NewCustomerPage() {
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const router = useRouter();
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("ক্রেতা সফলভাবে যোগ করা হয়েছে!");
+    setShowSuccessDialog(true);
   };
 
   return (
@@ -66,6 +79,28 @@ export default function NewCustomerPage() {
           </form>
         </CardContent>
       </Card>
+
+      <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl text-emerald-600 flex flex-col items-center gap-3">
+              <CheckCircle2 className="h-12 w-12" />
+              কাস্টমার যোগ করা হয়েছে!
+            </DialogTitle>
+            <DialogDescription className="text-center text-base pt-2">
+              আপনি কি এখন এই কাস্টমারের মাপ নিতে চান?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex flex-col sm:flex-row gap-3 mt-4 sm:justify-center">
+            <Button onClick={() => router.push("/measurements?customerId=CUST-001")} className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white">
+              মাপ নিন
+            </Button>
+            <Button variant="outline" onClick={() => setShowSuccessDialog(false)} className="w-full sm:w-auto">
+              পরে নিব
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
