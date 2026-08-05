@@ -243,7 +243,7 @@ export default function OrderDetailsPage() {
                   </Button>
                 ) : (
                   <Button className="w-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 h-12 text-base font-bold shadow-sm" disabled>
-                    সম্পূর্ণ পেমেন্ট সম্পন্ন ✅
+                    সম্পূর্ণ পেমেন্ট সম্পন্ন
                   </Button>
                 )}
                 <Button variant="outline" className="w-full h-12" onClick={() => window.open(`/print/order/${order.id}`, '_blank')}>
