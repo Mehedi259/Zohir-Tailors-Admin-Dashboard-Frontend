@@ -5,6 +5,8 @@ import { useAppStore } from "@/store/useAppStore";
 import { Button } from "@/components/ui/button";
 import { Printer } from "lucide-react";
 import { use } from "react";
+import Image from "next/image";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function OrderPrintPage(props: { params: Promise<{ orderId: string }> }) {
   const params = use(props.params);
@@ -45,8 +47,8 @@ export default function OrderPrintPage(props: { params: Promise<{ orderId: strin
           {/* Header */}
           <div className="flex justify-between items-center mb-6">
             {/* Logo */}
-            <div className="w-24 h-24 border-4 border-black flex items-center justify-center font-bold text-2xl text-red-500">
-              Logo
+            <div className="w-24 h-24 flex items-center justify-center">
+              <Image src="/icons/Logo.png" alt="Logo" width={96} height={96} className="object-contain" priority />
             </div>
             
             {/* Center Text */}
@@ -57,8 +59,8 @@ export default function OrderPrintPage(props: { params: Promise<{ orderId: strin
             </div>
 
             {/* QR Code */}
-            <div className="w-24 h-24 border-4 border-black flex items-center justify-center font-bold text-2xl text-red-500">
-              QR
+            <div className="w-24 h-24 flex items-center justify-center">
+              <QRCodeSVG value={`https://johir-tailors.com/track/${order.id}`} size={96} />
             </div>
           </div>
 
