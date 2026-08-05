@@ -34,6 +34,8 @@ export default function NewOrderPage() {
   const [payableAmount, setPayableAmount] = useState(0);
   
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+  const [showDepositDialog, setShowDepositDialog] = useState(false);
+  const [newDepositAmount, setNewDepositAmount] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -49,6 +51,19 @@ export default function NewOrderPage() {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccessDialog(true);
+  };
+
+  const handleAddDeposit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const amount = Number(newDepositAmount) || 0;
+    if (amount > 0) {
+      setAdvanceDeposit(prev => prev + amount);
+      setNewDepositAmount("");
+      setShowDepositDialog(false);
+      toast.success(`৳${amount} নতুন জমা যোগ করা হয়েছে!`);
+    } else {
+      toast.error("সঠিক টাকার পরিমাণ লিখুন!");
+    }
   };
 
   // Mock auto-fetch for previous due or deposit
@@ -194,19 +209,16 @@ export default function NewOrderPage() {
                     </div>
                     
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="advanceDeposit" className="text-sm font-medium">অগ্রিম জমা</Label>
+                      <Label htmlFor="advanceDeposit" className="text-sm font-medium">জমা</Label>
                       <div className="flex items-center space-x-2">
-                        <Input id="advanceDeposit" type="number" min="0" className="w-24 text-right font-medium focus-visible:ring-emerald-500 border-emerald-200 bg-emerald-50 dark:bg-emerald-950" value={advanceDeposit || ''} readOnly={!isAdvanceDepositEditable} onChange={e => {
-                          const val = Number(e.target.value) || 0;
-                          setAdvanceDeposit(val);
-                        }} placeholder="0" />
+                        <Input id="advanceDeposit" type="number" min="0" className="w-24 text-right font-medium focus-visible:ring-emerald-500 border-emerald-200 bg-emerald-50 dark:bg-emerald-950" value={advanceDeposit || ''} readOnly placeholder="0" />
                         <Button 
                           type="button" 
                           variant="outline" 
                           size="icon" 
                           className="h-10 w-10 shrink-0" 
-                          onClick={() => setIsAdvanceDepositEditable(!isAdvanceDepositEditable)}
-                          title="অগ্রিম জমা আপডেট করুন"
+                          onClick={() => setShowDepositDialog(true)}
+                          title="নতুন জমা যোগ করুন"
                         >
                           <Plus className="h-4 w-4 text-emerald-600" />
                         </Button>
@@ -233,7 +245,7 @@ export default function NewOrderPage() {
                 {/* Action Column */}
                 <div className="flex flex-col justify-end">
                   <Button type="submit" size="lg" className="w-full h-16 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700">
-                    <CheckCircle2 className="mr-2 h-6 w-6" /> অর্ডার কনফার্ম করুন ✅
+                    <CheckCircle2 className="mr-2 h-6 w-6" /> অর্ডার কনফার্ম করুন
                   </Button>
                   <p className="text-xs text-center text-muted-foreground mt-3">
                     অর্ডার কনফার্ম করার আগে সকল তথ্য সঠিক আছে কিনা যাচাই করুন
@@ -244,6 +256,42 @@ export default function NewOrderPage() {
           </Card>
         </div>
       </form>
+
+      <Dialog open={showDepositDialog} onOpenChange={setShowDepositDialog}>
+        <DialogContent className="sm:max-w-md">
+          <form onSubmit={handleAddDeposit}>
+            <DialogHeader>
+              <DialogTitle>নতুন জমা যোগ করুন</DialogTitle>
+              <DialogDescription>
+                এখানে নতুন জমার পরিমাণ লিখলে তা বর্তমান জমার সাথে যোগ হয়ে যাবে।
+              </DialogDescription>
+            </DialogHeader>
+            <div className="py-6">
+              <div className="space-y-2">
+                <Label htmlFor="newDeposit">জমার পরিমাণ (৳)</Label>
+                <Input
+                  id="newDeposit"
+                  type="number"
+                  min="1"
+                  required
+                  placeholder="যেমন: ১০০০"
+                  value={newDepositAmount}
+                  onChange={(e) => setNewDepositAmount(e.target.value)}
+                  className="focus-visible:ring-emerald-500"
+                />
+              </div>
+            </div>
+            <DialogFooter className="flex flex-col sm:flex-row gap-2">
+              <Button type="button" variant="outline" onClick={() => setShowDepositDialog(false)} className="w-full sm:w-auto">
+                বাতিল
+              </Button>
+              <Button type="submit" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white">
+                যোগ করুন
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
         <DialogContent className="sm:max-w-md">

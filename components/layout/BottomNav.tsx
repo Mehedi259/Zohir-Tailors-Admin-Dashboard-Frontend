@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users, Scissors, ShoppingBag, Settings, MessageSquare } from "lucide-react";
+import { LayoutDashboard, Users, Scissors, ShoppingBag, Settings, MessageSquare, NotebookText, Receipt } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const bottomNavItems = [
@@ -27,14 +27,14 @@ const bottomNavItems = [
     icon: Users,
   },
   {
-    title: "SMS",
-    url: "/sms",
-    icon: MessageSquare,
+    title: "বাকি খাতা",
+    url: "/dues",
+    icon: NotebookText,
   },
   {
-    title: "সেটিংস",
-    url: "/settings",
-    icon: Settings,
+    title: "দোকানের খরচ",
+    url: "/expenses",
+    icon: Receipt,
   },
 ];
 

@@ -27,6 +27,8 @@ import {
   Settings,
   LogOut,
   User as UserIcon,
+  NotebookText,
+  Receipt,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -47,6 +49,8 @@ const items = [
   { title: "গ্রাহক", url: "/customers", icon: Users },
   { title: "পেমেন্ট", url: "/payments", icon: CreditCard },
   { title: "ডিপোজিট ওয়ালেট", url: "/wallet", icon: Wallet },
+  { title: "বাকি খাতা", url: "/dues", icon: NotebookText },
+  { title: "দোকানের খরচ", url: "/expenses", icon: Receipt },
   { title: "এসএমএস সেন্টার", url: "/sms", icon: MessageSquare },
   { title: "বিজ্ঞপ্তি", url: "/notifications", icon: Bell },
   { title: "রিপোর্ট", url: "/reports", icon: BarChart },

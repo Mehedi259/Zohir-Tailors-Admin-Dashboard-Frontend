@@ -36,19 +36,19 @@ export default function WalletPage() {
           <div className="grid grid-cols-2 divide-x-[3px] divide-slate-800">
             {/* Left: Deposit */}
             <div className="p-5 md:p-8 space-y-1">
-              <p className="text-sm md:text-base font-medium text-slate-300">মোট জমা আছে</p>
-              <p className="text-slate-200 font-semibold text-lg md:text-xl pb-2">ডিপোজিট</p>
-              <div className="text-3xl md:text-5xl font-bold text-white tracking-tight">৳১২৪,৫০০</div>
-              <p className="text-xs md:text-sm text-slate-400 pt-2">৪৫ জন সক্রিয় গ্রাহক</p>
+              <p className="text-sm md:text-base font-medium text-emerald-400">মোট জমা আছে</p>
+              <p className="text-emerald-300 font-semibold text-lg md:text-xl pb-2">ডিপোজিট</p>
+              <div className="text-3xl md:text-5xl font-bold text-emerald-500 tracking-tight">৳১২৪,৫০০</div>
+              <p className="text-xs md:text-sm text-emerald-500/70 pt-2">৪৫ জন সক্রিয় গ্রাহক</p>
             </div>
             {/* Right: Due */}
             <div className="p-5 md:p-8 space-y-1 relative">
               <div className="absolute top-6 right-6">
-                <Wallet className="h-6 w-6 text-slate-400 opacity-50" />
+                <Wallet className="h-6 w-6 text-red-400 opacity-50" />
               </div>
-              <p className="text-sm md:text-base font-medium text-slate-300">মোট বাকি আছে</p>
-              <div className="text-3xl md:text-5xl font-bold text-white tracking-tight pt-2 pb-1">৳ ৯৫,৪১০</div>
-              <p className="text-xs md:text-sm text-slate-400 pt-1">৫৯ জন সক্রিয় গ্রাহক</p>
+              <p className="text-sm md:text-base font-medium text-red-400">মোট বাকি আছে</p>
+              <div className="text-3xl md:text-5xl font-bold text-red-500 tracking-tight pt-2 pb-1">৳ ৯৫,৪১০</div>
+              <p className="text-xs md:text-sm text-red-500/70 pt-1">৫৯ জন সক্রিয় গ্রাহক</p>
             </div>
           </div>
         </CardContent>

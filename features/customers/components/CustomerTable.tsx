@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useAppStore } from "@/store/useAppStore";
-import { MoreHorizontal, ArrowUpDown, Plus, Printer, Phone } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown, Plus, Printer, Phone, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
@@ -38,9 +38,8 @@ import { Customer } from "@/store/useAppStore";
 const CustomerActions = ({ customer }: { customer: Customer }) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground h-8 w-8 p-0 border-none outline-none focus:outline-none focus-visible:outline-none">
-        <span className="sr-only">মেনু খুলুন</span>
-        <MoreHorizontal className="h-4 w-4" />
+      <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md text-xs font-medium hover:bg-primary/10 text-primary h-8 px-3">
+          আরও দেখুন
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>প্রোফাইল দেখুন</DropdownMenuItem>
@@ -54,6 +53,13 @@ const CustomerActions = ({ customer }: { customer: Customer }) => {
   );
 };
 
+const LastOrderCell = ({ customerId }: { customerId: string }) => {
+  const { orders } = useAppStore();
+  const customerOrders = orders.filter(o => o.customerId === customerId);
+  const lastOrderDate = customerOrders.length > 0 ? customerOrders[customerOrders.length - 1].orderDate : "-";
+  return <span>{lastOrderDate}</span>;
+};
+
 export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: "name",
@@ -62,9 +68,8 @@ export const columns: ColumnDef<Customer>[] = [
       const customer = row.original;
       return (
         <div className="flex items-center gap-3">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src={`https://avatar.vercel.sh/${customer.name}.png`} />
-            <AvatarFallback>{customer.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+          <Avatar className="h-9 w-9 bg-slate-100 dark:bg-slate-800 flex items-center justify-center border">
+            <User className="h-5 w-5 text-slate-500" />
           </Avatar>
           <div className="flex flex-col">
             <span className="font-medium">{customer.name}</span>
@@ -77,6 +82,12 @@ export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: "phone",
     header: "মোবাইল নম্বর",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        <span>{row.original.phone}</span>
+        <span className="text-xs text-muted-foreground whitespace-nowrap">({row.original.joinDate})</span>
+      </div>
+    ),
   },
   {
     accessorKey: "status",
@@ -100,18 +111,13 @@ export const columns: ColumnDef<Customer>[] = [
     cell: ({ row }) => <span>৳{row.getValue("totalSpent")}</span>,
   },
   {
-    accessorKey: "joinDate",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          যোগদানের তারিখ
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
+    id: "lastOrder",
+    header: "সর্বশেষ অর্ডার",
+    cell: ({ row }) => <LastOrderCell customerId={row.original.id} />,
+  },
+  {
+    accessorKey: "address",
+    header: "ঠিকানা",
   },
   {
     id: "actions",
@@ -221,9 +227,8 @@ export function CustomerTable() {
               <div key={customer.id} className="border rounded-xl p-4 bg-card shadow-sm flex flex-col gap-3">
                 <div className="flex justify-between items-start">
                   <div className="flex items-center gap-3">
-                    <Avatar className="h-10 w-10 border shadow-sm">
-                      <AvatarImage src={`https://avatar.vercel.sh/${customer.name}.png`} />
-                      <AvatarFallback>{customer.name.substring(0, 2).toUpperCase()}</AvatarFallback>
+                    <Avatar className="h-10 w-10 bg-slate-100 dark:bg-slate-800 flex items-center justify-center border">
+                      <User className="h-5 w-5 text-slate-500" />
                     </Avatar>
                     <div>
                       <div className="font-bold text-base">{customer.name}</div>
@@ -235,15 +240,22 @@ export function CustomerTable() {
                   </Badge>
                 </div>
                 
-                <div className="flex items-center text-sm mt-1 text-muted-foreground">
-                  <Phone className="h-4 w-4 mr-2" />
-                  <span className="font-medium text-foreground">{customer.phone}</span>
+                <div className="flex items-center justify-between text-sm mt-1 text-muted-foreground">
+                  <div className="flex items-center">
+                    <Phone className="h-4 w-4 mr-2" />
+                    <span className="font-medium text-foreground">{customer.phone}</span>
+                  </div>
+                  <span className="text-xs">{customer.joinDate}</span>
                 </div>
 
                 <div className="flex justify-between items-center text-sm border-t border-b py-2 my-1">
                   <div>
                     <span className="text-muted-foreground block text-xs mb-0.5">মোট অর্ডার</span>
                     <span className="font-semibold">{customer.totalOrders} টি</span>
+                  </div>
+                  <div className="text-center">
+                    <span className="text-muted-foreground block text-xs mb-0.5">সর্বশেষ অর্ডার</span>
+                    <span className="font-semibold"><LastOrderCell customerId={customer.id} /></span>
                   </div>
                   <div className="text-right">
                     <span className="text-muted-foreground block text-xs mb-0.5">মোট খরচ</span>
@@ -253,7 +265,7 @@ export function CustomerTable() {
 
                 <div className="flex justify-between items-center pt-1">
                   <div className="text-xs text-muted-foreground">
-                    যোগদান: <span className="font-medium text-foreground">{customer.joinDate}</span>
+                    ঠিকানা: <span className="font-medium text-foreground">{customer.address}</span>
                   </div>
                   <CustomerActions customer={customer} />
                 </div>

@@ -119,6 +119,11 @@ export function OrderTable() {
       },
     },
     {
+      accessorKey: "orderDate",
+      header: "অর্ডার তারিখ",
+      cell: ({ row }) => <span className="text-muted-foreground">{row.getValue("orderDate")}</span>,
+    },
+    {
       accessorKey: "totalPrice",
       header: "মোট মূল্য",
       cell: ({ row }) => <span>৳{row.getValue("totalPrice")}</span>,
@@ -226,6 +231,8 @@ export function OrderTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer hover:bg-slate-50 transition-colors"
+                  onClick={() => router.push(`/orders/view/${row.original.id}`)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -260,19 +267,34 @@ export function OrderTable() {
             if (order.status === "Ready" || order.status === "Delivered") variant = "default";
             if (order.status === "Accepted" || order.status === "In Progress" || order.status === "Cutting") variant = "secondary";
             
+            const customer = useAppStore.getState().customers.find(c => c.id === order.customerId);
+            
             return (
-              <div key={order.id} className="border rounded-xl p-4 bg-card shadow-sm flex flex-col gap-3">
+              <div 
+                key={order.id} 
+                onClick={() => router.push(`/orders/view/${order.id}`)}
+                className="border rounded-xl p-4 bg-card shadow-sm flex flex-col gap-3 cursor-pointer hover:border-primary/50 transition-colors relative"
+              >
                 <div className="flex justify-between items-start">
                   <div>
                     <div className="font-bold text-base">{order.customerName}</div>
                     <div className="text-xs text-muted-foreground mt-0.5">আইডি: {order.id}</div>
                   </div>
-                  <Badge variant={variant} className="shrink-0">
+                  <Badge variant={variant} className="shrink-0 z-10" onClick={(e) => e.stopPropagation()}>
                     {order.status}
                   </Badge>
                 </div>
                 
-                <div className="text-sm">
+                {customer && (
+                  <div className="text-sm text-muted-foreground flex flex-col gap-0.5">
+                    <span className="flex items-center gap-1">
+                      <span className="text-foreground font-medium">{customer.phone}</span>
+                    </span>
+                    <span className="text-xs">{customer.address}</span>
+                  </div>
+                )}
+                
+                <div className="text-sm pt-1">
                   <span className="text-muted-foreground">পোশাক: </span>
                   <span className="font-medium">{order.items.join(", ")}</span>
                 </div>
@@ -290,11 +312,18 @@ export function OrderTable() {
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center pt-1">
-                  <div className="text-xs text-muted-foreground">
-                    ডেলিভারি: <span className="font-medium text-foreground">{order.deliveryDate}</span>
+                <div className="flex justify-between items-center pt-1 border-t mt-1">
+                  <div className="flex flex-col gap-0.5 text-xs text-muted-foreground">
+                    <div>
+                      অর্ডার: <span className="font-medium text-foreground">{order.orderDate}</span>
+                    </div>
+                    <div>
+                      ডেলিভারি: <span className="font-medium text-foreground">{order.deliveryDate}</span>
+                    </div>
                   </div>
-                  <OrderActions order={order} handleStatusChange={handleStatusChange} handleAddPayment={handleAddPayment} />
+                  <div className="z-10" onClick={(e) => e.stopPropagation()}>
+                    <OrderActions order={order} handleStatusChange={handleStatusChange} handleAddPayment={handleAddPayment} />
+                  </div>
                 </div>
               </div>
             );

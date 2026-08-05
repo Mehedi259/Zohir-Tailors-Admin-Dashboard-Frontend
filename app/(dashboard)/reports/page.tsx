@@ -78,52 +78,101 @@ export default function ReportsPage() {
           </CardContent>
         </Card>
 
-        <Card className="col-span-1 lg:col-span-2">
-          <CardHeader>
-            <CardTitle>শীর্ষ পোশাকের ক্যাটাগরি</CardTitle>
-            <CardDescription>সবচেয়ে বেশি অর্ডার করা পোশাক।</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">শার্ট</span>
-                  <span className="text-muted-foreground">৪৫%</span>
+        <div className="col-span-1 lg:col-span-2 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>শীর্ষ কাস্টমার লিস্ট</CardTitle>
+              <CardDescription>সবচেয়ে বেশি অর্ডার করা গ্রাহক।</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">মেহেদী হাসান</span>
+                    <span className="text-muted-foreground">১২%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[12%]" />
+                  </div>
                 </div>
-                <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-primary w-[45%]" />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">রাহুল আহমেদ</span>
+                    <span className="text-muted-foreground">১০%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[10%]" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">সাকিব আল হাসান</span>
+                    <span className="text-muted-foreground">৮%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[8%]" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">তারেক রহমান</span>
+                    <span className="text-muted-foreground">৫%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[5%]" />
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">প্যান্ট</span>
-                  <span className="text-muted-foreground">৩৫%</span>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>শীর্ষ পোশাকের ক্যাটাগরি</CardTitle>
+              <CardDescription>সবচেয়ে বেশি অর্ডার করা পোশাক।</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">শার্ট</span>
+                    <span className="text-muted-foreground">৪৫%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[45%]" />
+                  </div>
                 </div>
-                <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-primary w-[35%]" />
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">প্যান্ট</span>
+                    <span className="text-muted-foreground">৩৫%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[35%]" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">পাঞ্জাবি</span>
+                    <span className="text-muted-foreground">১৫%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[15%]" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium">কোট/স্যুট</span>
+                    <span className="text-muted-foreground">৫%</span>
+                  </div>
+                  <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-[5%]" />
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">পাঞ্জাবি</span>
-                  <span className="text-muted-foreground">১৫%</span>
-                </div>
-                <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-primary w-[15%]" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">কোট/স্যুট</span>
-                  <span className="text-muted-foreground">৫%</span>
-                </div>
-                <div className="h-2 w-full bg-secondary rounded-full overflow-hidden">
-                  <div className="h-full bg-primary w-[5%]" />
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
