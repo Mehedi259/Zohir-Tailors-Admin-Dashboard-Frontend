@@ -48,7 +48,7 @@ export const ordersData = [
   { id: "ORD-1001", customerName: "রাহিম মিয়া", customerId: "CUST-001", items: ["২x শার্ট", "১x প্যান্ট"], totalPrice: 3200, dueAmount: 0, status: "Ready", orderDate: "May 10, 2024", deliveryDate: "May 18, 2024", advancePayment: 3200 },
   { id: "ORD-1002", customerName: "করিম উল্লাহ", customerId: "CUST-002", items: ["১x পাঞ্জাবি"], totalPrice: 1500, dueAmount: 500, status: "Sewing", orderDate: "May 12, 2024", deliveryDate: "May 20, 2024", advancePayment: 1000 },
   { id: "ORD-1003", customerName: "সাকিব হাসান", customerId: "CUST-003", items: ["৩x শার্ট"], totalPrice: 3600, dueAmount: 3600, status: "Cutting", orderDate: "May 15, 2024", deliveryDate: "May 22, 2024", advancePayment: 0 },
-  { id: "ORD-1004", customerName: "জামাল ভূঁইয়া", customerId: "CUST-004", items: ["১x স্যুট"], totalPrice: 8500, dueAmount: 4000, status: "In Progress", orderDate: "May 01, 2024", deliveryDate: "May 25, 2024", advancePayment: 4500 },
+  { id: "ORD-1004", customerName: "জামাল ভূঁইয়া", customerId: "CUST-004", items: ["১x স্যুট"], totalPrice: 8500, dueAmount: 4000, status: "In Progress", orderDate: "May 01, 2024", deliveryDate: "May 25, 2024", advancePayment: 4500, clothPrice: 4000, sewingCharge: 1000, courierCharge: 200, otherCharge: 300, previousDue: 3000 },
   { id: "ORD-1005", customerName: "মাহমুদুল্লাহ রিয়াদ", customerId: "CUST-005", items: ["১x প্যান্ট"], totalPrice: 1200, dueAmount: 0, status: "Delivered", orderDate: "May 05, 2024", deliveryDate: "May 12, 2024", advancePayment: 1200 },
 ];
 

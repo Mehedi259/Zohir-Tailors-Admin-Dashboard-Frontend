@@ -29,6 +29,7 @@ import {
   User as UserIcon,
   NotebookText,
   Receipt,
+  Headset,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -54,6 +55,7 @@ const items = [
   { title: "এসএমএস সেন্টার", url: "/sms", icon: MessageSquare },
   { title: "বিজ্ঞপ্তি", url: "/notifications", icon: Bell },
   { title: "রিপোর্ট", url: "/reports", icon: BarChart },
+  { title: "যোগাযোগ", url: "/contact", icon: Headset },
 ];
 
 export function AppSidebar() {

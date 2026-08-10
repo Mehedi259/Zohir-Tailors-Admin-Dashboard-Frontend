@@ -3,7 +3,13 @@ import { persist } from "zustand/middleware";
 import { customersData, ordersData, measurementsData } from "@/lib/mock-data";
 
 export type Customer = typeof customersData[0];
-export type Order = typeof ordersData[0];
+export type Order = typeof ordersData[0] & {
+  clothPrice?: number;
+  sewingCharge?: number;
+  courierCharge?: number;
+  otherCharge?: number;
+  previousDue?: number;
+};
 export interface Measurement {
   id: string;
   customer: string;
@@ -21,9 +27,9 @@ export interface OrderTrackingEvent {
   description: string;
 }
 
-export interface EnhancedOrder extends Order {
+export type EnhancedOrder = Order & {
   trackingEvents: OrderTrackingEvent[];
-}
+};
 
 const mapOrdersWithEvents = (orders: Order[]): EnhancedOrder[] => {
   return orders.map(order => ({
@@ -117,7 +123,6 @@ export const useAppStore = create<AppState>()(
             if (o.id === id) {
               return {
                 ...o,
-                advancePayment: o.advancePayment + amount,
                 dueAmount: Math.max(0, o.dueAmount - amount)
               };
             }

@@ -108,58 +108,51 @@ export default function OrderDetailsPage() {
           <Card className="rounded-2xl border-0 shadow-sm overflow-hidden">
             <CardHeader className="bg-primary/5 border-b pb-4">
               <CardTitle className="text-lg flex justify-between items-center">
-                গ্রাহক ও তারিখের বিস্তারিত
+                কাস্টমার ও ডেলিভারি তথ্য
                 <Button variant="ghost" size="icon"><Edit className="h-4 w-4" /></Button>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <User className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-300 dark:border-slate-600 shadow-sm">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <User className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">কাস্টমার নাম</p>
-                    <p className="font-semibold text-base">{order.customerName}</p>
                   </div>
+                  <p className="font-semibold text-base text-right">{order.customerName}</p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Phone className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div>
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-300 dark:border-slate-600 shadow-sm">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Phone className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">ফোন নম্বর</p>
-                    <p className="font-medium">{customer?.phone || 'অজানা'}</p>
                   </div>
+                  <p className="font-medium text-right">{customer?.phone || 'অজানা'}</p>
                 </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div>
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-300 dark:border-slate-600 shadow-sm">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <MapPin className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">ঠিকানা</p>
-                    <p className="font-medium">{customer?.address || 'অজানা'}</p>
                   </div>
+                  <p className="font-medium text-right">{customer?.address || 'অজানা'}</p>
                 </div>
               </div>
-              <div className="space-y-4 border-t sm:border-t-0 sm:border-l sm:pl-6 pt-4 sm:pt-0">
-                <div className="flex items-start gap-3">
-                  <Calendar className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div>
-                    <p className="text-sm text-muted-foreground">অর্ডার তারিখ</p>
-                    <p className="font-medium">{order.orderDate}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Calendar className="h-5 w-5 text-primary mt-0.5" />
-                  <div>
+              <div className="space-y-3 pt-4 sm:pt-0">
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-300 dark:border-slate-600 shadow-sm">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <Calendar className="h-4 w-4 text-primary" />
                     <p className="text-sm text-muted-foreground">ডেলিভারি তারিখ</p>
-                    <div className="flex items-center gap-2">
-                      <p className="font-bold text-primary">{order.deliveryDate}</p>
-                      <Button variant="outline" size="sm" className="h-6 text-xs px-2" onClick={handleChangeDeliveryDate}>পরিবর্তন</Button>
-                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <p className="font-bold text-primary">{order.deliveryDate}</p>
+                    <Button variant="outline" size="sm" className="h-6 text-xs px-2" onClick={handleChangeDeliveryDate}>পরিবর্তন</Button>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <FileText className="h-5 w-5 text-muted-foreground mt-0.5" />
-                  <div>
+                <div className="flex items-center justify-between gap-4 p-3.5 bg-white dark:bg-slate-800/50 rounded-xl border border-slate-300 dark:border-slate-600 shadow-sm">
+                  <div className="flex items-center gap-2 shrink-0">
+                    <FileText className="h-4 w-4 text-muted-foreground" />
                     <p className="text-sm text-muted-foreground">পোশাক</p>
-                    <p className="font-medium">{order.items.join(", ")}</p>
                   </div>
+                  <p className="font-medium text-right text-sm">{order.items.join(", ")}</p>
                 </div>
               </div>
             </CardContent>
@@ -220,7 +213,37 @@ export default function OrderDetailsPage() {
             </CardHeader>
             <CardContent className="p-0">
               <div className="p-5 space-y-4 border-b border-dashed">
-                <div className="flex justify-between items-center">
+                {order.clothPrice && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">কাপড়</span>
+                    <span className="font-medium">৳{order.clothPrice.toFixed(2)}</span>
+                  </div>
+                )}
+                {order.sewingCharge && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">সেলাই</span>
+                    <span className="font-medium">৳{order.sewingCharge.toFixed(2)}</span>
+                  </div>
+                )}
+                {order.courierCharge && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">কুরিয়ার চার্জ</span>
+                    <span className="font-medium">৳{order.courierCharge.toFixed(2)}</span>
+                  </div>
+                )}
+                {order.otherCharge && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">অন্যান চার্জ</span>
+                    <span className="font-medium">৳{order.otherCharge.toFixed(2)}</span>
+                  </div>
+                )}
+                {order.previousDue && (
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-muted-foreground">পূর্বের বাকি</span>
+                    <span className="font-medium">৳{order.previousDue.toFixed(2)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-2">
                   <span className="text-muted-foreground font-medium">মোট বিল</span>
                   <span className="font-bold text-lg">৳{order.totalPrice}</span>
                 </div>
@@ -228,7 +251,7 @@ export default function OrderDetailsPage() {
                   <span className="text-muted-foreground">জমানত ব্যালেন্স (Advance)</span>
                   <span className="font-medium text-emerald-600">৳{order.advancePayment || 0}</span>
                 </div>
-                <div className="flex justify-between items-center pt-2">
+                <div className="flex justify-between items-center pt-2 border-t border-slate-100">
                   <span className="text-muted-foreground font-medium text-base">বাকি ব্যালেন্স</span>
                   <span className={`font-bold text-2xl ${order.dueAmount > 0 ? "text-red-500" : "text-emerald-500"}`}>
                     ৳{order.dueAmount}
@@ -247,12 +270,12 @@ export default function OrderDetailsPage() {
                   </Button>
                 )}
                 <Button variant="outline" className="w-full h-12" onClick={() => window.open(`/print/order/${order.id}`, '_blank')}>
-                  <Printer className="mr-2 h-5 w-5" /> বিল রশিদ (প্রিন্ট/PDF)
+                  <Printer className="mr-2 h-5 w-5" /> বিল রশিদ (প্রিন্ট/PDF) / শেয়ার
                 </Button>
                 
-                <div className="md:hidden flex gap-2 pt-2">
+                <div className="flex gap-2 pt-2">
                   <Button variant="outline" className="w-full h-10 bg-white" onClick={handleCopyLink}>
-                    <Copy className="mr-2 h-4 w-4" /> ট্র্যাকিং লিংক কপি
+                    <Copy className="mr-2 h-4 w-4" /> ট্র্যাকিং লিংক কপি / শেয়ার
                   </Button>
                 </div>
               </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAppStore } from "@/store/useAppStore";
-import { Check, CheckCircle2, Clock, Printer } from "lucide-react";
+import { Check, CheckCircle2, Clock, Printer, Phone } from "lucide-react";
 
 import { use } from "react";
 
@@ -46,7 +46,10 @@ export default function OrderTrackingPage(props: { params: Promise<{ orderId: st
           <div className="flex justify-between items-start mb-4">
             <div>
               <h2 className="font-bold text-lg">{order.customerName}</h2>
-              <p className="text-sm text-gray-500">{customer?.phone}</p>
+              <a href={`tel:${customer?.phone}`} className="flex items-center text-sm text-gray-500 hover:text-emerald-600 transition-colors w-fit my-1">
+                <Phone className="w-3.5 h-3.5 mr-1.5" />
+                {customer?.phone}
+              </a>
               <p className="text-sm text-gray-500 mt-0.5">{customer?.address || "ঠিকানা দেওয়া নেই"}</p>
             </div>
             <div className="text-right">
