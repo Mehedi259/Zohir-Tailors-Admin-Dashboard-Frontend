@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const dashboardLinks = [
+  { title: "ব্যবসায়িক আয়-ব্যয় ড্যাশবোর্ড", image: "/icons/dashboard.png", href: "/business-dashboard" },
   { title: "অর্ডার পরিচালনা করুন", image: "/icons/order-management.png", href: "/orders/manage" },
   { title: "নতুন অর্ডার অ্যাড", image: "/icons/new-order.png", href: "/orders/new" },
   { title: "কারিগর তালিকা (০৫ জন)", image: "/icons/employee.png", href: "/staff" },
