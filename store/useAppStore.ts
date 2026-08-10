@@ -52,6 +52,14 @@ interface AppState {
   
   addMeasurement: (measurement: Measurement) => void;
   updateMeasurement: (id: string, data: Partial<Measurement>) => void;
+
+  // Shop Financials
+  shopProfit: number;
+  shopCash: number;
+  addShopProfit: (amount: number) => void;
+  deductShopProfit: (amount: number) => void;
+  addShopCash: (amount: number) => void;
+  deductShopCash: (amount: number) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -60,6 +68,15 @@ export const useAppStore = create<AppState>()(
       customers: customersData,
       orders: mapOrdersWithEvents(ordersData),
       measurements: measurementsData as unknown as Measurement[],
+      
+      shopProfit: 150000, // Initial Mock Data
+      shopCash: 50000,    // Initial Mock Data
+
+      addShopProfit: (amount) => set((state) => ({ shopProfit: state.shopProfit + amount })),
+      deductShopProfit: (amount) => set((state) => ({ shopProfit: state.shopProfit - amount })),
+      
+      addShopCash: (amount) => set((state) => ({ shopCash: state.shopCash + amount })),
+      deductShopCash: (amount) => set((state) => ({ shopCash: state.shopCash - amount })),
 
       addCustomer: (customer) => 
         set((state) => ({ customers: [...state.customers, customer] })),
