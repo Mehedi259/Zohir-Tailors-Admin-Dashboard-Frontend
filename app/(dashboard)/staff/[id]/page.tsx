@@ -57,26 +57,39 @@ export default function StaffProfilePage() {
       </div>
 
       {/* Profile Details Banner */}
-      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-4 md:p-6 flex flex-col md:flex-row justify-between gap-4 md:gap-6">
-        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center sm:items-start text-center sm:text-left">
-           <div className="w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700 shrink-0 bg-slate-100">
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden relative">
+        {/* Cover Background */}
+        <div className="h-24 md:h-32 bg-gradient-to-r from-[#0b5d4e] to-blue-600"></div>
+        
+        <div className="px-4 pb-6 md:px-8 md:pb-8 flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-end -mt-12 md:-mt-16 relative z-10">
+           {/* Profile Picture */}
+           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white dark:border-slate-900 shadow-md shrink-0 bg-slate-100">
              <Image src={staff.photo} alt={staff.name} width={128} height={128} className="object-cover w-full h-full" />
            </div>
-           <div>
-             <h2 className="text-lg md:text-xl font-bold text-blue-600 dark:text-blue-400 mb-1">Zahir Tailors | জহির টেইলার্স কারিগর ড্যাশবোর্ড</h2>
-             <h3 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2 md:mb-3">{staff.name}</h3>
-             <div className="space-y-1">
-               <p className="text-slate-600 dark:text-slate-400 font-medium text-sm md:text-base">কারিগর নাম: {staff.name}</p>
-               <p className="text-slate-600 dark:text-slate-400 font-medium text-sm md:text-base flex items-center justify-center sm:justify-start gap-2"><Phone className="h-4 w-4"/> মোবাইল নং: {staff.phone}</p>
-               <p className="text-slate-600 dark:text-slate-400 font-medium text-sm md:text-base flex items-center justify-center sm:justify-start gap-2"><MapPin className="h-4 w-4"/> ঠিকানা: {staff.address}</p>
+           
+           <div className="flex flex-col md:flex-row justify-between w-full items-center md:items-end gap-5 text-center md:text-left mt-2 md:mt-0">
+             <div>
+               <h2 className="text-xs md:text-sm font-bold text-blue-600 dark:text-blue-400 mb-1 uppercase tracking-wider">Zahir Tailors • কারিগর</h2>
+               <h3 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-slate-100">{staff.name}</h3>
+               
+               <div className="flex flex-col md:flex-row gap-2 md:gap-6 mt-3 text-slate-600 dark:text-slate-400">
+                 <p className="font-medium text-sm md:text-base flex items-center justify-center md:justify-start gap-2">
+                   <Phone className="h-4 w-4 text-emerald-600"/> <span>{staff.phone}</span>
+                 </p>
+                 <p className="font-medium text-sm md:text-base flex items-center justify-center md:justify-start gap-2">
+                   <MapPin className="h-4 w-4 text-emerald-600"/> <span>{staff.address}</span>
+                 </p>
+               </div>
+             </div>
+             
+             {/* Badge/Experience section */}
+             <div className="flex flex-col items-center md:items-end shrink-0 gap-2 w-full md:w-auto bg-slate-50 md:bg-transparent dark:bg-slate-800/50 md:dark:bg-transparent p-4 md:p-0 rounded-xl mt-2 md:mt-0">
+               <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400 font-bold px-4 py-1.5 rounded-full text-sm flex items-center gap-2 border border-emerald-200 dark:border-emerald-800/50">
+                 <Briefcase className="h-4 w-4" /> {staff.designation}
+               </span>
+               <p className="text-slate-500 dark:text-slate-400 font-medium text-xs md:text-sm mt-1">যোগদান: {staff.joinDate}</p>
              </div>
            </div>
-        </div>
-        
-        <div className="border-t-4 border-t-slate-100 md:border-t-0 md:border-l-4 md:border-l-slate-200 dark:border-l-slate-700 pt-4 md:pt-0 md:pl-6 flex flex-col justify-center shrink-0 text-center md:text-left">
-           <h4 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2">কাজের অভিজ্ঞতা</h4>
-           <p className="text-emerald-600 font-medium">{staff.designation}</p>
-           <p className="text-slate-600 dark:text-slate-400 font-medium mt-1">যোগদান: {staff.joinDate}</p>
         </div>
       </div>
 
