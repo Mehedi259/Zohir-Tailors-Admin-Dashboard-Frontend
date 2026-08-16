@@ -8,6 +8,8 @@ export interface Staff {
   joinDate: string;
   status: "Active" | "Inactive";
   photo: string;
+  attendanceStatus: "Present" | "Absent" | "Left";
+  activeJobs: number;
 }
 
 export const mockStaff: Staff[] = [
@@ -21,6 +23,8 @@ export const mockStaff: Staff[] = [
     joinDate: "20-05-2024",
     status: "Active",
     photo: "https://i.pravatar.cc/150?img=11",
+    attendanceStatus: "Present",
+    activeJobs: 3,
   },
   {
     id: "STF-002",
@@ -32,6 +36,8 @@ export const mockStaff: Staff[] = [
     joinDate: "10-02-2023",
     status: "Active",
     photo: "https://i.pravatar.cc/150?img=12",
+    attendanceStatus: "Present",
+    activeJobs: 5,
   },
   {
     id: "STF-003",
@@ -43,6 +49,8 @@ export const mockStaff: Staff[] = [
     joinDate: "05-08-2022",
     status: "Inactive",
     photo: "https://i.pravatar.cc/150?img=13",
+    attendanceStatus: "Absent",
+    activeJobs: 0,
   },
   {
     id: "STF-004",
@@ -54,6 +62,8 @@ export const mockStaff: Staff[] = [
     joinDate: "15-11-2023",
     status: "Active",
     photo: "https://i.pravatar.cc/150?img=14",
+    attendanceStatus: "Present",
+    activeJobs: 1,
   },
   {
     id: "STF-005",
@@ -63,8 +73,10 @@ export const mockStaff: Staff[] = [
     nid: "5192837465564",
     designation: "থ্রিপিস কারিগর",
     joinDate: "01-01-2024",
-    status: "Active",
+    status: "Inactive",
     photo: "https://i.pravatar.cc/150?img=15",
+    attendanceStatus: "Left",
+    activeJobs: 0,
   },
 ];
 
@@ -83,14 +95,14 @@ export const mockWorkHistory = [
     date: "01-08-2026",
     items: "পাঞ্জাবি (৩)",
     totalWage: 1500,
-    status: "Completed",
+    status: "Received",
   },
   {
     id: "WH-003",
     orderNo: "#ORD-1018",
     date: "28-07-2026",
-    items: "ব্লাউজ (৫)",
-    totalWage: 1000,
-    status: "Completed",
+    items: "শার্ট (১)",
+    totalWage: 400,
+    status: "Incomplete",
   },
 ];

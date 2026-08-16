@@ -115,10 +115,8 @@ export default function OrderTrackingPage(props: { params: Promise<{ orderId: st
         {/* Footer */}
         <div className="mt-12 text-center pb-4 space-y-1">
           <div className="mb-4">
-            <p className="text-emerald-700 text-[13px] sm:text-sm md:text-base font-semibold italic px-4 py-2 bg-emerald-50 rounded-xl border border-emerald-100/50 shadow-sm inline-block relative">
-              <span className="text-emerald-300 text-2xl absolute -top-2 -left-1">"</span>
+            <p className="text-blue-700 text-[13px] sm:text-sm md:text-base font-semibold italic px-4 py-2 bg-white rounded-xl border border-gray-200 shadow-sm inline-block relative">
               মানুষ কে সুন্দর করা পোশাকের বৈশিষ্ট্য, পোশাক সুন্দর করা আমাদের বৈশিষ্ট্য
-              <span className="text-emerald-300 text-2xl absolute -bottom-4 -right-1">"</span>
             </p>
           </div>
           <h3 className="font-bold text-xl text-gray-800">জহির টেইলার্স</h3>

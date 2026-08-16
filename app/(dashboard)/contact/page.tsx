@@ -74,6 +74,13 @@ export default function ContactPage() {
           </a>
         </div>
       </div>
+
+      {/* Slogan */}
+      <div className="mt-8 text-center max-w-sm w-full mx-auto">
+        <p className="text-blue-700 text-[13px] sm:text-sm md:text-base font-semibold italic px-4 py-3 bg-white rounded-xl border border-gray-200 shadow-sm inline-block w-full">
+          মানুষ কে সুন্দর করা পোশাকের বৈশিষ্ট্য, পোশাক সুন্দর করা আমাদের বৈশিষ্ট্য
+        </p>
+      </div>
     </div>
   );
 }

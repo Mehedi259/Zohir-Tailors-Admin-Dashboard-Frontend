@@ -8,11 +8,10 @@ import { Input } from "@/components/ui/input";
 import { 
   ArrowLeft, MapPin, Phone, User, Briefcase, Calendar, 
   CheckCircle2, Search, Download, Home, Check, Clock, 
-  FileText, TrendingDown, Book, ArrowDown, ArrowUp
+  FileText, TrendingDown, Book, ArrowDown, ArrowUp, Camera
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { AssignWorkModal } from "@/features/staff/components/AssignWorkModal";
 import { ReceiveWorkModal } from "@/features/staff/components/ReceiveWorkModal";
 
 export default function StaffProfilePage() {
@@ -47,24 +46,29 @@ export default function StaffProfilePage() {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto pb-20 md:pb-6 bg-slate-100/50 dark:bg-slate-950 min-h-screen mt-2 p-2 md:p-0">
-      {/* Header Actions */}
-      <div className="flex items-center space-x-4">
-        <Link href="/staff">
-          <Button variant="ghost" size="icon" className="hover:bg-slate-200 dark:hover:bg-slate-800">
-            <ArrowLeft className="w-6 h-6 text-slate-700 dark:text-slate-300" />
-          </Button>
-        </Link>
-      </div>
-
       {/* Profile Details Banner */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden relative">
         {/* Cover Background */}
-        <div className="h-24 md:h-32 bg-gradient-to-r from-[#0b5d4e] to-blue-600"></div>
+        <div className="h-24 md:h-32 bg-blue-600 relative">
+          <Link href="/staff" className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 rounded-full">
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+          </Link>
+        </div>
         
         <div className="px-4 pb-6 md:px-8 md:pb-8 flex flex-col md:flex-row gap-4 md:gap-8 items-center md:items-end -mt-12 md:-mt-16 relative z-10">
-           {/* Profile Picture */}
-           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white dark:border-slate-900 shadow-md shrink-0 bg-slate-100">
-             <Image src={staff.photo} alt={staff.name} width={128} height={128} className="object-cover w-full h-full" />
+           <div className="relative shrink-0">
+             <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-white dark:border-slate-900 shadow-md bg-slate-100 relative">
+               <Image src={staff.photo} alt={staff.name} width={128} height={128} className="object-cover w-full h-full" />
+             </div>
+             <Link 
+                href={`/staff/${staff.id}/edit`} 
+                className="absolute bottom-0 right-0 md:bottom-2 md:right-2 bg-white dark:bg-slate-800 p-2 md:p-2.5 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors text-slate-600 dark:text-slate-300 z-20"
+                title="প্রোফাইল এডিট করুন"
+             >
+               <Camera className="w-4 h-4 md:w-5 md:h-5" />
+             </Link>
            </div>
            
            <div className="flex flex-col md:flex-row justify-between w-full items-center md:items-end gap-5 text-center md:text-left mt-2 md:mt-0">
@@ -80,21 +84,32 @@ export default function StaffProfilePage() {
                    <MapPin className="h-4 w-4 text-emerald-600"/> <span>{staff.address}</span>
                  </p>
                </div>
-             </div>
-             
-             {/* Badge/Experience section */}
-             <div className="flex flex-col items-center md:items-end shrink-0 gap-2 w-full md:w-auto bg-slate-50 md:bg-transparent dark:bg-slate-800/50 md:dark:bg-transparent p-4 md:p-0 rounded-xl mt-2 md:mt-0">
-               <span className="bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400 font-bold px-4 py-1.5 rounded-full text-sm flex items-center gap-2 border border-emerald-200 dark:border-emerald-800/50">
-                 <Briefcase className="h-4 w-4" /> {staff.designation}
-               </span>
-               <p className="text-slate-500 dark:text-slate-400 font-medium text-xs md:text-sm mt-1">যোগদান: {staff.joinDate}</p>
+               
+               <div className="mt-3 flex items-center justify-center md:justify-start">
+                 <p className="text-slate-500 dark:text-slate-400 font-medium text-sm bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
+                   যোগদান: {staff.joinDate} • {staff.designation}
+                 </p>
+               </div>
              </div>
            </div>
         </div>
       </div>
 
+      {/* Search Bar */}
+      <div className="flex gap-2 max-w-lg mt-2">
+        <div className="relative flex-1">
+          <Input 
+             placeholder="কাজ বা অর্ডার আইডি দিয়ে খুঁজুন..." 
+             className="bg-white dark:bg-slate-900 border-slate-300 h-12 pr-10 pl-4 rounded-xl focus-visible:ring-primary focus-visible:border-primary text-base"
+             value={searchQuery}
+             onChange={e => setSearchQuery(e.target.value)}
+          />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+        </div>
+      </div>
+
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
          <SummaryCard title="মোট কাজ" value="৫৫ টি" icon={<Home className="h-8 w-8 opacity-50" />} />
          <SummaryCard title="মোট কাজ জমা" value="৪৫ টি" icon={<Check className="h-8 w-8 text-green-400 opacity-80" />} />
          <SummaryCard title="চলমান কাজ" value="১০ টি" icon={<Clock className="h-8 w-8 text-blue-300 opacity-80" />} />
@@ -103,35 +118,14 @@ export default function StaffProfilePage() {
          <SummaryCard title="বর্তমান ব্যালেন্স পাবেন" value="৳১,০০০" icon={<Book className="h-8 w-8 text-green-400 opacity-80" />} />
       </div>
 
-      {/* Action Buttons */}
-      <div className="flex flex-wrap justify-center md:justify-end gap-3 mt-4">
-        <AssignWorkModal 
-           staffName={staff.name} 
-           triggerClass="bg-green-700 hover:bg-green-800 text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2"
-        />
+      <div className="flex justify-center md:justify-end mt-4 mb-2">
         <ReceiveWorkModal 
            staffName={staff.name} 
-           triggerClass="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2"
+           triggerClass="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded-xl flex items-center justify-center gap-2 text-lg shadow-md hover:-translate-y-0.5 transition-all"
         />
-        <Button className="bg-slate-600 hover:bg-slate-700 text-white font-bold px-6 py-2 rounded-lg flex items-center gap-2">
-           রিপোর্ট ডাউনলোড <Download className="h-4 w-4" />
-        </Button>
       </div>
 
-      <div className="h-4 border-b border-slate-200 dark:border-slate-800 mb-8"></div>
-
-      {/* Search Bar */}
-      <div className="flex gap-2 max-w-lg">
-        <div className="relative flex-1">
-          <Input 
-             placeholder="Search Order ID..." 
-             className="bg-white dark:bg-slate-900 border-slate-300 h-12 pr-10 rounded-xl focus-visible:ring-primary focus-visible:border-primary"
-             value={searchQuery}
-             onChange={e => setSearchQuery(e.target.value)}
-          />
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-        </div>
-      </div>
+      <div className="h-4 border-b border-slate-200 dark:border-slate-800 mb-8 mt-4"></div>
 
       {/* Today's Work Report */}
       <div className="bg-[#0b5d4e] text-white rounded-xl p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
@@ -162,37 +156,22 @@ export default function StaffProfilePage() {
           <table className="w-full text-left text-sm whitespace-nowrap">
             <thead className="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-300 border-b border-slate-200 dark:border-slate-800">
               <tr>
-                <th className="p-4 font-bold">জব আইডি</th>
-                <th className="p-4 font-bold">কোম্পানি/কাস্টমার নাম</th>
-                <th className="p-4 font-bold">স্ট্যাটাস</th>
-                <th className="p-4 font-bold">তারিখ</th>
-                <th className="p-4 font-bold bg-slate-100/50 dark:bg-slate-800/50 border-l border-slate-200 dark:border-slate-800" colSpan={2}>
-                  Download Report
-                </th>
-              </tr>
-              <tr className="bg-slate-50 dark:bg-slate-900 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800 text-xs">
-                 <th className="p-2 px-4">জব আইডি</th>
-                 <th className="p-2 px-4">কোম্পানি নাম</th>
-                 <th className="p-2 px-4">স্ট্যাটাস</th>
-                 <th className="p-2 px-4">তারিখ</th>
-                 <th className="p-2 px-4 border-l border-slate-200 dark:border-slate-800">জব আইডি</th>
-                 <th className="p-2 px-4">তারিখ</th>
+                <th className="p-4 font-bold text-center">তারিখ</th>
+                <th className="p-4 font-bold text-center">কাজ/ড্রেস নাম</th>
+                <th className="p-4 font-bold text-center">টাকা/দর</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredHistory.length > 0 ? filteredHistory.map((history) => (
                 <tr key={history.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="p-4 font-medium text-slate-800 dark:text-slate-200">{history.orderNo}</td>
-                  <td className="p-4 text-slate-600 dark:text-slate-400">জহির টেইলার্স কাস্টমার</td>
-                  <td className="p-4">
-                    <span className="text-emerald-600 font-medium">সম্পন্ন (Completed)</span>
+                  <td className="p-4 text-slate-600 dark:text-slate-400 text-center">{history.date}</td>
+                  <td className="p-4 text-center">
+                    <div className="font-bold text-orange-600 dark:text-orange-400 text-lg mb-0.5">{history.items.split(' ')[0]}</div>
+                    <div className="text-sm font-medium text-slate-800 dark:text-slate-200">{history.orderNo}</div>
                   </td>
-                  <td className="p-4 text-slate-600 dark:text-slate-400">{history.date}</td>
-                  <td className="p-4 bg-slate-50/50 dark:bg-slate-900/30 border-l border-slate-200 dark:border-slate-800">
-                    <span className="font-medium text-slate-800 dark:text-slate-200">{history.orderNo}</span>
-                  </td>
-                  <td className="p-4 bg-slate-50/50 dark:bg-slate-900/30 text-slate-600 dark:text-slate-400">
-                    {history.date}
+                  <td className="p-4 text-center">
+                    <div className="font-bold text-red-600 dark:text-red-400 text-lg mb-0.5">{history.totalWage}/-</div>
+                    <div className="text-sm text-slate-500">{history.date}</div>
                   </td>
                 </tr>
               )) : (
@@ -205,20 +184,6 @@ export default function StaffProfilePage() {
         </div>
       </div>
       
-      {/* Bottom Actions */}
-      <div className="flex flex-wrap justify-between md:justify-end gap-3 mt-8 pb-10">
-        <ReceiveWorkModal 
-           staffName={staff.name} 
-           triggerClass="flex-1 md:flex-none justify-center bg-[#0b5d4e] hover:bg-[#08483d] text-white font-bold px-8 py-3 rounded-lg flex items-center gap-2 text-base"
-        />
-        <AssignWorkModal 
-           staffName={staff.name} 
-           triggerClass="flex-1 md:flex-none justify-center bg-[#0b5d4e] hover:bg-[#08483d] text-white font-bold px-8 py-3 rounded-lg flex items-center gap-2 text-base"
-        />
-        <Button className="flex-1 md:flex-none justify-center bg-[#0b5d4e] hover:bg-[#08483d] text-white font-bold px-8 py-3 rounded-lg flex items-center gap-2 text-base h-auto">
-           <Download className="h-5 w-5" /> রিপোর্ট ডাউনলোড
-        </Button>
-      </div>
 
     </div>
   );

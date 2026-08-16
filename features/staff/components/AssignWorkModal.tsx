@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Trash2, Plus } from "lucide-react";
+import { Trash2, Plus, CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 
 import {
@@ -56,8 +56,17 @@ type FormValues = z.infer<typeof formSchema>;
 
 export function AssignWorkModal({ staffName, triggerClass }: { staffName: string; triggerClass?: string }) {
   const [open, setOpen] = useState(false);
-  const orderNo = `#ORD-${Math.floor(1000 + Math.random() * 9000)}`;
-  const currentDateTime = format(new Date(), "dd/MM/yyyy | hh:mm a");
+  
+  const [selectedDate, setSelectedDate] = useState("");
+  const [orderNo, setOrderNo] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setSelectedDate(format(new Date(), "yyyy-MM-dd"));
+      setOrderNo(`#ORD-${Math.floor(1000 + Math.random() * 9000)}`);
+    }
+  }, [open]);
+
   const deductShopProfit = useAppStore(state => state.deductShopProfit);
 
   const form = useForm<FormValues>({
@@ -77,7 +86,12 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
   const grandTotal = watchItems.reduce((acc, item) => acc + ((Number(item.quantity) || 0) * (Number(item.rate) || 0)), 0);
 
   const onSubmit = (data: FormValues) => {
-    console.log("Assigned Work Data:", { orderNo, staffName, ...data, totalQuantity, grandTotal });
+    if (!orderNo.trim()) {
+      toast.error("দয়া করে কাজের অর্ডার নং প্রদান করুন");
+      return;
+    }
+
+    console.log("Assigned Work Data:", { orderNo, selectedDate, staffName, ...data, totalQuantity, grandTotal });
     
     // Deduct total wage from shop profit
     deductShopProfit(grandTotal);
@@ -96,36 +110,50 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
       >
         কাজ দিলাম &darr;
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-950 p-6 sm:p-8">
+      <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-950 p-4 sm:p-6 md:p-8 rounded-2xl">
         <DialogHeader className="mb-4">
           <DialogTitle className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 border-b pb-4">
             নতুন কাজ প্রদান ({staffName})
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-slate-50 dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
           <div>
-            <span className="text-sm text-slate-500 font-medium">তারিখ ও সময়</span>
-            <p className="font-bold text-slate-800 dark:text-slate-200 mt-1">{currentDateTime}</p>
+            <label className="text-sm text-slate-500 font-semibold flex items-center gap-1.5 mb-1.5">
+              <CalendarIcon className="w-4 h-4 text-slate-400" />
+              তারিখ ও সময় (সময় অটোমেটিক)
+            </label>
+            <Input 
+               type="date" 
+               value={selectedDate} 
+               onChange={e => setSelectedDate(e.target.value)} 
+               className="h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 font-medium"
+            />
           </div>
           <div className="md:text-right">
-            <span className="text-sm text-slate-500 font-medium">কাজের অর্ডার নং</span>
-            <p className="font-bold text-primary mt-1 text-lg">{orderNo}</p>
+            <label className="text-sm text-slate-500 font-semibold block mb-1.5 md:text-left">কাজের অর্ডার নং</label>
+            <Input 
+               type="text" 
+               value={orderNo} 
+               placeholder="যেমন: #ORD-1234"
+               onChange={e => setOrderNo(e.target.value)} 
+               className="h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 font-bold text-primary md:text-left"
+            />
           </div>
         </div>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-x-auto bg-white dark:bg-slate-950">
-              <div className="md:min-w-[650px]">
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+              <div>
                 {/* Desktop Header */}
-                <div className="hidden md:grid grid-cols-[40px_1fr_90px_110px_110px_40px] gap-3 bg-slate-100 dark:bg-slate-900 p-3 text-slate-600 dark:text-slate-300 font-bold text-sm">
+                <div className="hidden md:grid grid-cols-[40px_1fr_120px_130px_120px_40px] gap-4 bg-slate-100 dark:bg-slate-900 p-4 text-slate-600 dark:text-slate-300 font-bold text-sm rounded-t-xl border-b border-slate-200 dark:border-slate-800">
                   <div className="text-center">ক্র. নং</div>
                   <div>কাজের নাম</div>
-                  <div>পরিমাণ</div>
-                  <div className="text-right">প্রতি পিস মজুরি</div>
+                  <div className="text-center">পরিমাণ</div>
+                  <div className="text-center">প্রতি পিস মজুরি</div>
                   <div className="text-right">মোট মজুরি</div>
-                  <div className="text-center">অ্যাকশন</div>
+                  <div className="text-center"></div>
                 </div>
 
                 <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -135,32 +163,32 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                     const totalWage = currentQuantity * currentRate;
 
                     return (
-                      <div key={field.id} className="p-4 md:p-3 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                      <div key={field.id} className="p-5 md:p-4 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
                         {/* Mobile Header (Item number + Delete) */}
-                        <div className="flex justify-between items-center md:hidden mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
-                          <span className="font-bold text-slate-700 dark:text-slate-300">
+                        <div className="flex justify-between items-center md:hidden mb-4 pb-3 border-b border-slate-100 dark:border-slate-800">
+                          <span className="font-bold text-slate-700 dark:text-slate-300 text-base">
                             আইটেম {String(index + 1).padStart(2, "0")}
                           </span>
                           <Button
                             type="button"
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30"
+                            className="h-9 w-9 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg"
                             onClick={() => remove(index)}
                             disabled={fields.length === 1}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-4.5 w-4.5" />
                           </Button>
                         </div>
 
                         {/* Form Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-[40px_1fr_90px_110px_110px_40px] gap-4 md:gap-3 items-center">
-                          <div className="hidden md:block text-center font-medium text-slate-500">
+                        <div className="grid grid-cols-1 md:grid-cols-[40px_1fr_120px_130px_120px_40px] gap-5 md:gap-4 items-center">
+                          <div className="hidden md:block text-center font-bold text-slate-500">
                             {String(index + 1).padStart(2, "0")}
                           </div>
                           
                           <div className="space-y-1.5 md:space-y-0">
-                            <span className="md:hidden text-xs font-semibold text-slate-500">কাজের নাম</span>
+                            <span className="md:hidden text-sm font-semibold text-slate-500 mb-1 block">কাজের নাম</span>
                             <FormField
                               control={form.control}
                               name={`items.${index}.jobName`}
@@ -177,13 +205,13 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                     defaultValue={formField.value}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800">
+                                      <SelectTrigger className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-base">
                                         <SelectValue placeholder="নির্বাচন করুন" />
                                       </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
                                       {jobTypes.map(job => (
-                                        <SelectItem key={job.name} value={job.name}>{job.name}</SelectItem>
+                                        <SelectItem key={job.name} value={job.name} className="text-base">{job.name}</SelectItem>
                                       ))}
                                     </SelectContent>
                                   </Select>
@@ -195,7 +223,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
 
                           <div className="grid grid-cols-2 gap-4 md:contents">
                             <div className="space-y-1.5 md:space-y-0">
-                              <span className="md:hidden text-xs font-semibold text-slate-500">পরিমাণ</span>
+                              <span className="md:hidden text-sm font-semibold text-slate-500 mb-1 block">পরিমাণ</span>
                               <FormField
                                 control={form.control}
                                 name={`items.${index}.quantity`}
@@ -207,7 +235,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         min="1"
                                         {...formField}
                                         onChange={e => formField.onChange(Number(e.target.value))}
-                                        className="bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-center"
+                                        className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-center font-bold text-lg"
                                       />
                                     </FormControl>
                                     <FormMessage />
@@ -217,7 +245,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                             </div>
 
                             <div className="space-y-1.5 md:space-y-0">
-                              <span className="md:hidden text-xs font-semibold text-slate-500">প্রতি পিস মজুরি</span>
+                              <span className="md:hidden text-sm font-semibold text-slate-500 mb-1 block">প্রতি পিস মজুরি</span>
                               <FormField
                                 control={form.control}
                                 name={`items.${index}.rate`}
@@ -229,7 +257,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         min="0"
                                         {...formField}
                                         onChange={e => formField.onChange(Number(e.target.value))}
-                                        className="bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-right"
+                                        className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-center font-bold text-lg"
                                       />
                                     </FormControl>
                                     <FormMessage />
@@ -239,9 +267,9 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                             </div>
                           </div>
 
-                          <div className="flex justify-between items-center md:block pt-2 border-t border-slate-100 dark:border-slate-800 md:pt-0 md:border-0 mt-2 md:mt-0">
+                          <div className="flex justify-between items-center md:block pt-3 border-t border-slate-100 dark:border-slate-800 md:pt-0 md:border-0 mt-2 md:mt-0">
                             <span className="md:hidden text-sm font-semibold text-slate-600 dark:text-slate-400">মোট মজুরি:</span>
-                            <div className="font-bold text-right text-slate-800 dark:text-slate-200">
+                            <div className="font-bold md:text-right text-slate-800 dark:text-slate-200 text-lg">
                               ৳ {totalWage.toLocaleString()}
                             </div>
                           </div>
@@ -251,11 +279,11 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                               type="button"
                               variant="ghost"
                               size="icon"
-                              className="text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30"
+                              className="h-10 w-10 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-lg"
                               onClick={() => remove(index)}
                               disabled={fields.length === 1}
                             >
-                              <Trash2 className="h-4 w-4" />
+                              <Trash2 className="h-5 w-5" />
                             </Button>
                           </div>
                         </div>
@@ -263,36 +291,30 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                     );
                   })}
                 </div>
-                
-                <div className="p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+
+                <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 rounded-b-xl">
                   <Button
                     type="button"
                     variant="outline"
-                    size="sm"
-                    className="font-medium flex items-center gap-2 text-primary border-primary/30 hover:bg-primary/10 w-full md:w-auto justify-center"
                     onClick={() => append({ jobName: "", quantity: 1, rate: 0 })}
+                    className="w-full border-dashed border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-300 hover:text-primary hover:border-primary hover:bg-primary/5 py-6 font-semibold"
                   >
-                    <Plus className="h-4 w-4" />
-                    আরও আইটেম যোগ করুন
+                    <Plus className="mr-2 h-4 w-4" /> আরও আইটেম যোগ করুন
                   </Button>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-slate-800 dark:bg-slate-900 text-white p-5 rounded-xl shadow-md">
+            <div className="bg-primary text-primary-foreground p-5 sm:p-6 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4">
               <div className="text-center sm:text-left">
-                <span className="block text-slate-300 text-sm font-medium mb-1">সর্বমোট কাপড়</span>
-                <span className="text-2xl font-bold">{totalQuantity} <span className="text-base font-normal">টি</span></span>
+                <p className="text-primary-foreground/80 font-medium mb-1">সর্বমোট হিসাব</p>
+                <div className="flex items-center gap-4 text-xl sm:text-2xl font-bold">
+                  <div>কাজ: <span className="text-2xl sm:text-3xl bg-white/20 px-3 py-1 rounded-lg ml-1">{totalQuantity}</span> টি</div>
+                  <div>বিল: <span className="text-2xl sm:text-3xl bg-white/20 px-3 py-1 rounded-lg ml-1">৳ {grandTotal.toLocaleString()}</span></div>
+                </div>
               </div>
-              <div className="text-center sm:text-right">
-                <span className="block text-slate-300 text-sm font-medium mb-1">সর্বমোট মজুরি</span>
-                <span className="text-2xl font-bold text-green-400">৳ {grandTotal.toLocaleString()}</span>
-              </div>
-            </div>
-
-            <div className="flex justify-end pt-4">
-              <Button type="submit" className="font-bold px-8 py-6 h-auto text-lg w-full sm:w-auto shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all">
-                সাবমিট করুন
+              <Button type="submit" size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-slate-100 font-bold px-8 h-14 text-lg shadow-md hover:-translate-y-1 transition-all">
+                কাজ বুঝিয়ে দিন
               </Button>
             </div>
           </form>
