@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/store/useAppStore";
 import { mockWorkHistory } from "../data/mock";
 
-export function ReceiveWorkModal({ staffName, triggerClass }: { staffName: string; triggerClass?: string }) {
+export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { staffName: string; triggerClass?: string; triggerText?: string }) {
   const [open, setOpen] = useState(false);
   
   // Pending jobs are derived from mock data (excluding Completed)
@@ -80,9 +80,9 @@ export function ReceiveWorkModal({ staffName, triggerClass }: { staffName: strin
           <Button className={triggerClass || "font-bold bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg flex items-center gap-2"} />
         }
       >
-        কাজ বুঝে নিন <ArrowDown className="ml-2 h-4 w-4" />
+        {triggerText || "কাজ বুঝে নিন"}
       </DialogTrigger>
-      <DialogContent className="max-w-md bg-white dark:bg-slate-950 p-6 sm:p-8 rounded-2xl border-0 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
+      <DialogContent className="w-[95vw] sm:w-full max-w-md bg-white dark:bg-slate-950 p-5 sm:p-8 rounded-2xl border-0 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
         <DialogHeader className="mb-2">
           <DialogTitle className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
             কাজ বুঝে নিন
@@ -90,13 +90,13 @@ export function ReceiveWorkModal({ staffName, triggerClass }: { staffName: strin
           <p className="text-sm text-slate-500 font-medium">কারিগর: {staffName}</p>
         </DialogHeader>
 
-        <div className="bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30 p-4 mb-4">
+        <div className="bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30 p-3 sm:p-4 mb-4">
           <div className="flex justify-between items-center mb-3">
-             <span className="font-bold text-slate-700 dark:text-slate-300">অসম্পূর্ণ কাজের তালিকা:</span>
-             <span className="text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2.5 py-1 rounded-full font-bold">{pendingJobs.length} টি কাজ</span>
+             <span className="font-bold text-slate-700 dark:text-slate-300 text-sm sm:text-base">অসম্পূর্ণ কাজের তালিকা:</span>
+             <span className="text-[10px] sm:text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 sm:px-2.5 py-1 rounded-full font-bold">{pendingJobs.length} টি কাজ</span>
           </div>
           
-          <div className="space-y-2 max-h-[160px] overflow-y-auto pr-1 custom-scrollbar">
+          <div className="space-y-2 max-h-[180px] overflow-y-auto pr-1 custom-scrollbar">
             {pendingJobs.map(job => (
               <label 
                  key={job.id} 
@@ -104,16 +104,21 @@ export function ReceiveWorkModal({ staffName, triggerClass }: { staffName: strin
                    selectedJobs.includes(job.id) ? 'bg-white border-blue-300 shadow-sm dark:bg-slate-900 dark:border-blue-700' : 'bg-white/50 border-slate-200 dark:bg-slate-950 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-900'
                  }`}
               >
-                <div>
-                   <div className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2 text-[15px]">
+                <div className="flex-1 overflow-hidden">
+                   <div className="font-bold text-slate-800 dark:text-slate-200 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[14px] sm:text-[15px]">
                      <span className="text-blue-600 dark:text-blue-400">{job.orderNo}</span>
-                     <span>কাস্টমার: {job.items.split(' ')[0]} (১)</span>
+                     <span className="truncate">কাস্টমার: {job.items.split(' ')[0]} (১)</span>
                    </div>
-                   <div className="text-[13px] text-slate-500 mt-1 font-medium">জহির টেইলার্স কাস্টমার</div>
+                   <div className="text-[12px] sm:text-[13px] text-slate-500 mt-1 font-medium">জহির টেইলার্স কাস্টমার</div>
                 </div>
                 
-                <div className="flex items-center justify-center w-6 h-6 rounded-md border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 transition-colors" data-state={selectedJobs.includes(job.id) ? 'checked' : 'unchecked'}>
-                  {selectedJobs.includes(job.id) && <Check className="w-4 h-4 text-white" strokeWidth={3} />}
+                <div className="flex items-center gap-2 sm:gap-3 ml-2">
+                  <div className="text-red-600 dark:text-red-400 font-bold text-xs sm:text-sm bg-red-50 dark:bg-red-900/20 px-2 sm:px-2.5 py-1 rounded-md whitespace-nowrap">
+                    ৳{job.totalWage}
+                  </div>
+                  <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 shrink-0 rounded-md border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 transition-colors" data-state={selectedJobs.includes(job.id) ? 'checked' : 'unchecked'}>
+                    {selectedJobs.includes(job.id) && <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" strokeWidth={3} />}
+                  </div>
                 </div>
               </label>
             ))}
@@ -125,11 +130,13 @@ export function ReceiveWorkModal({ staffName, triggerClass }: { staffName: strin
         </div>
 
         <div className="mb-4">
-          <label className="text-slate-700 dark:text-slate-300 font-bold block mb-2 text-sm">পরিশোধকৃত বিল (৳)</label>
+          <label className="text-slate-700 dark:text-slate-300 font-bold block mb-2 text-sm sm:text-base">
+            বিল পরিশোধ করতে চাই <span className="text-slate-400 font-normal text-xs sm:text-sm ml-1">(ঐচ্ছিক)</span>
+          </label>
           <Input 
              type="number" 
              value={amountPaid} 
-             placeholder="যেমন: ৫০০"
+             placeholder="৳"
              onChange={e => setAmountPaid(e.target.value)} 
              className="h-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 font-bold text-lg rounded-xl focus-visible:ring-blue-500"
           />
