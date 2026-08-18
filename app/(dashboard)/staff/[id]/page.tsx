@@ -140,32 +140,20 @@ export default function StaffProfilePage() {
       </div>
 
       <div className="max-w-3xl mx-auto mt-12 space-y-6">
-        {/* Search Bar for Work History */}
-        <div className="flex gap-2 max-w-full">
-          <div className="relative flex-1">
-            <Input 
-               placeholder="কাজ বা অর্ডার আইডি দিয়ে খুঁজুন..." 
-               className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-sm h-14 pr-10 pl-5 rounded-2xl focus-visible:ring-primary focus-visible:border-primary text-base"
-               value={searchQuery}
-               onChange={e => setSearchQuery(e.target.value)}
-            />
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-          </div>
-        </div>
 
         {/* Action Buttons */}
         <div className="flex justify-between md:justify-start items-center gap-2 mb-6 px-1 pb-1 overflow-x-auto custom-scrollbar whitespace-nowrap">
           <AssignWorkModal 
              staffName={staff.name} 
-             triggerClass="text-green-700 dark:text-green-500 font-bold text-sm md:text-base px-4 py-2 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-xl transition-colors cursor-pointer" 
+             triggerClass="bg-green-600 hover:bg-green-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer" 
           />
           <AddExpenseModal 
              staffName={staff.name} 
-             triggerClass="text-orange-600 dark:text-orange-500 font-bold text-sm md:text-base px-4 py-2 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-xl transition-colors cursor-pointer" 
+             triggerClass="bg-red-600 hover:bg-red-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer" 
           />
           <ReceiveWorkModal 
              staffName={staff.name} 
-             triggerClass="text-blue-700 dark:text-blue-500 font-bold text-sm md:text-base px-4 py-2 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl transition-colors cursor-pointer"
+             triggerClass="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer"
              triggerText="কাজ পেলাম"
           />
         </div>
@@ -210,6 +198,18 @@ export default function StaffProfilePage() {
 
         {/* Work History Table */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+          {/* Search Bar for Work History */}
+          <div className="p-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+              <Input 
+                placeholder="কাজ বা অর্ডার আইডি দিয়ে খুঁজুন..." 
+                className="pl-10 h-11 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 rounded-xl shadow-sm"
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-sm whitespace-nowrap">
               <thead className="bg-slate-50/80 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800">

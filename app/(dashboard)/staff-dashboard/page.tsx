@@ -139,26 +139,6 @@ export default function StaffDashboardPage() {
         </div>
       </div>
 
-      {/* ব্যবস্থাপনা (Management) */}
-      <div>
-        <h2 className="text-lg font-bold mb-3 px-1 text-slate-700 dark:text-slate-300">ব্যবস্থাপনা</h2>
-        <div className="bg-white dark:bg-slate-900 p-4 md:p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800">
-          <div className="flex flex-wrap gap-3">
-            <Button className="flex-1 min-w-[120px] bg-[#1b3d4e] hover:bg-[#132c38] text-white h-12 font-bold rounded-xl gap-2 shadow-sm transition-all">
-              <Briefcase className="w-4 h-4" /> কাজ দিবো
-            </Button>
-            <Button className="flex-1 min-w-[120px] bg-[#1f4e5a] hover:bg-[#163a43] text-white h-12 font-bold rounded-xl gap-2 shadow-sm transition-all">
-              <FileText className="w-4 h-4" /> কাজ নিবো
-            </Button>
-            <Button className="flex-1 min-w-[120px] bg-[#2d8c83] hover:bg-[#226c65] text-white h-12 font-bold rounded-xl gap-2 shadow-sm transition-all">
-              <Plus className="w-4 h-4" /> নতুন খরচ দিবো
-            </Button>
-            <Button variant="outline" className="flex-1 min-w-[120px] border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 h-12 font-bold rounded-xl gap-2 shadow-sm transition-all">
-              <Download className="w-4 h-4" /> রিপোর্ট PDF
-            </Button>
-          </div>
-        </div>
-      </div>
 
       {/* আজকের কার্যক্রম */}
       <div>
@@ -199,6 +179,13 @@ export default function StaffDashboardPage() {
             ))}
           </div>
         </div>
+      </div>
+
+
+      <div className="pt-4">
+        <Button variant="outline" className="w-full border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 h-12 font-bold rounded-xl gap-2 shadow-sm transition-all bg-white dark:bg-slate-900">
+          <Download className="w-4 h-4" /> রিপোর্ট PDF
+        </Button>
       </div>
     </div>
   );
