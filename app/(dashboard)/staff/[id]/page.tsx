@@ -119,22 +119,18 @@ export default function StaffProfilePage() {
                 কর্মস্থল: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.address}</span>
               </span>
             </div>
-          </div>
-        </div>
-        
-
-        
-        {/* Job Status */}
-        <div className="text-left">
-          <h3 className="text-sm font-medium text-slate-500 mb-2 px-1">Job Status</h3>
-          <div className="flex items-center justify-between border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 rounded-2xl p-3 shadow-sm gap-2">
-            <div className="flex items-center gap-2 text-[#0f2851] dark:text-blue-400 font-bold text-sm md:text-base pl-2">
-              <Briefcase className="w-5 h-5 fill-blue-500 text-blue-500" /> 
-              কাজ আছে: {staff.activeJobs}টি
+            <div className="flex items-center gap-3">
+              <Book className="w-5 h-5 text-blue-500 shrink-0" />
+              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
+                এনআইডি নম্বর: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.nid}</span>
+              </span>
             </div>
-            <Button variant="outline" className="border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700 font-bold rounded-xl text-xs md:text-sm h-10 px-4" onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}>
-              বিস্তারিত দেখুন
-            </Button>
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-amber-500 shrink-0" />
+              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
+                যোগদানের তারিখ: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.joinDate}</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -183,7 +179,7 @@ export default function StaffProfilePage() {
                 </div>
                 <div>
                    <div className="text-3xl md:text-5xl font-bold mb-2">15</div>
-                   <div className="text-emerald-100 text-sm md:text-base font-medium">Pending কাজে</div>
+                   <div className="text-emerald-100 text-sm md:text-base font-medium">অসম্পন্ন কাজ</div>
                 </div>
              </div>
            </div>

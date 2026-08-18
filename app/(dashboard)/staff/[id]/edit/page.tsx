@@ -99,19 +99,7 @@ export default function EditStaffPage() {
             <Input id="address" defaultValue={staff.address} placeholder="বিস্তারিত ঠিকানা লিখুন" />
           </div>
           
-          <div className="space-y-2">
-            <Label>বর্তমান স্ট্যাটাস</Label>
-            <Select defaultValue={staff.attendanceStatus}>
-              <SelectTrigger>
-                <SelectValue placeholder="স্ট্যাটাস নির্বাচন করুন" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Present">উপস্থিত</SelectItem>
-                <SelectItem value="Absent">অনুপস্থিত</SelectItem>
-                <SelectItem value="Left">ছেড়ে দিয়েছেন</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+
         </div>
 
         <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-3">
