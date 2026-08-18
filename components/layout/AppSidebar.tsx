@@ -121,21 +121,23 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <SidebarMenuButton
-                  size="lg"
-                  className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                >
-                  <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarImage src="" alt="Admin" />
-                    <AvatarFallback className="rounded-lg">ZT</AvatarFallback>
-                  </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate font-semibold">অ্যাডমিন</span>
-                    <span className="truncate text-xs text-muted-foreground">admin@zohir.com</span>
-                  </div>
-                </SidebarMenuButton>
-              </DropdownMenuTrigger>
+              <DropdownMenuTrigger
+                render={
+                  <SidebarMenuButton
+                    size="lg"
+                    className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                  >
+                    <Avatar className="h-8 w-8 rounded-lg">
+                      <AvatarImage src="" alt="Admin" />
+                      <AvatarFallback className="rounded-lg">ZT</AvatarFallback>
+                    </Avatar>
+                    <div className="grid flex-1 text-left text-sm leading-tight">
+                      <span className="truncate font-semibold">অ্যাডমিন</span>
+                      <span className="truncate text-xs text-muted-foreground">admin@zohir.com</span>
+                    </div>
+                  </SidebarMenuButton>
+                }
+              />
               <DropdownMenuContent
                 className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
                 side="bottom"

@@ -9,7 +9,6 @@ const dashboardLinks = [
   { title: "ব্যবসায়িক আয়-ব্যয় ড্যাশবোর্ড", image: "/icons/dashboard.png", href: "/business-dashboard" },
   { title: "অর্ডার পরিচালনা করুন", image: "/icons/order-management.png", href: "/orders/manage" },
   { title: "নতুন অর্ডার অ্যাড", image: "/icons/new-order.png", href: "/orders/new" },
-  { title: "কারিগর তালিকা (০৫ জন)", image: "/icons/employee.png", href: "/staff" },
   { title: "কারিগর কর্মচারী ড্যাশবোর্ড", image: "/icons/employee.png", href: "/staff-dashboard" },
   { title: "স্টেটমেন্ট", image: "/icons/financial-report.png", href: "/reports" },
   { title: "পণ্য যোগ করুন", image: "/icons/add-product.png", href: "/orders/new" },

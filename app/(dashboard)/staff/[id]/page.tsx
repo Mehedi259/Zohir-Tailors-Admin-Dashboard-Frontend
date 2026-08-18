@@ -122,31 +122,7 @@ export default function StaffProfilePage() {
           </div>
         </div>
         
-        {/* Attendance Actions */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6">
-          <div className={`flex-1 w-full sm:w-auto flex items-center justify-center gap-2 border-2 ${statusConfig.colorClass} bg-white dark:bg-slate-900 font-bold py-2.5 px-4 rounded-xl shadow-sm`}>
-            {statusConfig.icon}
-            {statusConfig.label}
-          </div>
-          
-          <div className="flex-1 w-full sm:w-auto relative">
-            <Select 
-              value={attendanceState === "Left" ? "ChangedWorkplace" : attendanceState} 
-              onValueChange={(val) => setAttendanceState(val as string)}
-            >
-              <SelectTrigger className="w-full bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-md h-12 rounded-xl flex justify-center items-center gap-2 font-bold focus:ring-0">
-                <RefreshCw className="w-4 h-4" />
-                <span>হাজিরা আপডেট</span>
-              </SelectTrigger>
-              <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl">
-                <SelectItem value="Present" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">উপস্থিত</SelectItem>
-                <SelectItem value="Absent" className="text-rose-700 focus:bg-rose-50 cursor-pointer">অনুপস্থিত</SelectItem>
-                <SelectItem value="ChangedWorkplace" className="text-amber-700 focus:bg-amber-50 cursor-pointer">কর্মস্থল পরিবর্তন করেছেন</SelectItem>
-                <SelectItem value="Rejoined" className="text-blue-700 focus:bg-blue-50 cursor-pointer">পুনরায় যোগদান</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
+
         
         {/* Job Status */}
         <div className="text-left">
