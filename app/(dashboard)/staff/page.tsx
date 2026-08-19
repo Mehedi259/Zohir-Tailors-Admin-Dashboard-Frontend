@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, Plus, Briefcase, BriefcaseBusiness, Phone } from "lucide-react";
+import { Search, Plus, Briefcase, BriefcaseBusiness, Phone, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { mockStaff } from "@/features/staff/data/mock";
 import Image from "next/image";
@@ -45,7 +45,7 @@ export default function StaffListPage() {
 
   const getStatusConfig = (status: string) => {
     switch(status) {
-      case "Present": return { label: "উপস্থিত", colorClass: "text-emerald-700 bg-emerald-100", dotClass: "bg-emerald-600" };
+      case "Present": return { label: "উপস্থিত", colorClass: "text-emerald-800 bg-emerald-200", dotClass: "bg-emerald-600" };
       case "Absent": return { label: "অনুপস্থিত", colorClass: "text-rose-700 bg-rose-100", dotClass: "bg-rose-600" };
       case "ChangedWorkplace": return { label: "কর্মস্থল পরিবর্তন করেছেন", colorClass: "text-amber-700 bg-amber-100", dotClass: "bg-amber-600" };
       case "Rejoined": return { label: "পুনরায় যোগদান", colorClass: "text-blue-700 bg-blue-100", dotClass: "bg-blue-600" };
@@ -127,24 +127,24 @@ export default function StaffListPage() {
                           {staff.name}
                         </h3>
                         <div className="text-sm md:text-base text-slate-500 mt-0.5 font-medium flex items-center gap-2">
-                          <span>{staff.phone}</span>
                           <a 
                             href={`tel:${staff.phone}`} 
                             onClick={(e) => e.stopPropagation()}
                             className="bg-emerald-100 text-emerald-600 p-1.5 rounded-full hover:bg-emerald-200 transition-colors"
                           >
-                            <Phone className="w-3.5 h-3.5" />
+                            <Phone className="w-3.5 h-3.5 fill-current" />
                           </a>
+                          <span>{staff.phone}</span>
                         </div>
                       </Link>
 
                       {/* Active/Inactive Toggle */}
-                      <div className="shrink-0" onClick={e => e.stopPropagation()}>
+                      <div className="shrink-0 flex flex-col items-end gap-1" onClick={e => e.stopPropagation()}>
                         <Select 
                           value={isActive ? "active" : "inactive"} 
                           onValueChange={(val) => handleActiveChange(staff.id, val === "active")}
                         >
-                          <SelectTrigger className={`h-8 px-3 text-xs font-bold border-0 shadow-sm gap-2 rounded-full cursor-pointer focus:ring-0 transition-colors ${isActive ? 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                          <SelectTrigger className={`h-8 px-3 text-xs font-bold border shadow-sm gap-2 rounded-full cursor-pointer focus:ring-0 transition-colors ${isActive ? 'bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-200' : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'}`}>
                             <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
                             <SelectValue />
                           </SelectTrigger>
@@ -153,6 +153,9 @@ export default function StaffListPage() {
                             <SelectItem value="inactive" className="text-slate-600 focus:bg-slate-50 cursor-pointer">ইনঅ্যাক্টিভ</SelectItem>
                           </SelectContent>
                         </Select>
+                        {!isActive && (
+                          <span className="text-[10px] text-slate-400 font-semibold px-1">১২ আগস্ট, ২০২৪</span>
+                        )}
                       </div>
                     </div>
 
@@ -182,29 +185,35 @@ export default function StaffListPage() {
                 <div className={`pt-3 flex items-center justify-between ${isActive ? 'border-t border-slate-100 dark:border-slate-800' : ''}`}>
                   {isActive ? (
                     <>
-                      {/* Read-only Badge */}
-                      <div className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold ${statusConfig.colorClass}`}>
-                        <span className={`w-2 h-2 rounded-full ${statusConfig.dotClass}`}></span>
-                        <span>{statusConfig.label}</span>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        {/* Read-only Badge */}
+                        <div className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold ${statusConfig.colorClass}`}>
+                          <span className={`w-2 h-2 rounded-full ${statusConfig.dotClass}`}></span>
+                          <span>{statusConfig.label}</span>
+                        </div>
+                        
+                        {/* Hajira Update Dropdown */}
+                        <div className="z-10" onClick={e => e.stopPropagation()}>
+                          <Select 
+                            value={currentStatus === "Left" ? "ChangedWorkplace" : currentStatus} 
+                            onValueChange={(val) => handleStatusChange(staff.id, val as string)}
+                          >
+                            <SelectTrigger className="h-9 px-4 text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-md rounded-full cursor-pointer transition-opacity focus:ring-0">
+                              <span>হাজিরা আপডেট</span>
+                            </SelectTrigger>
+                            <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl z-[100]">
+                              <SelectItem value="Present" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">উপস্থিত</SelectItem>
+                              <SelectItem value="Absent" className="text-rose-700 focus:bg-rose-50 cursor-pointer">অনুপস্থিত</SelectItem>
+                              <SelectItem value="ChangedWorkplace" className="text-amber-700 focus:bg-amber-50 cursor-pointer">কর্মস্থল পরিবর্তন করেছেন</SelectItem>
+                              <SelectItem value="Rejoined" className="text-blue-700 focus:bg-blue-50 cursor-pointer">পুনরায় যোগদান</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       
-                      {/* Hajira Update Dropdown */}
-                      <div className="z-10" onClick={e => e.stopPropagation()}>
-                        <Select 
-                          value={currentStatus === "Left" ? "ChangedWorkplace" : currentStatus} 
-                          onValueChange={(val) => handleStatusChange(staff.id, val as string)}
-                        >
-                          <SelectTrigger className="h-9 px-4 text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-md rounded-full cursor-pointer transition-opacity focus:ring-0">
-                            <span>হাজিরা আপডেট</span>
-                          </SelectTrigger>
-                          <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl z-[100]">
-                            <SelectItem value="Present" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">উপস্থিত</SelectItem>
-                            <SelectItem value="Absent" className="text-rose-700 focus:bg-rose-50 cursor-pointer">অনুপস্থিত</SelectItem>
-                            <SelectItem value="ChangedWorkplace" className="text-amber-700 focus:bg-amber-50 cursor-pointer">কর্মস্থল পরিবর্তন করেছেন</SelectItem>
-                            <SelectItem value="Rejoined" className="text-blue-700 focus:bg-blue-50 cursor-pointer">পুনরায় যোগদান</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
+                      <Link href={`/staff/${staff.id}`} className="bg-slate-100 hover:bg-slate-200 text-slate-600 p-2 rounded-full transition-colors flex-shrink-0 shadow-sm border border-slate-200">
+                        <ArrowRight className="w-5 h-5" />
+                      </Link>
                     </>
                   ) : (
                     <div className="w-full">

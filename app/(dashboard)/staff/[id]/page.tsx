@@ -9,7 +9,7 @@ import {
   ArrowLeft, MapPin, Phone, Briefcase, 
   CheckCircle2, Search, Home, Check, Clock, 
   FileText, TrendingDown, Book, Camera, Star,
-  RefreshCw, Smartphone
+  RefreshCw, Smartphone, User, X, Menu, Eye, Droplet, Calendar, Coins
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -30,6 +30,7 @@ export default function StaffProfilePage() {
   const [staff, setStaff] = useState<Staff | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [attendanceState, setAttendanceState] = useState<string>("");
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   useEffect(() => {
     if (staffId) {
@@ -70,89 +71,154 @@ export default function StaffProfilePage() {
   const statusConfig = getStatusConfig(attendanceState);
 
   return (
-    <div className="space-y-6 max-w-5xl mx-auto pb-20 md:pb-6 bg-slate-100 dark:bg-slate-950 min-h-screen p-4 md:p-6">
+    <div className="space-y-6 max-w-5xl mx-auto pb-32 bg-[#eef8fc] dark:bg-slate-950 min-h-screen p-4 md:p-6">
       
       {/* Top Bar with Back Button */}
-      <div className="flex items-center mb-16 pt-2">
-        <Link href="/staff" className="bg-white dark:bg-slate-800 rounded-full p-2.5 shadow-sm border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 transition-colors">
-          <ArrowLeft className="w-5 h-5" />
+      <div className="flex items-center justify-between mb-4 pt-2 max-w-2xl mx-auto px-2">
+        <Link href="/staff" className="text-slate-800 dark:text-slate-200">
+          <ArrowLeft className="w-6 h-6" />
         </Link>
+        <h1 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-100 pr-6">
+          কারিগর প্রোফাইল
+        </h1>
+        <div className="w-6"></div> {/* Spacer for centering */}
       </div>
 
-      {/* New Profile Card Design */}
-      <div className="bg-white dark:bg-slate-900 rounded-[2rem] shadow-[0_10px_40px_rgb(0,0,0,0.08)] dark:shadow-none border border-slate-100 dark:border-slate-800 relative pt-20 pb-8 px-6 md:px-10 max-w-md mx-auto text-center mt-10">
+      {/* Top Section */}
+      <div className="flex flex-row items-center gap-4 px-2 mt-4 max-w-2xl mx-auto">
         {/* Avatar */}
-        <div className="absolute -top-[4.5rem] left-1/2 -translate-x-1/2 bg-blue-600 rounded-full p-1 shadow-md">
-          <div className="relative w-32 h-32 rounded-full overflow-hidden border-[4px] border-white dark:border-slate-900 bg-white">
+        <div className="relative shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-[#aee2ed] bg-white p-1">
+          <div className="relative w-full h-full rounded-full overflow-hidden">
             <Image src={staff.photo} alt={staff.name} fill className="object-cover" />
           </div>
-          <Link 
-            href={`/staff/${staff.id}/edit`} 
-            className="absolute bottom-1 right-1 bg-white dark:bg-slate-800 p-2 rounded-full shadow-md border border-slate-200 dark:border-slate-700 hover:bg-slate-50 transition-colors text-slate-600 z-10"
-          >
-            <Camera className="w-4 h-4" />
-          </Link>
         </div>
         
-        {/* Name & Designation */}
-        <h2 className="text-2xl md:text-3xl font-bold text-[#0f2851] dark:text-blue-100 mb-3">
-          {staff.name}
-        </h2>
-        <div className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-400 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-sm mb-6">
-          <Star className="w-4 h-4 fill-white" />
-          {staff.designation}
+        {/* Basic Info */}
+        <div className="flex-1 space-y-1 text-left">
+          <h2 className="text-lg md:text-2xl font-bold text-slate-900 dark:text-slate-100">
+            নাম: {staff.name}
+          </h2>
+          <div className="text-slate-900 dark:text-slate-300 font-bold text-sm md:text-lg">
+            পদবী: {staff.designation}
+          </div>
+          <div className="text-slate-900 dark:text-slate-300 font-bold text-sm md:text-lg">
+            মোবাইল: {staff.phone}
+          </div>
+          <div className="text-slate-900 dark:text-slate-300 font-bold text-sm md:text-lg leading-snug">
+            কর্মস্থল: {staff.address}
+          </div>
         </div>
-        
-        {/* Contact Info */}
-        <div className="text-left mb-6">
-          <h3 className="text-sm font-medium text-slate-500 mb-2 px-1">Contact Info</h3>
-          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-4 space-y-3 border border-slate-100 dark:border-slate-800">
-            <div className="flex items-center gap-3">
-              <Smartphone className="w-5 h-5 text-emerald-500 shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
-                মোবাইল: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.phone}</span>
-              </span>
+      </div>
+
+      {/* Expandable Details */}
+      {isDetailsOpen && (
+        <div className="mt-6 space-y-4 max-w-2xl mx-auto animate-in fade-in slide-in-from-top-4 duration-300">
+          
+          {/* Personal Info */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-3 mb-2 text-slate-900 dark:text-slate-200 font-bold text-lg">
+              <User className="w-5 h-5 text-slate-600" />
+              ব্যক্তিগত তথ্য
             </div>
-            <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-slate-400 shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
-                কর্মস্থল: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.address}</span>
-              </span>
+            <div className="space-y-1.5 text-[15px] md:text-base text-slate-900 dark:text-slate-300 font-bold ml-1">
+              <div className="flex items-start gap-3">
+                <User className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">পিতার নাম: <span className="font-semibold">{staff.fathersName || "দেওয়া নেই"}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Book className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1 flex justify-between">
+                  <span>NID নম্বর: <span className="font-semibold">{staff.nid || "দেওয়া নেই"}</span></span>
+                  {staff.bloodGroup && (
+                    <span className="flex items-center gap-1.5 text-red-600 mr-2 md:mr-6">
+                      <Droplet className="w-4 h-4 fill-current" />
+                      রক্ত গ্রুপ: {staff.bloodGroup}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Calendar className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">জন্ম তারিখ: <span className="font-semibold">{staff.dob || "দেওয়া নেই"}</span></div>
+              </div>
             </div>
-            <div className="flex items-center gap-3">
-              <Book className="w-5 h-5 text-blue-500 shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
-                এনআইডি নম্বর: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.nid}</span>
-              </span>
+          </div>
+
+          {/* Contact & Address */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-3 mb-2 text-slate-900 dark:text-slate-200 font-bold text-lg">
+              <Phone className="w-5 h-5 text-slate-600" />
+              যোগাযোগ ও ঠিকানা
             </div>
-            <div className="flex items-center gap-3">
-              <Clock className="w-5 h-5 text-amber-500 shrink-0" />
-              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm md:text-base">
-                যোগদানের তারিখ: <span className="text-slate-600 dark:text-slate-400 font-normal ml-1">{staff.joinDate}</span>
-              </span>
+            <div className="space-y-1.5 text-[15px] md:text-base text-slate-900 dark:text-slate-300 font-bold ml-1">
+              <div className="flex items-start gap-3">
+                <Phone className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">মোবাইল: <span className="font-semibold">{staff.phone}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">বর্তমান ঠিকানা: <span className="font-semibold">{staff.address}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Home className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1 leading-snug">স্থায়ী ঠিকানা (NID অনুযায়ী): <span className="font-semibold">{staff.permanentAddress || "দেওয়া নেই"}</span></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Professional Info */}
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 md:p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+            <div className="flex items-center gap-3 mb-2 text-slate-900 dark:text-slate-200 font-bold text-lg">
+              <Briefcase className="w-5 h-5 text-slate-600" />
+              পেশাগত তথ্য
+            </div>
+            <div className="space-y-1.5 text-[15px] md:text-base text-slate-900 dark:text-slate-300 font-bold ml-1">
+              <div className="flex items-start gap-3">
+                <Star className="w-4 h-4 mt-1 text-slate-500 fill-slate-500" />
+                <div className="flex-1">কাজের ধরন: <span className="font-semibold">{staff.designation}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Briefcase className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">পদবী: <span className="font-semibold">{staff.designation}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Coins className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">সেলারী: <span className="font-semibold">{staff.salaryType || "কাজের পিস হিসাবে"}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Calendar className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">যোগদান: <span className="font-semibold">{staff.joinDate}</span></div>
+              </div>
+              <div className="flex items-start gap-3">
+                <User className="w-4 h-4 mt-1 text-slate-500" />
+                <div className="flex-1">অভিজ্ঞতা: <span className="font-semibold">{staff.experience || "দেওয়া নেই"}</span></div>
+              </div>
             </div>
           </div>
         </div>
+      )}
+
+      {/* Buttons */}
+      <div className="flex justify-center gap-4 mt-6 max-w-2xl mx-auto px-2">
+        <Button 
+          onClick={() => setIsDetailsOpen(true)}
+          disabled={isDetailsOpen}
+          className={`flex-1 bg-[#4caf50] hover:bg-[#43a047] text-white font-bold rounded-full py-6 text-base md:text-lg shadow-md border border-[#388e3c] transition-opacity ${isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          <Eye className="w-5 h-5 mr-2" />
+          দেখুন
+        </Button>
+        <Button 
+          onClick={() => setIsDetailsOpen(false)}
+          disabled={!isDetailsOpen}
+          className={`flex-1 bg-[#2196f3] hover:bg-[#1e88e5] text-white font-bold rounded-full py-6 text-base md:text-lg shadow-md border border-[#1976d2] transition-opacity ${!isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+        >
+          <X className="w-5 h-5 mr-2" />
+          বন্ধ করুন
+        </Button>
       </div>
 
       <div className="max-w-3xl mx-auto mt-12 space-y-6">
-
-        {/* Action Buttons */}
-        <div className="flex justify-between md:justify-start items-center gap-2 mb-6 px-1 pb-1 overflow-x-auto custom-scrollbar whitespace-nowrap">
-          <AssignWorkModal 
-             staffName={staff.name} 
-             triggerClass="bg-green-600 hover:bg-green-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer" 
-          />
-          <AddExpenseModal 
-             staffName={staff.name} 
-             triggerClass="bg-red-600 hover:bg-red-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer" 
-          />
-          <ReceiveWorkModal 
-             staffName={staff.name} 
-             triggerClass="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm md:text-base px-4 py-2 rounded-xl transition-colors cursor-pointer"
-             triggerText="কাজ পেলাম"
-          />
-        </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 gap-3 md:gap-4">
@@ -163,6 +229,8 @@ export default function StaffProfilePage() {
         </div>
 
         <div className="h-px bg-slate-200 dark:bg-slate-800 my-8"></div>
+
+
 
         {/* Today's Work Report */}
         <div className="bg-[#0b5d4e] text-white rounded-2xl p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
@@ -185,6 +253,31 @@ export default function StaffProfilePage() {
            </div>
            {/* Background Decoration */}
            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+        </div>
+
+        {/* Action Buttons Area */}
+        <div className="flex flex-col gap-3 md:gap-4 mt-8 mb-4">
+          <div className="flex gap-3 md:gap-4 w-full">
+            <div className="flex-1">
+              <AssignWorkModal 
+                staffName={staff.name} 
+                triggerClass="w-full h-14 bg-[#4caf50] hover:bg-[#388e3c] text-white font-bold text-lg md:text-xl rounded-xl transition-colors shadow-sm flex items-center justify-center" 
+              />
+            </div>
+            <div className="flex-1">
+              <ReceiveWorkModal 
+                staffName={staff.name} 
+                triggerClass="w-full h-14 bg-[#1565c0] hover:bg-[#0d47a1] text-white font-bold text-lg md:text-xl rounded-xl transition-colors shadow-sm flex items-center justify-center"
+                triggerText="কাজ পেলাম"
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <AddExpenseModal 
+              staffName={staff.name} 
+              triggerClass="w-full h-16 bg-[#e53935] hover:bg-[#c62828] text-white font-bold text-xl md:text-2xl rounded-xl transition-colors shadow-sm flex items-center justify-center tracking-wide" 
+            />
+          </div>
         </div>
 
         {/* Work History Section Heading */}

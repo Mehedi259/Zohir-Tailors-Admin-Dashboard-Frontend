@@ -10,6 +10,12 @@ export interface Staff {
   photo: string;
   attendanceStatus: "Present" | "Absent" | "Left";
   activeJobs: number;
+  fathersName?: string;
+  dob?: string;
+  bloodGroup?: string;
+  permanentAddress?: string;
+  salaryType?: string;
+  experience?: string;
 }
 
 export const mockStaff: Staff[] = [
@@ -25,6 +31,12 @@ export const mockStaff: Staff[] = [
     photo: "https://i.pravatar.cc/150?img=11",
     attendanceStatus: "Present",
     activeJobs: 3,
+    fathersName: "আদিল মাহমুদ",
+    dob: "১৫-০৫-১৯৮২",
+    bloodGroup: "O+",
+    permanentAddress: "বালিচান্দা, হালুয়াঘাট, ময়মনসিংহ",
+    salaryType: "কাজের পিস হিসাবে",
+    experience: "১৫ বছর",
   },
   {
     id: "STF-002",
@@ -38,6 +50,12 @@ export const mockStaff: Staff[] = [
     photo: "https://i.pravatar.cc/150?img=12",
     attendanceStatus: "Present",
     activeJobs: 5,
+    fathersName: "করিম উদ্দিন",
+    dob: "১০-০২-১৯৯০",
+    bloodGroup: "A+",
+    permanentAddress: "ধানমন্ডি, ঢাকা",
+    salaryType: "মাসিক বেতনে",
+    experience: "৮ বছর",
   },
   {
     id: "STF-003",
@@ -51,6 +69,12 @@ export const mockStaff: Staff[] = [
     photo: "https://i.pravatar.cc/150?img=13",
     attendanceStatus: "Absent",
     activeJobs: 0,
+    fathersName: "রহমান আলী",
+    dob: "২০-১০-১৯৯৫",
+    bloodGroup: "B+",
+    permanentAddress: "মিরপুর, ঢাকা",
+    salaryType: "কাজের পিস হিসাবে",
+    experience: "৫ বছর",
   },
   {
     id: "STF-004",
@@ -64,6 +88,12 @@ export const mockStaff: Staff[] = [
     photo: "https://i.pravatar.cc/150?img=14",
     attendanceStatus: "Present",
     activeJobs: 1,
+    fathersName: "নজরুল ইসলাম",
+    dob: "০১-০১-১৯৮৮",
+    bloodGroup: "AB+",
+    permanentAddress: "উত্তরা, ঢাকা",
+    salaryType: "মাসিক বেতনে",
+    experience: "১০ বছর",
   },
   {
     id: "STF-005",
@@ -77,6 +107,12 @@ export const mockStaff: Staff[] = [
     photo: "https://i.pravatar.cc/150?img=15",
     attendanceStatus: "Left",
     activeJobs: 0,
+    fathersName: "আহমেদ শরীফ",
+    dob: "১২-১২-১৯৮৫",
+    bloodGroup: "O-",
+    permanentAddress: "গুলিস্তান, ঢাকা",
+    salaryType: "কাজের পিস হিসাবে",
+    experience: "১২ বছর",
   },
 ];
 

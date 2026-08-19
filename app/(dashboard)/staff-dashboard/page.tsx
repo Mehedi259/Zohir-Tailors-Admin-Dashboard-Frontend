@@ -70,22 +70,22 @@ export default function StaffDashboardPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:gap-4 mb-3">
-          <Card className="bg-[#1f4e5a] text-white border-0 shadow-md">
+          <Card className="bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100 border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-4 md:p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm md:text-base opacity-80 mb-1">মোট কারিগর কর্মচারী</p>
+                <p className="text-sm md:text-base opacity-80 mb-1 font-bold">মোট কারিগর কর্মচারী</p>
                 <h3 className="text-2xl md:text-3xl font-bold">10 জন</h3>
               </div>
-              <Users className="w-8 h-8 md:w-12 md:h-12 opacity-50" />
+              <Users className="w-8 h-8 md:w-12 md:h-12 text-blue-500 opacity-80" />
             </CardContent>
           </Card>
-          <Card className="bg-[#2d8c83] text-white border-0 shadow-md">
+          <Card className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-900 dark:text-emerald-100 border border-emerald-200 dark:border-emerald-800 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-4 md:p-6 flex items-center justify-between">
               <div>
-                <p className="text-sm md:text-base opacity-80 mb-1">সক্রিয় আছেন</p>
+                <p className="text-sm md:text-base opacity-80 mb-1 font-bold">সক্রিয় আছেন</p>
                 <h3 className="text-2xl md:text-3xl font-bold">05 জন</h3>
               </div>
-              <UserCheck className="w-8 h-8 md:w-12 md:h-12 opacity-50" />
+              <UserCheck className="w-8 h-8 md:w-12 md:h-12 text-emerald-500 opacity-80" />
             </CardContent>
           </Card>
         </div>
@@ -112,27 +112,27 @@ export default function StaffDashboardPage() {
       <div>
         <h2 className="text-lg font-bold mb-3 px-1 text-slate-700 dark:text-slate-300">অর্থনৈতিক তথ্য</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-          <Card className="bg-[#1b3d4e] text-white border-0 shadow-md">
+          <Card className="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-900 dark:text-emerald-100 border border-emerald-200 dark:border-emerald-800 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-4 md:p-6 flex flex-col justify-center">
-              <p className="text-xs md:text-base opacity-80 mb-1">মোট বিল</p>
+              <p className="text-xs md:text-base opacity-80 mb-1 font-bold">মোট বিল</p>
               <h3 className="text-lg md:text-3xl font-bold flex items-center gap-1">
-                <TrendingUp className="w-4 h-4 md:w-5 md:h-5 opacity-50" /> ৳250,550
+                <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-emerald-600 opacity-80" /> ৳250,550
               </h3>
             </CardContent>
           </Card>
-          <Card className="bg-[#1f4e5a] text-white border-0 shadow-md">
+          <Card className="bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100 border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
             <CardContent className="p-4 md:p-6 flex flex-col justify-center">
-              <p className="text-xs md:text-base opacity-80 mb-1">মোট বিল পরিশোধ</p>
+              <p className="text-xs md:text-base opacity-80 mb-1 font-bold">মোট বিল পরিশোধ</p>
               <h3 className="text-lg md:text-3xl font-bold flex items-center gap-1">
-                <CheckCircle className="w-4 h-4 md:w-5 md:h-5 opacity-50" /> ৳240,450
+                <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-blue-600 opacity-80" /> ৳240,450
               </h3>
             </CardContent>
           </Card>
-          <Card className="bg-[#1b3d4e] text-white border-0 shadow-md col-span-2 md:col-span-1">
+          <Card className="bg-rose-50 dark:bg-rose-900/20 text-rose-900 dark:text-rose-100 border border-rose-200 dark:border-rose-800 shadow-sm hover:shadow-md transition-shadow col-span-2 md:col-span-1">
             <CardContent className="p-4 md:p-6 flex items-center justify-between md:justify-start md:flex-col md:items-start text-center md:text-left">
-              <p className="text-sm md:text-base opacity-90 md:mb-1">বর্তমান বাকি ব্যালেন্স</p>
-              <h3 className="text-2xl md:text-3xl font-bold flex items-center justify-center gap-1 w-full md:w-auto">
-                <AlertTriangle className="w-5 h-5 opacity-70" /> ৳10,100
+              <p className="text-sm md:text-base opacity-90 md:mb-1 font-bold">বর্তমান বাকি ব্যালেন্স</p>
+              <h3 className="text-2xl md:text-3xl font-bold flex items-center justify-center gap-1 w-full md:w-auto text-rose-700 dark:text-rose-400">
+                <AlertTriangle className="w-5 h-5 opacity-80" /> ৳10,100
               </h3>
             </CardContent>
           </Card>
