@@ -144,10 +144,10 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
+            <div className="rounded-xl border-2 border-emerald-500 dark:border-emerald-500 shadow-sm bg-white dark:bg-slate-950">
               <div>
                 {/* Desktop Header */}
-                <div className="hidden md:grid grid-cols-[40px_1fr_120px_130px_120px_40px] gap-4 bg-slate-100 dark:bg-slate-900 p-4 text-slate-600 dark:text-slate-300 font-bold text-sm rounded-t-xl border-b border-slate-200 dark:border-slate-800">
+                <div className="hidden md:grid grid-cols-[40px_1fr_120px_130px_120px_40px] gap-4 bg-emerald-50 dark:bg-emerald-950/20 p-4 text-slate-600 dark:text-slate-300 font-bold text-sm rounded-t-xl border-b-2 border-emerald-500 dark:border-emerald-500">
                   <div className="text-center">ক্র. নং</div>
                   <div>কাজের নাম</div>
                   <div className="text-center">পরিমাণ</div>
@@ -156,7 +156,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                   <div className="text-center"></div>
                 </div>
 
-                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                <div className="divide-y-2 divide-emerald-500/20 dark:divide-emerald-500/20">
                   {fields.map((field, index) => {
                     const currentQuantity = watchItems[index]?.quantity || 0;
                     const currentRate = watchItems[index]?.rate || 0;
@@ -205,7 +205,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                     defaultValue={formField.value}
                                   >
                                     <FormControl>
-                                      <SelectTrigger className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-base">
+                                      <SelectTrigger className="w-full h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 text-base outline-none focus-visible:ring-emerald-500">
                                         <SelectValue placeholder="নির্বাচন করুন" />
                                       </SelectTrigger>
                                     </FormControl>
@@ -235,7 +235,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         min="1"
                                         {...formField}
                                         onChange={e => formField.onChange(Number(e.target.value))}
-                                        className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-center font-bold text-lg"
+                                        className="h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 text-center font-bold text-lg outline-none focus-visible:ring-emerald-500"
                                       />
                                     </FormControl>
                                     <FormMessage />
@@ -257,7 +257,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         min="0"
                                         {...formField}
                                         onChange={e => formField.onChange(Number(e.target.value))}
-                                        className="h-12 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 text-center font-bold text-lg"
+                                        className="h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 text-center font-bold text-lg outline-none focus-visible:ring-emerald-500"
                                       />
                                     </FormControl>
                                     <FormMessage />
@@ -297,7 +297,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                     type="button"
                     variant="outline"
                     onClick={() => append({ jobName: "", quantity: 1, rate: 0 })}
-                    className="w-full border-dashed border-2 border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-600 dark:text-slate-300 hover:text-primary hover:border-primary hover:bg-primary/5 py-6 font-semibold"
+                    className="w-full border-dashed border-2 border-emerald-400 dark:border-emerald-600 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 hover:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 py-6 font-semibold"
                   >
                     <Plus className="mr-2 h-4 w-4" /> আরও আইটেম যোগ করুন
                   </Button>
@@ -305,15 +305,15 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
               </div>
             </div>
 
-            <div className="bg-primary text-primary-foreground p-5 sm:p-6 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 p-5 sm:p-6 rounded-2xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4 border-2 border-emerald-500 dark:border-emerald-500">
               <div className="text-center sm:text-left">
-                <p className="text-primary-foreground/80 font-medium mb-1">সর্বমোট হিসাব</p>
+                <p className="text-slate-500 font-medium mb-1">সর্বমোট হিসাব</p>
                 <div className="flex items-center gap-4 text-xl sm:text-2xl font-bold">
-                  <div>কাজ: <span className="text-2xl sm:text-3xl bg-white/20 px-3 py-1 rounded-lg ml-1">{totalQuantity}</span> টি</div>
-                  <div>বিল: <span className="text-2xl sm:text-3xl bg-white/20 px-3 py-1 rounded-lg ml-1">৳ {grandTotal.toLocaleString()}</span></div>
+                  <div>কাজ: <span className="text-2xl sm:text-3xl bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-lg ml-1">{totalQuantity}</span> টি</div>
+                  <div>বিল: <span className="text-2xl sm:text-3xl bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 px-3 py-1 rounded-lg ml-1">৳ {grandTotal.toLocaleString()}</span></div>
                 </div>
               </div>
-              <Button type="submit" size="lg" className="w-full sm:w-auto bg-white text-primary hover:bg-slate-100 font-bold px-8 h-14 text-lg shadow-md hover:-translate-y-1 transition-all">
+              <Button type="submit" size="lg" className="w-full sm:w-auto bg-emerald-600 text-white hover:bg-emerald-700 font-bold px-8 h-14 text-lg shadow-md hover:-translate-y-1 transition-all">
                 কাজ বুঝিয়ে দিন
               </Button>
             </div>

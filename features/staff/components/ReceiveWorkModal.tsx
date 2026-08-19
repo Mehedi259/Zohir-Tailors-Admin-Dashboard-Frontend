@@ -90,7 +90,7 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
           <p className="text-sm text-slate-500 font-medium">কারিগর: {staffName}</p>
         </DialogHeader>
 
-        <div className="bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30 p-3 sm:p-4 mb-4">
+        <div className="bg-blue-50/50 dark:bg-blue-900/10 rounded-xl border-2 border-blue-500 dark:border-blue-500 p-3 sm:p-4 mb-4">
           <div className="flex justify-between items-center mb-3">
              <span className="font-bold text-slate-700 dark:text-slate-300 text-sm sm:text-base">অসম্পূর্ণ কাজের তালিকা:</span>
              <span className="text-[10px] sm:text-xs bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 px-2 sm:px-2.5 py-1 rounded-full font-bold">{pendingJobs.length} টি কাজ</span>
@@ -100,8 +100,8 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
             {pendingJobs.map(job => (
               <label 
                  key={job.id} 
-                 className={`flex items-center justify-between p-3 rounded-lg border cursor-pointer transition-all duration-200 ${
-                   selectedJobs.includes(job.id) ? 'bg-white border-blue-300 shadow-sm dark:bg-slate-900 dark:border-blue-700' : 'bg-white/50 border-slate-200 dark:bg-slate-950 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-900'
+                 className={`flex items-center justify-between p-3 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
+                   selectedJobs.includes(job.id) ? 'bg-white border-blue-500 shadow-sm dark:bg-slate-900 dark:border-blue-500' : 'bg-white/50 border-blue-500 dark:bg-slate-950 dark:border-blue-500 hover:bg-white dark:hover:bg-slate-900'
                  }`}
               >
                 <div className="flex-1 overflow-hidden">
@@ -119,6 +119,7 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
                   <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 shrink-0 rounded-md border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 transition-colors" data-state={selectedJobs.includes(job.id) ? 'checked' : 'unchecked'}>
                     {selectedJobs.includes(job.id) && <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" strokeWidth={3} />}
                   </div>
+                  <input type="checkbox" className="hidden" checked={selectedJobs.includes(job.id)} onChange={() => toggleJob(job.id)} />
                 </div>
               </label>
             ))}
@@ -138,7 +139,7 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
              value={amountPaid} 
              placeholder="৳"
              onChange={e => setAmountPaid(e.target.value)} 
-             className="h-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 font-bold text-lg rounded-xl focus-visible:ring-blue-500"
+             className="h-12 bg-white dark:bg-slate-900 border-2 border-blue-500 dark:border-blue-500 font-bold text-lg rounded-xl focus-visible:ring-blue-500 outline-none"
           />
         </div>
         
@@ -152,13 +153,13 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
                type="date" 
                value={selectedDate} 
                onChange={e => setSelectedDate(e.target.value)} 
-               className="h-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 font-medium text-slate-700 dark:text-slate-300 rounded-xl pl-4 pr-4 focus-visible:ring-blue-500 w-full block"
+               className="h-12 bg-white dark:bg-slate-900 border-2 border-blue-500 dark:border-blue-500 font-medium text-slate-700 dark:text-slate-300 rounded-xl pl-4 pr-4 focus-visible:ring-blue-500 w-full block outline-none"
             />
           </div>
           <p className="text-[11px] text-slate-500 mt-1.5 font-medium ml-1">পূর্বের তারিখ নির্বাচন করতে পারবেন, সময় অটোমেটিক সেট হবে।</p>
         </div>
 
-        <div className="text-center mb-5 bg-slate-50 dark:bg-slate-900 py-3 rounded-xl border border-slate-100 dark:border-slate-800">
+        <div className="text-center mb-5 bg-slate-50 dark:bg-slate-900 py-3 rounded-xl border-2 border-blue-500 dark:border-blue-500">
            <span className="font-bold text-slate-700 dark:text-slate-300 text-base flex justify-center items-center gap-4">
              <span>মোট কাজ <span className="text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 px-2 py-0.5 rounded-md ml-1">{selectedJobs.length}টি</span></span>
              <span className="w-1 h-1 bg-slate-300 rounded-full"></span>

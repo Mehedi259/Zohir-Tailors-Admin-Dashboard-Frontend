@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, Plus, Briefcase, BriefcaseBusiness, Phone, ArrowRight } from "lucide-react";
+import { Search, Plus, Briefcase, BriefcaseBusiness, Phone, ArrowRight, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { mockStaff } from "@/features/staff/data/mock";
 import Image from "next/image";
@@ -153,9 +153,6 @@ export default function StaffListPage() {
                             <SelectItem value="inactive" className="text-slate-600 focus:bg-slate-50 cursor-pointer">ইনঅ্যাক্টিভ</SelectItem>
                           </SelectContent>
                         </Select>
-                        {!isActive && (
-                          <span className="text-[10px] text-slate-400 font-semibold px-1">১২ আগস্ট, ২০২৪</span>
-                        )}
                       </div>
                     </div>
 
@@ -198,14 +195,13 @@ export default function StaffListPage() {
                             value={currentStatus === "Left" ? "ChangedWorkplace" : currentStatus} 
                             onValueChange={(val) => handleStatusChange(staff.id, val as string)}
                           >
-                            <SelectTrigger className="h-9 px-4 text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-md rounded-full cursor-pointer transition-opacity focus:ring-0">
+                            <SelectTrigger className="h-9 px-4 text-xs sm:text-sm font-bold bg-blue-600 hover:bg-blue-700 text-white border-0 shadow-md rounded-full cursor-pointer transition-opacity focus:ring-0 flex items-center justify-between gap-1.5 [&>svg:last-child]:hidden">
                               <span>হাজিরা আপডেট</span>
+                              <RefreshCw className="w-4 h-4 ml-1" />
                             </SelectTrigger>
                             <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl z-[100]">
                               <SelectItem value="Present" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">উপস্থিত</SelectItem>
                               <SelectItem value="Absent" className="text-rose-700 focus:bg-rose-50 cursor-pointer">অনুপস্থিত</SelectItem>
-                              <SelectItem value="ChangedWorkplace" className="text-amber-700 focus:bg-amber-50 cursor-pointer">কর্মস্থল পরিবর্তন করেছেন</SelectItem>
-                              <SelectItem value="Rejoined" className="text-blue-700 focus:bg-blue-50 cursor-pointer">পুনরায় যোগদান</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -217,9 +213,10 @@ export default function StaffListPage() {
                     </>
                   ) : (
                     <div className="w-full">
-                      <span className="block text-center text-amber-700 bg-amber-50 px-4 py-2 rounded-xl font-bold text-sm border border-amber-100">
-                        কর্মস্থল পরিবর্তন করেছেন
-                      </span>
+                      <div className="flex items-center justify-center gap-2 text-amber-700 bg-amber-50 px-4 py-2 rounded-xl border border-amber-100">
+                        <span className="font-bold text-sm">কর্মস্থল পরিবর্তন করেছেন</span>
+                        <span className="text-xs font-medium opacity-80">১২ আগস্ট, ২০২৪</span>
+                      </div>
                     </div>
                   )}
                 </div>
