@@ -107,9 +107,8 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
                 <div className="flex-1 overflow-hidden">
                    <div className="font-bold text-slate-800 dark:text-slate-200 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[14px] sm:text-[15px]">
                      <span className="text-blue-600 dark:text-blue-400">{job.orderNo}</span>
-                     <span className="truncate">কাস্টমার: {job.items.split(' ')[0]} (১)</span>
+                     <span className="truncate">{job.customerName}: {job.items}</span>
                    </div>
-                   <div className="text-[12px] sm:text-[13px] text-slate-500 mt-1 font-medium">জহির টেইলার্স কাস্টমার</div>
                 </div>
                 
                 <div className="flex items-center gap-2 sm:gap-3 ml-2">

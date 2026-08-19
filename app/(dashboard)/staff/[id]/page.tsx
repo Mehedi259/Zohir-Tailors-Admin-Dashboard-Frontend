@@ -203,7 +203,7 @@ export default function StaffProfilePage() {
         <Button 
           onClick={() => setIsDetailsOpen(true)}
           disabled={isDetailsOpen}
-          className={`flex-1 bg-[#4caf50] hover:bg-[#43a047] text-white font-bold rounded-full py-6 text-base md:text-lg shadow-md border border-[#388e3c] transition-opacity ${isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-32 sm:w-40 h-11 sm:h-12 bg-[#4caf50] hover:bg-[#43a047] text-white font-bold rounded-full text-base shadow-sm border border-[#388e3c] transition-opacity ${isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <Eye className="w-5 h-5 mr-2" />
           দেখুন
@@ -211,7 +211,7 @@ export default function StaffProfilePage() {
         <Button 
           onClick={() => setIsDetailsOpen(false)}
           disabled={!isDetailsOpen}
-          className={`flex-1 bg-[#2196f3] hover:bg-[#1e88e5] text-white font-bold rounded-full py-6 text-base md:text-lg shadow-md border border-[#1976d2] transition-opacity ${!isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-36 sm:w-44 h-11 sm:h-12 bg-[#2196f3] hover:bg-[#1e88e5] text-white font-bold rounded-full text-base shadow-sm border border-[#1976d2] transition-opacity ${!isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <X className="w-5 h-5 mr-2" />
           বন্ধ করুন
@@ -222,10 +222,38 @@ export default function StaffProfilePage() {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 gap-3 md:gap-4">
-           <SummaryCard title="মোট কাজ" value="৫৫ টি" icon={<Home className="h-8 w-8 opacity-50" />} />
-           <SummaryCard title="মোট কাজ জমা" value="৪৫ টি" icon={<Check className="h-8 w-8 text-green-400 opacity-80" />} />
-           <SummaryCard title="চলমান কাজ" value="১০ টি" icon={<Clock className="h-8 w-8 text-blue-300 opacity-80" />} />
-           <SummaryCard title="মোট বিল" value="৳৭,৫০০" icon={<FileText className="h-8 w-8 text-blue-400 opacity-80" />} />
+           <SummaryCard 
+             title="মোট কাজ" 
+             value="৫৫ টি" 
+             icon={<Home className="h-8 w-8 text-slate-500 dark:text-slate-400" />} 
+             bgColor="bg-slate-100 dark:bg-slate-800/50" 
+             textColor="text-slate-800 dark:text-slate-200" 
+             borderColor="border-slate-200 dark:border-slate-700"
+           />
+           <SummaryCard 
+             title="মোট কাজ জমা" 
+             value="৪৫ টি" 
+             icon={<Check className="h-8 w-8 text-emerald-500" />} 
+             bgColor="bg-emerald-50 dark:bg-emerald-900/20" 
+             textColor="text-emerald-800 dark:text-emerald-200" 
+             borderColor="border-emerald-200 dark:border-emerald-800/50"
+           />
+           <SummaryCard 
+             title="চলমান কাজ" 
+             value="১০ টি" 
+             icon={<Clock className="h-8 w-8 text-amber-500" />} 
+             bgColor="bg-amber-50 dark:bg-amber-900/20" 
+             textColor="text-amber-800 dark:text-amber-200" 
+             borderColor="border-amber-200 dark:border-amber-800/50"
+           />
+           <SummaryCard 
+             title="মোট বিল" 
+             value="৳৭,৫০০" 
+             icon={<FileText className="h-8 w-8 text-blue-500" />} 
+             bgColor="bg-blue-50 dark:bg-blue-900/20" 
+             textColor="text-blue-800 dark:text-blue-200" 
+             borderColor="border-blue-200 dark:border-blue-800/50"
+           />
         </div>
 
         <div className="h-px bg-slate-200 dark:bg-slate-800 my-8"></div>
@@ -233,26 +261,26 @@ export default function StaffProfilePage() {
 
 
         {/* Today's Work Report */}
-        <div className="bg-[#0b5d4e] text-white rounded-2xl p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
+        <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-emerald-200 dark:border-emerald-800/50">
            <div className="relative z-10">
-             <h2 className="text-xl md:text-3xl font-bold">আজকের কাজের রিপোর্ট</h2>
-             <p className="text-emerald-200 mt-2 text-sm md:text-base">সাফল্যের পথ</p>
+             <h2 className="text-xl md:text-3xl font-bold text-emerald-900 dark:text-emerald-100">আজকের কাজের রিপোর্ট</h2>
+             <p className="text-emerald-600 dark:text-emerald-400 mt-2 text-sm md:text-base font-medium">সাফল্যের পথ</p>
              
              <div className="flex justify-center gap-12 md:gap-32 mt-8">
                 <div>
-                   <div className="text-3xl md:text-5xl font-bold mb-2">
+                   <div className="text-3xl md:text-5xl font-bold mb-2 text-emerald-800 dark:text-emerald-200">
                       {mockWorkHistory.filter(h => h.status === 'Completed').length}
                    </div>
-                   <div className="text-emerald-100 text-sm md:text-base font-medium">সম্পন্ন কাজ</div>
+                   <div className="text-emerald-700 dark:text-emerald-300 text-sm md:text-base font-bold">সম্পন্ন কাজ</div>
                 </div>
                 <div>
-                   <div className="text-3xl md:text-5xl font-bold mb-2">15</div>
-                   <div className="text-emerald-100 text-sm md:text-base font-medium">অসম্পন্ন কাজ</div>
+                   <div className="text-3xl md:text-5xl font-bold mb-2 text-emerald-800 dark:text-emerald-200">15</div>
+                   <div className="text-emerald-700 dark:text-emerald-300 text-sm md:text-base font-bold">অসম্পন্ন কাজ</div>
                 </div>
              </div>
            </div>
            {/* Background Decoration */}
-           <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-200/30 dark:bg-emerald-800/20 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
         </div>
 
         {/* Action Buttons Area */}
@@ -350,14 +378,14 @@ export default function StaffProfilePage() {
 }
 
 // Helper Component for Summary Cards
-function SummaryCard({ title, value, icon }: { title: string, value: string, icon: React.ReactNode }) {
+function SummaryCard({ title, value, icon, bgColor, textColor, borderColor }: { title: string, value: string, icon: React.ReactNode, bgColor: string, textColor: string, borderColor: string }) {
   return (
-    <div className="bg-[#3b4c52] dark:bg-[#2b3a3f] text-white rounded-2xl p-5 flex justify-between items-center shadow-md shadow-slate-200/50 dark:shadow-none transition-transform hover:-translate-y-1">
+    <div className={`${bgColor} ${textColor} ${borderColor} border rounded-2xl p-5 flex justify-between items-center shadow-sm hover:shadow-md transition-all hover:-translate-y-1`}>
       <div>
-        <p className="text-slate-300 text-xs md:text-sm font-medium mb-1.5">{title}</p>
+        <p className="text-xs md:text-sm font-bold opacity-80 mb-1.5">{title}</p>
         <h4 className="text-2xl md:text-3xl font-bold">{value}</h4>
       </div>
-      <div className="opacity-80">
+      <div>
         {icon}
       </div>
     </div>

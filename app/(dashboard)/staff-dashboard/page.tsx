@@ -36,16 +36,22 @@ export default function StaffDashboardPage() {
         
         {currentTime && (
           <div className="flex flex-col md:flex-row items-center justify-between w-full md:w-auto text-sm md:text-base font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 px-4 py-3 md:py-2 rounded-xl border border-slate-100 dark:border-slate-700">
-            <div className="flex items-center gap-2 mb-1 md:mb-0 md:mr-4">
-              <span>{format(currentTime, "EEEE")},</span>
-              <span>{format(currentTime, "dd MMM yyyy")}</span>
-            </div>
-            <div className="flex items-center gap-1 text-slate-500 font-bold bg-slate-200/50 dark:bg-slate-900 px-3 py-1 rounded-lg">
+            <div className="flex items-center gap-1 text-slate-500 font-bold bg-slate-200/50 dark:bg-slate-900 px-3 py-1 rounded-lg mb-1.5 md:mb-0 md:mr-4">
               <Clock className="w-4 h-4" />
               <span>{format(currentTime, "hh:mm a")}</span>
             </div>
+            <div className="flex items-center gap-2">
+              <span>{format(currentTime, "EEEE")},</span>
+              <span>{format(currentTime, "dd MMM yyyy")}</span>
+            </div>
           </div>
         )}
+      </div>
+
+      <div className="pt-2 pb-2">
+        <Button className="w-full bg-red-600 text-white hover:bg-red-700 h-12 font-bold rounded-xl gap-2 shadow-sm transition-all">
+          <Download className="w-4 h-4" /> রিপোর্ট PDF
+        </Button>
       </div>
 
       {/* কর্মচারী তথ্য (Staff Info) */}
@@ -158,10 +164,10 @@ export default function StaffDashboardPage() {
 
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {[
-              { name: "করিম (পুরুষ)", action: "৫টি প্যান্ট জমা দিয়েছে", time: "10:30 AM", type: "submit" },
-              { name: "রহিমা (নারী)", action: "৩টি বোরকা কাজ শুরু করেছে", time: "11:15 AM", type: "start" },
-              { name: "জব্বার (পুরুষ)", action: "অগ্রিম ৳৫০০ নিয়েছে", time: "1:45 PM", type: "expense" },
-              { name: "ফাতেমা (নারী)", action: "২টি কামিজ জমা দিয়েছে", time: "3:20 PM", type: "submit" },
+              { name: "করিম (পুরুষ)", action: "৫টি প্যান্ট জমা দিয়েছে", time: "10:30 AM", date: "18-08-2026", type: "submit" },
+              { name: "রহিমা (নারী)", action: "৩টি বোরকা কাজ শুরু করেছে", time: "11:15 AM", date: "19-08-2026", type: "start" },
+              { name: "জব্বার (পুরুষ)", action: "অগ্রিম ৳৫০০ নিয়েছে", time: "1:45 PM", date: "20-08-2026", type: "expense" },
+              { name: "ফাতেমা (নারী)", action: "২টি কামিজ জমা দিয়েছে", time: "3:20 PM", date: "23-08-2026", type: "submit" },
             ].map((log, idx) => (
               <div key={idx} className="p-4 flex items-center justify-between hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                 <div className="flex items-center gap-3">
@@ -174,7 +180,13 @@ export default function StaffDashboardPage() {
                     - {log.action}
                   </p>
                 </div>
-                <span className="text-xs text-slate-400 font-medium">{log.time}</span>
+                <div className="text-right">
+                  <span className="text-xs text-slate-400 font-medium block">{log.time}</span>
+                  <span className={`text-[10px] font-bold ${
+                    log.type === 'submit' ? 'text-green-500' : 
+                    log.type === 'start' ? 'text-blue-500' : 'text-orange-500'
+                  }`}>{log.date}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -182,11 +194,7 @@ export default function StaffDashboardPage() {
       </div>
 
 
-      <div className="pt-4">
-        <Button variant="outline" className="w-full border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 h-12 font-bold rounded-xl gap-2 shadow-sm transition-all bg-white dark:bg-slate-900">
-          <Download className="w-4 h-4" /> রিপোর্ট PDF
-        </Button>
-      </div>
+
     </div>
   );
 }

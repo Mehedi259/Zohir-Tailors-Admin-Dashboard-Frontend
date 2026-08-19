@@ -117,7 +117,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
           </DialogTitle>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-slate-50 dark:bg-slate-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 bg-slate-50 dark:bg-slate-900 p-5 rounded-xl border-2 border-emerald-500 dark:border-emerald-500">
           <div>
             <label className="text-sm text-slate-500 font-semibold flex items-center gap-1.5 mb-1.5">
               <CalendarIcon className="w-4 h-4 text-slate-400" />
@@ -127,7 +127,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                type="date" 
                value={selectedDate} 
                onChange={e => setSelectedDate(e.target.value)} 
-               className="h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 font-medium"
+               className="w-full h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 font-medium outline-none focus-visible:ring-emerald-500"
             />
           </div>
           <div className="md:text-right">
@@ -137,7 +137,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                value={orderNo} 
                placeholder="যেমন: #ORD-1234"
                onChange={e => setOrderNo(e.target.value)} 
-               className="h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 font-bold text-primary md:text-left"
+               className="w-full h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 font-bold text-primary md:text-left outline-none focus-visible:ring-emerald-500"
             />
           </div>
         </div>

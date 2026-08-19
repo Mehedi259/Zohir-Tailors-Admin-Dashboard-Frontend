@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Hind_Siliguri } from "next/font/google";
+import { Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
 
-const hindSiliguri = Hind_Siliguri({
-  subsets: ["bengali", "latin"],
+const notoSansBengali = Noto_Sans_Bengali({
+  subsets: ["bengali"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-sans",
 });
@@ -25,7 +25,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body className={`${hindSiliguri.variable} font-sans antialiased bg-background text-foreground min-h-screen`}>
+      <body className={`${notoSansBengali.variable} font-sans antialiased bg-background text-foreground min-h-screen`}>
         <Providers>
           {children}
           <Toaster position="top-right" richColors />
