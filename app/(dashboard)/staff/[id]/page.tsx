@@ -373,15 +373,13 @@ export default function StaffProfilePage() {
                       <div className="font-bold text-slate-800 dark:text-slate-200 text-lg md:text-xl">{history.totalWage}/-</div>
                     </td>
                     <td className="p-4 text-center">
-                      <Select defaultValue={history.status === 'Completed' ? 'completed' : 'incomplete'}>
-                        <SelectTrigger className="w-28 mx-auto h-9 text-xs font-bold border-slate-200 dark:border-slate-700 focus:ring-0 rounded-lg">
-                          <span style={{flex: 1, textAlign: 'left'}}>{history.status === 'Completed' ? 'সম্পন্ন' : 'অসম্পন্ন'}</span>
-                        </SelectTrigger>
-                        <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl">
-                          <SelectItem value="completed" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">সম্পন্ন</SelectItem>
-                          <SelectItem value="incomplete" className="text-rose-700 focus:bg-rose-50 cursor-pointer">অসম্পন্ন</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <span className={`inline-flex items-center justify-center px-3 py-1.5 rounded-lg text-xs font-bold w-24 ${
+                        history.status === 'Completed'
+                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400'
+                          : 'bg-rose-100 text-rose-700 dark:bg-rose-500/10 dark:text-rose-400'
+                      }`}>
+                        {history.status === 'Completed' ? 'সম্পন্ন' : 'অসম্পন্ন'}
+                      </span>
                     </td>
                   </tr>
                 )) : (
