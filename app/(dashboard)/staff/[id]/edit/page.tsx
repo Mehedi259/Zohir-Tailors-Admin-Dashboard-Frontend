@@ -77,29 +77,100 @@ export default function EditStaffPage() {
           </Button>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-5">
-          <div className="space-y-2">
-            <Label htmlFor="name">কারিগরের নাম *</Label>
-            <Input id="name" defaultValue={staff.name} placeholder="যেমন: মো. কামাল মিয়া" required />
+        <div className="space-y-8">
+          
+          {/* ব্যক্তিগত তথ্য */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">ব্যক্তিগত তথ্য</h3>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="name">কারিগরের নাম *</Label>
+                <Input id="name" defaultValue={staff.name} placeholder="যেমন: মো. কামাল মিয়া" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="fathersName">পিতার নাম</Label>
+                <Input id="fathersName" defaultValue={staff.fathersName} placeholder="পিতার নাম লিখুন" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="nid">এনআইডি নম্বর</Label>
+                <Input id="nid" defaultValue={staff.nid} placeholder="এনআইডি নম্বর লিখুন" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="dob">জন্ম তারিখ</Label>
+                <Input id="dob" defaultValue={staff.dob} placeholder="যেমন: ১৫-০৫-১৯৮২" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="bloodGroup">রক্ত গ্রুপ</Label>
+                <Select defaultValue={staff.bloodGroup}>
+                  <SelectTrigger id="bloodGroup">
+                    <SelectValue placeholder="রক্ত গ্রুপ নির্বাচন করুন" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="A+">A+</SelectItem>
+                    <SelectItem value="A-">A-</SelectItem>
+                    <SelectItem value="B+">B+</SelectItem>
+                    <SelectItem value="B-">B-</SelectItem>
+                    <SelectItem value="O+">O+</SelectItem>
+                    <SelectItem value="O-">O-</SelectItem>
+                    <SelectItem value="AB+">AB+</SelectItem>
+                    <SelectItem value="AB-">AB-</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="phone">মোবাইল নম্বর *</Label>
-            <Input id="phone" type="tel" defaultValue={staff.phone} placeholder="যেমন: 017XXXXXXXX" required />
+
+          {/* যোগাযোগ ও ঠিকানা */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">যোগাযোগ ও ঠিকানা</h3>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="phone">মোবাইল নম্বর *</Label>
+                <Input id="phone" type="tel" defaultValue={staff.phone} placeholder="যেমন: 017XXXXXXXX" required />
+              </div>
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="address">বর্তমান ঠিকানা</Label>
+                <Input id="address" defaultValue={staff.address} placeholder="বিস্তারিত ঠিকানা লিখুন" />
+              </div>
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="permanentAddress">স্থায়ী ঠিকানা</Label>
+                <Input id="permanentAddress" defaultValue={staff.permanentAddress} placeholder="বিস্তারিত ঠিকানা লিখুন" />
+              </div>
+            </div>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="designation">কাজের ধরন / পদবী *</Label>
-            <Input id="designation" defaultValue={staff.designation} placeholder="যেমন: শার্ট কারিগর, প্যান্ট কারিগর" required />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="nid">এনআইডি নম্বর</Label>
-            <Input id="nid" defaultValue={staff.nid} placeholder="এনআইডি নম্বর লিখুন" />
-          </div>
-          <div className="space-y-2 sm:col-span-2">
-            <Label htmlFor="address">ঠিকানা</Label>
-            <Input id="address" defaultValue={staff.address} placeholder="বিস্তারিত ঠিকানা লিখুন" />
+
+          {/* পেশাগত তথ্য */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 pb-2">পেশাগত তথ্য</h3>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="space-y-2">
+                <Label htmlFor="designation">কাজের ধরন / পদবী *</Label>
+                <Input id="designation" defaultValue={staff.designation} placeholder="যেমন: শার্ট কারিগর, প্যান্ট কারিগর" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="salaryType">সেলারী টাইপ</Label>
+                <Select defaultValue={staff.salaryType || "কাজের পিস হিসাবে"}>
+                  <SelectTrigger id="salaryType">
+                    <SelectValue placeholder="সেলারী টাইপ নির্বাচন করুন" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="কাজের পিস হিসাবে">কাজের পিস হিসাবে</SelectItem>
+                    <SelectItem value="মাসিক বেতন">মাসিক বেতন</SelectItem>
+                    <SelectItem value="দৈনিক হাজিরা">দৈনিক হাজিরা</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="joinDate">যোগদান তারিখ</Label>
+                <Input id="joinDate" defaultValue={staff.joinDate} placeholder="যেমন: ২০-০৫-২০২৪" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="experience">অভিজ্ঞতা</Label>
+                <Input id="experience" defaultValue={staff.experience} placeholder="যেমন: ৫ বছর" />
+              </div>
+            </div>
           </div>
           
-
         </div>
 
         <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-3">

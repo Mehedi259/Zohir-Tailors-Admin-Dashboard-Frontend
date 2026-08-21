@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Plus } from "lucide-react";
 
 export function AddExpenseModal({ staffName, triggerClass }: { staffName: string; triggerClass?: string }) {
   const [open, setOpen] = useState(false);
@@ -29,7 +30,10 @@ export function AddExpenseModal({ staffName, triggerClass }: { staffName: string
           <Button className={triggerClass || "font-bold text-orange-600 hover:text-orange-700 bg-transparent hover:bg-transparent px-0"} />
         }
       >
-        খরচ যোগ করুন
+        <div className="flex items-center justify-center gap-2 w-full">
+           <span className="text-2xl">💰</span>
+           <span className="flex items-center"><Plus className="w-5 h-5 mr-1" />নতুন খরচ যোগ করুন</span>
+        </div>
       </DialogTrigger>
       <DialogContent className="w-[95vw] sm:w-full max-w-md bg-white dark:bg-slate-950 p-6 sm:p-8 rounded-2xl border-0 shadow-2xl">
         <DialogHeader className="mb-4">

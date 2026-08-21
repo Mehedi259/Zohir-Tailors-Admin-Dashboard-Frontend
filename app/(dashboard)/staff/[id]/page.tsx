@@ -9,7 +9,7 @@ import {
   ArrowLeft, MapPin, Phone, Briefcase, 
   CheckCircle2, Search, Home, Check, Clock, 
   FileText, TrendingDown, Book, Camera, Star,
-  RefreshCw, Smartphone, User, X, Menu, Eye, Droplet, Calendar, Coins
+  RefreshCw, Smartphone, User, X, Menu, Eye, Droplet, Calendar, Coins, Wallet
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -87,10 +87,18 @@ export default function StaffProfilePage() {
       {/* Top Section */}
       <div className="flex flex-row items-center gap-4 px-2 mt-4 max-w-2xl mx-auto">
         {/* Avatar */}
-        <div className="relative shrink-0 w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-[#aee2ed] bg-white p-1">
-          <div className="relative w-full h-full rounded-full overflow-hidden">
-            <Image src={staff.photo} alt={staff.name} fill className="object-cover" />
+        <div className="relative shrink-0">
+          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-[#aee2ed] bg-white p-1">
+            <div className="relative w-full h-full rounded-full overflow-hidden">
+              <Image src={staff.photo} alt={staff.name} fill className="object-cover" />
+            </div>
           </div>
+          <Link 
+            href={`/staff/${staffId}/edit`} 
+            className="absolute bottom-0 right-0 md:bottom-1 md:right-1 bg-white dark:bg-slate-800 p-1.5 md:p-2 rounded-full shadow-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors z-10"
+          >
+            <Camera className="w-4 h-4 md:w-5 md:h-5" />
+          </Link>
         </div>
         
         {/* Basic Info */}
@@ -203,7 +211,7 @@ export default function StaffProfilePage() {
         <Button 
           onClick={() => setIsDetailsOpen(true)}
           disabled={isDetailsOpen}
-          className={`w-32 sm:w-40 h-11 sm:h-12 bg-[#4caf50] hover:bg-[#43a047] text-white font-bold rounded-full text-base shadow-sm border border-[#388e3c] transition-opacity ${isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-32 sm:w-40 h-11 sm:h-12 bg-[#4caf50] hover:bg-[#43a047] text-white font-bold rounded-xl text-base shadow-sm border border-[#388e3c] transition-opacity ${isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <Eye className="w-5 h-5 mr-2" />
           দেখুন
@@ -211,7 +219,7 @@ export default function StaffProfilePage() {
         <Button 
           onClick={() => setIsDetailsOpen(false)}
           disabled={!isDetailsOpen}
-          className={`w-36 sm:w-44 h-11 sm:h-12 bg-[#2196f3] hover:bg-[#1e88e5] text-white font-bold rounded-full text-base shadow-sm border border-[#1976d2] transition-opacity ${!isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
+          className={`w-36 sm:w-44 h-11 sm:h-12 bg-[#2196f3] hover:bg-[#1e88e5] text-white font-bold rounded-xl text-base shadow-sm border border-[#1976d2] transition-opacity ${!isDetailsOpen ? 'opacity-50 cursor-not-allowed' : ''}`}
         >
           <X className="w-5 h-5 mr-2" />
           বন্ধ করুন
@@ -258,15 +266,29 @@ export default function StaffProfilePage() {
 
         <div className="h-px bg-slate-200 dark:bg-slate-800 my-8"></div>
 
-
+        {/* Current Due Balance */}
+        <div className="bg-red-50 dark:bg-red-900/20 rounded-2xl p-4 md:p-6 mb-8 flex items-center justify-between border border-red-200 dark:border-red-800/50 shadow-sm transition-shadow hover:shadow-md">
+           <div className="flex items-center gap-3 md:gap-4">
+             <div className="bg-red-100 dark:bg-red-800/50 p-2 md:p-3 rounded-xl text-red-600 dark:text-red-400">
+               <Wallet className="w-6 h-6 md:w-8 md:h-8" />
+             </div>
+             <div>
+               <h3 className="text-base md:text-xl font-bold text-red-800 dark:text-red-200">বর্তমান বাকি ব্যালেন্স ৳</h3>
+               <p className="text-xs md:text-sm text-red-600 dark:text-red-400">পরিশোধযোগ্য পাওনা</p>
+             </div>
+           </div>
+           <div className="text-xl md:text-4xl font-black text-red-700 dark:text-red-300">
+             ২,৫০০
+           </div>
+        </div>
 
         {/* Today's Work Report */}
-        <div className="bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-emerald-200 dark:border-emerald-800/50">
+        <div className="w-[95%] md:w-1/2 mx-auto bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-shadow relative overflow-hidden border border-emerald-200 dark:border-emerald-800/50">
            <div className="relative z-10">
              <h2 className="text-xl md:text-3xl font-bold text-emerald-900 dark:text-emerald-100">আজকের কাজের রিপোর্ট</h2>
              <p className="text-emerald-600 dark:text-emerald-400 mt-2 text-sm md:text-base font-medium">সাফল্যের পথ</p>
              
-             <div className="flex justify-center gap-12 md:gap-32 mt-8">
+             <div className="flex justify-center gap-8 md:gap-16 mt-8">
                 <div>
                    <div className="text-3xl md:text-5xl font-bold mb-2 text-emerald-800 dark:text-emerald-200">
                       {mockWorkHistory.filter(h => h.status === 'Completed').length}
