@@ -45,7 +45,7 @@ export default function StaffListPage() {
 
   const getStatusConfig = (status: string) => {
     switch(status) {
-      case "Present": return { label: "উপস্থিত", colorClass: "text-emerald-800 bg-emerald-200", dotClass: "bg-emerald-600" };
+      case "Present": return { label: "উপস্থিত", colorClass: "text-[#2e7d32] bg-[#4caf50]/20", dotClass: "bg-[#4caf50]" };
       case "Absent": return { label: "অনুপস্থিত", colorClass: "text-rose-700 bg-rose-100", dotClass: "bg-rose-600" };
       case "ChangedWorkplace": return { label: "কর্মস্থল পরিবর্তন করেছেন", colorClass: "text-amber-700 bg-amber-100", dotClass: "bg-amber-600" };
       case "Rejoined": return { label: "পুনরায় যোগদান", colorClass: "text-blue-700 bg-blue-100", dotClass: "bg-blue-600" };
@@ -64,7 +64,7 @@ export default function StaffListPage() {
           <p className="text-sm text-slate-500 mt-1">মোট {mockStaff.length} জন</p>
         </div>
         <Link href="/staff/new">
-          <Button className="bg-primary hover:bg-primary/90 text-white rounded-xl shadow-sm gap-2">
+          <Button className="bg-[#4caf50] hover:bg-[#388e3c] text-white rounded-xl shadow-sm gap-2">
             <Plus className="w-4 h-4" />
             নতুন কারিগর
           </Button>
@@ -103,14 +103,14 @@ export default function StaffListPage() {
                 key={staff.id} 
                 className={`bg-white dark:bg-slate-900 p-4 md:p-5 rounded-2xl shadow-sm border-2 transition-all flex flex-col gap-4 group ${
                   hasGreenBorder 
-                    ? "border-emerald-500 shadow-emerald-100 dark:shadow-emerald-900/20" 
+                    ? "border-[#4caf50] shadow-[#4caf50]/20 dark:shadow-[#4caf50]/10" 
                     : "border-slate-200 dark:border-slate-800 hover:border-primary/40 hover:shadow-md"
                 }`}
               >
                 {/* Top Section: Identity & Work Status */}
                 <div className="flex items-start gap-4">
                   <Link href={`/staff/${staff.id}`} className="shrink-0 cursor-pointer">
-                    <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 md:border-[3px] ${hasGreenBorder ? 'border-emerald-500' : 'border-slate-100 dark:border-slate-800'}`}>
+                    <div className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 md:border-[3px] ${hasGreenBorder ? 'border-[#4caf50]' : 'border-slate-100 dark:border-slate-800'}`}>
                       <Image
                         src={staff.photo}
                         alt={staff.name}
@@ -130,7 +130,7 @@ export default function StaffListPage() {
                           <a 
                             href={`tel:${staff.phone}`} 
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-emerald-100 text-emerald-600 p-1.5 rounded-full hover:bg-emerald-200 transition-colors"
+                            className="bg-[#4caf50]/10 text-[#2e7d32] p-1.5 rounded-full hover:bg-[#4caf50]/20 transition-colors"
                           >
                             <Phone className="w-3.5 h-3.5 fill-current" />
                           </a>
@@ -144,12 +144,12 @@ export default function StaffListPage() {
                           value={isActive ? "active" : "inactive"} 
                           onValueChange={(val) => handleActiveChange(staff.id, val === "active")}
                         >
-                          <SelectTrigger className={`h-8 px-3 text-xs font-bold border shadow-sm gap-2 rounded-full cursor-pointer focus:ring-0 transition-colors ${isActive ? 'bg-emerald-100 text-emerald-700 border-emerald-200 hover:bg-emerald-200' : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'}`}>
-                            <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
+                          <SelectTrigger className={`h-8 px-3 text-xs font-bold border shadow-sm gap-2 rounded-full cursor-pointer focus:ring-0 transition-colors ${isActive ? 'bg-[#4caf50]/10 text-[#2e7d32] border-[#4caf50]/20 hover:bg-[#4caf50]/20' : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'}`}>
+                            <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-[#4caf50]' : 'bg-slate-400'}`}></span>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="font-bold rounded-xl border-slate-200 shadow-xl min-w-[8rem] z-[100]">
-                            <SelectItem value="active" className="text-emerald-700 focus:bg-emerald-50 cursor-pointer">অ্যাক্টিভ</SelectItem>
+                            <SelectItem value="active" className="text-[#2e7d32] focus:bg-[#4caf50]/10 cursor-pointer">অ্যাক্টিভ</SelectItem>
                             <SelectItem value="inactive" className="text-slate-600 focus:bg-slate-50 cursor-pointer">ইনঅ্যাক্টিভ</SelectItem>
                           </SelectContent>
                         </Select>
