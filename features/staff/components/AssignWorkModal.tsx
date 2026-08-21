@@ -72,7 +72,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      items: [{ jobName: "", quantity: 1, rate: 0 }],
+      items: [{ jobName: "", quantity: "" as unknown as number, rate: "" as unknown as number }],
     },
   });
 
@@ -234,7 +234,9 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         type="number"
                                         min="1"
                                         {...formField}
-                                        onChange={e => formField.onChange(Number(e.target.value))}
+                                        value={formField.value === "" as unknown as number ? "" : formField.value}
+                                        onChange={e => formField.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        placeholder="1"
                                         className="h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 text-center font-bold text-lg outline-none focus-visible:ring-emerald-500"
                                       />
                                     </FormControl>
@@ -256,7 +258,9 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                                         type="number"
                                         min="0"
                                         {...formField}
-                                        onChange={e => formField.onChange(Number(e.target.value))}
+                                        value={formField.value === "" as unknown as number ? "" : formField.value}
+                                        onChange={e => formField.onChange(e.target.value === "" ? "" : Number(e.target.value))}
+                                        placeholder="0"
                                         className="h-12 bg-white dark:bg-slate-950 border-2 border-emerald-500 dark:border-emerald-500 text-center font-bold text-lg outline-none focus-visible:ring-emerald-500"
                                       />
                                     </FormControl>
@@ -296,7 +300,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => append({ jobName: "", quantity: 1, rate: 0 })}
+                    onClick={() => append({ jobName: "", quantity: "" as unknown as number, rate: "" as unknown as number })}
                     className="w-full border-dashed border-2 border-emerald-400 dark:border-emerald-600 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 hover:border-emerald-500 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 py-6 font-semibold"
                   >
                     <Plus className="mr-2 h-4 w-4" /> আরও আইটেম যোগ করুন
