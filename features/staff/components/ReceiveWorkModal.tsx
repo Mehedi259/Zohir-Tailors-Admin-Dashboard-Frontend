@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/store/useAppStore";
 import { mockWorkHistory } from "../data/mock";
 
-export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { staffName: string; triggerClass?: string; triggerText?: string }) {
+export function ReceiveWorkModal({ staffName, triggerClass, triggerText, triggerContent }: { staffName: string; triggerClass?: string; triggerText?: string; triggerContent?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   
   // Pending jobs are derived from mock data (excluding Completed)
@@ -80,7 +80,7 @@ export function ReceiveWorkModal({ staffName, triggerClass, triggerText }: { sta
           <Button className={triggerClass || "font-bold bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg flex items-center gap-2"} />
         }
       >
-        {triggerText || "কাজ বুঝে নিন"}
+        {triggerContent || triggerText || "কাজ বুঝে নিন"}
       </DialogTrigger>
       <DialogContent className="w-[95vw] sm:w-full max-w-md bg-white dark:bg-slate-950 p-5 sm:p-8 rounded-2xl border-0 shadow-2xl max-h-[90vh] overflow-y-auto custom-scrollbar">
         <DialogHeader className="mb-2">

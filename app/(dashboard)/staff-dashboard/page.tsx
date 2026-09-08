@@ -5,12 +5,17 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { 
   Users, UserCheck, Plus, TrendingUp, CheckCircle, AlertTriangle, 
-  Search, Briefcase, FileText, Download, Clock 
+  Search, Briefcase, FileText, Download, Clock, ArrowLeft, Scissors, Shirt 
 } from "lucide-react";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+const toBengaliNumber = (num: string | number) => {
+  const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+  return String(num).replace(/[0-9]/g, match => bnDigits[parseInt(match)]);
+};
 
 export default function StaffDashboardPage() {
   const [currentTime, setCurrentTime] = useState<Date | null>(null);
@@ -23,52 +28,66 @@ export default function StaffDashboardPage() {
 
   return (
     <div className="space-y-6 pb-20 md:pb-6 mt-2 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-[#000080]/10 dark:bg-[#000080]/20 p-4 md:p-6 rounded-2xl shadow-sm border border-[#000080]/20 dark:border-[#000080]/40">
-        <div className="flex items-center gap-3">
-          <div className="bg-[#000080]/10 dark:bg-[#000080]/30 p-2 rounded-xl text-[#000080] dark:text-blue-400">
-            <Users className="h-6 w-6" />
-          </div>
-          <h1 className="text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200">
-            জহির টেইলার্স - কারিগর কর্মচারী ড্যাশবোর্ড
-          </h1>
-        </div>
-        
-        {currentTime && (
-          <div className="flex flex-col md:flex-row items-center justify-between w-full md:w-auto text-sm md:text-base font-medium text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 px-4 py-3 md:py-2 rounded-xl border border-slate-100 dark:border-slate-700">
-            <div className="flex items-center gap-1 text-slate-500 font-bold bg-slate-200/50 dark:bg-slate-900 px-3 py-1 rounded-lg mb-1.5 md:mb-0 md:mr-4">
-              <Clock className="w-4 h-4" />
-              <span>{format(currentTime, "hh:mm a")}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span>{format(currentTime, "EEEE")},</span>
-              <span>{format(currentTime, "dd MMM yyyy")}</span>
-            </div>
-          </div>
-        )}
+      {/* Back Button */}
+      <div className="px-1 -mb-2">
+        <button onClick={() => window.history.back()} className="flex items-center text-slate-800 dark:text-slate-200 hover:text-blue-600 transition-colors">
+          <ArrowLeft className="w-6 h-6 stroke-[2.5]" />
+        </button>
       </div>
 
+      {/* Header Box */}
+      <div className="flex flex-col justify-center items-start gap-4 bg-white dark:bg-slate-900 px-5 py-6 rounded-[24px] shadow-sm border border-slate-100 dark:border-slate-800">
+        <div className="flex items-center gap-4">
+          <div className="relative bg-blue-100 dark:bg-blue-900/40 w-[60px] h-[60px] flex items-center justify-center rounded-[16px] text-blue-600 dark:text-blue-400 shrink-0">
+            <Scissors className="h-8 w-8" />
+            <div className="absolute -bottom-1.5 -right-1.5 bg-white dark:bg-slate-900 rounded-full p-0.5">
+               <div className="bg-emerald-100 dark:bg-emerald-900/50 p-1.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                 <Shirt className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+               </div>
+            </div>
+          </div>
+          <div>
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-slate-100 leading-tight">
+              জহির টেইলার্স
+            </h1>
+            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 mt-1">
+              <Users className="w-4 h-4" />
+              <span className="font-medium text-sm md:text-base">কারিগর ব্যবস্থাপনা ড্যাশবোর্ড</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* কর্মচারী তথ্য (Staff Info) */}
-      <div>
-        <div className="flex justify-between items-center mb-3 px-1">
-          <h2 className="text-lg font-bold text-slate-700 dark:text-slate-300">কর্মচারী তথ্য</h2>
-          <Link href="/staff/new">
-            <Button size="sm" className="bg-[#000080]/10 hover:bg-[#000080]/20 text-[#000080] dark:text-blue-200 border border-[#000080]/20 font-bold rounded-lg flex items-center gap-1 shadow-sm transition-all h-8 md:h-9 text-xs md:text-sm px-3 md:px-4">
-              <Plus className="w-3 h-3 md:w-4 md:h-4" />
-              <span>কর্মচারী যুক্ত করুন</span>
-            </Button>
-          </Link>
-        </div>
-        
-        {/* কারিগর খুঁজুন (Search Staff) */}
-        <div className="mb-4 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
-          <Input 
-            placeholder="কারিগর খুঁজুন" 
-            className="pl-10 h-12 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-xl shadow-sm"
-          />
-        </div>
+      {/* Time and Add Button */}
+      <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-3 mt-4">
+        {currentTime ? (
+          <div className="flex items-center gap-4 bg-indigo-50/70 dark:bg-indigo-900/20 px-5 py-3.5 rounded-2xl border border-indigo-100 dark:border-indigo-800/50 flex-1 md:max-w-sm">
+            <Clock className="w-5 h-5 text-indigo-400 shrink-0" />
+            <div className="flex flex-col text-indigo-700 dark:text-indigo-300 leading-tight">
+              <span className="font-medium">{new Intl.DateTimeFormat('bn-BD', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(currentTime)}</span>
+              <span className="font-medium">| {toBengaliNumber(format(currentTime, "hh:mm:ss a"))}</span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex-1 md:max-w-sm h-[72px] bg-indigo-50/50 dark:bg-indigo-900/10 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 animate-pulse"></div>
+        )}
+
+        <Link href="/staff/new" className="md:w-auto h-[72px]">
+          <Button className="w-full md:w-auto h-full bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-sm transition-all px-6 text-base">
+            <Plus className="w-5 h-5 stroke-[2.5]" />
+            <span>নতুন কারিগর যুক্ত করুন</span>
+          </Button>
+        </Link>
+      </div>
+      
+      {/* Search Bar */}
+      <div className="relative mt-2">
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+        <Input 
+          placeholder="কারিগর খুঁজুন (নাম বা দক্ষতা)..." 
+          className="pl-12 h-14 text-base bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm focus-visible:ring-blue-500"
+        />
+      </div>
 
         <div className="grid grid-cols-2 gap-3 md:gap-4 mb-3">
           <Card className="bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-100 border border-blue-200 dark:border-blue-800 shadow-sm hover:shadow-md transition-shadow">
@@ -107,7 +126,6 @@ export default function StaffDashboardPage() {
             </CardContent>
           </Card>
         </Link>
-      </div>
 
       {/* অর্থনৈতিক তথ্য (Financial Info) */}
       <div>

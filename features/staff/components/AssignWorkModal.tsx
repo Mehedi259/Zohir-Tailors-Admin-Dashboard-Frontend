@@ -54,7 +54,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function AssignWorkModal({ staffName, triggerClass }: { staffName: string; triggerClass?: string }) {
+export function AssignWorkModal({ staffName, triggerClass, triggerContent }: { staffName: string; triggerClass?: string; triggerContent?: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   
   const [selectedDate, setSelectedDate] = useState("");
@@ -108,7 +108,7 @@ export function AssignWorkModal({ staffName, triggerClass }: { staffName: string
           <Button className={triggerClass || "w-full sm:w-auto font-bold bg-white text-indigo-700 hover:bg-slate-50 hover:text-indigo-800 rounded-xl shadow-lg hover:shadow-xl px-8 py-6 h-auto text-lg transition-all hover:-translate-y-1"} />
         }
       >
-        কাজ দিলাম &darr;
+        {triggerContent || "কাজ দিলাম \u2193"}
       </DialogTrigger>
       <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-950 p-4 sm:p-6 md:p-8 rounded-2xl">
         <DialogHeader className="mb-4">
