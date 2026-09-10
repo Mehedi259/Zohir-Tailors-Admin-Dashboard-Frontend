@@ -36,36 +36,36 @@ export default function StaffDashboardPage() {
       </div>
 
       <div className="pt-4 md:pt-8 px-2 md:px-0 max-w-2xl mx-auto md:mx-0 text-center md:text-left">
-        <div className="flex items-center justify-center md:justify-start gap-2 text-sm font-bold text-slate-600 mb-2">
+        <div className="flex items-center justify-center md:justify-start gap-2 text-xs sm:text-sm font-bold text-slate-600 mb-2">
           <span>জহির টেইলার্স</span>
-          <span className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full text-xs border border-emerald-100">
+          <span className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2 sm:px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs border border-emerald-100">
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> 
             লাইভ সংস্করণ
           </span>
         </div>
-        <h1 className="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center justify-center md:justify-start gap-3 mb-3">
-          <Scissors className="w-8 h-8 md:w-10 md:h-10 text-blue-600 dark:text-blue-500" />
+        <h1 className="text-xl sm:text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center justify-center md:justify-start gap-2 sm:gap-3 mb-3">
+          <Scissors className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-blue-600 dark:text-blue-500" />
           কারিগর ব্যবস্থাপনা ড্যাশবোর্ড
         </h1>
-        <p className="text-slate-500 dark:text-slate-400 font-medium text-sm md:text-lg leading-relaxed">
+        <p className="text-slate-500 dark:text-slate-400 font-medium text-xs sm:text-sm md:text-lg leading-relaxed">
           কারিগরদের দৈনন্দিন কাজের হিসাব,<br className="md:hidden" />
           মোট বিল এবং অগ্রিম খরচের বিবরণী
         </p>
       </div>
 
-      <div className="flex flex-row flex-wrap items-stretch justify-start gap-3 sm:gap-4 mt-6 md:mt-8">
-        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-3 sm:p-4 shadow-sm flex flex-col justify-center min-w-[180px]">
-          <div className="flex items-center gap-1.5 sm:gap-2 text-slate-800 dark:text-slate-200 font-bold text-sm sm:text-lg">
-            <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-500 shrink-0" /> 
+      <div className="flex flex-row items-stretch justify-between gap-2 sm:gap-4 mt-6 md:mt-8">
+        <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-2 sm:p-4 shadow-sm flex-1 flex flex-col justify-center overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-2 text-slate-800 dark:text-slate-200 font-bold text-[13px] sm:text-lg">
+            <Clock className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-blue-600 dark:text-blue-500 shrink-0" /> 
             <span className="truncate">{currentTime ? toBengaliNumber(format(currentTime, "hh:mm a")) : '...'}</span>
           </div>
-          <div className="text-slate-500 dark:text-slate-400 text-[11px] sm:text-sm font-medium mt-0.5 ml-5 sm:ml-7 truncate">
+          <div className="text-slate-500 dark:text-slate-400 text-[9px] sm:text-sm font-medium mt-0.5 ml-4 sm:ml-7 truncate">
             {currentTime ? new Intl.DateTimeFormat('bn-BD', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(currentTime) : '...'}
           </div>
         </div>
-        <Link href="/staff" className="flex items-stretch min-w-[140px] flex-1 sm:flex-none">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 sm:px-6 h-full py-3 sm:py-2 rounded-2xl text-[14px] sm:text-base shadow-md flex items-center justify-center gap-2 w-full">
-            <LayoutGrid className="w-5 h-5 shrink-0" /> 
+        <Link href="/staff" className="flex-1 flex items-stretch">
+          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-1 sm:px-6 h-full py-2 sm:py-2 rounded-2xl text-[12px] sm:text-base shadow-md flex items-center justify-center gap-1 sm:gap-2 w-full">
+            <LayoutGrid className="w-4 h-4 sm:w-5 h-5 shrink-0" /> 
             <span className="truncate">কারিগর প্যানেল</span>
           </Button>
         </Link>
@@ -75,40 +75,40 @@ export default function StaffDashboardPage() {
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
         <Input 
           placeholder="নাম বা পদবি দিয়ে কারিগর খুঁজুন..." 
-          className="pl-12 h-14 bg-slate-100/80 dark:bg-slate-800/80 border-0 rounded-2xl text-base font-medium placeholder:text-slate-500 focus-visible:ring-1 focus-visible:ring-blue-500 shadow-inner"
+          className="pl-12 h-12 sm:h-14 bg-slate-100/80 dark:bg-slate-800/80 border-0 rounded-2xl text-sm sm:text-base font-medium placeholder:text-slate-500 focus-visible:ring-1 focus-visible:ring-blue-500 shadow-inner"
         />
       </div>
 
       <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 mt-6 md:mt-8">
         <div className="aspect-square bg-blue-50/80 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <Users className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 mb-1.5 sm:mb-3" />
-          <span className="text-blue-700 dark:text-blue-400 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">মোট কারিগর</span>
-          <span className="text-blue-900 dark:text-blue-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">১০ জন</span>
+          <Users className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-blue-700 dark:text-blue-400 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">মোট কারিগর</span>
+          <span className="text-blue-900 dark:text-blue-100 font-extrabold text-sm sm:text-3xl md:text-4xl leading-tight truncate w-full">১০ জন</span>
         </div>
         <div className="aspect-square bg-emerald-50/80 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <CheckCircle className="w-5 h-5 sm:w-8 sm:h-8 text-emerald-600 dark:text-emerald-400 mb-1.5 sm:mb-3" />
-          <span className="text-emerald-700 dark:text-emerald-400 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">সক্রিয় আছেন</span>
-          <span className="text-emerald-900 dark:text-emerald-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">০৫ জন</span>
+          <CheckCircle className="w-5 h-5 sm:w-8 sm:h-8 text-emerald-600 dark:text-emerald-400 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-emerald-700 dark:text-emerald-400 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">সক্রিয় আছেন</span>
+          <span className="text-emerald-900 dark:text-emerald-100 font-extrabold text-sm sm:text-3xl md:text-4xl leading-tight truncate w-full">০৫ জন</span>
         </div>
         <div className="aspect-square bg-purple-50/80 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <Scissors className="w-5 h-5 sm:w-8 sm:h-8 text-purple-600 dark:text-purple-400 mb-1.5 sm:mb-3" />
-          <span className="text-purple-700 dark:text-purple-400 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">মোট কাজ</span>
-          <span className="text-purple-900 dark:text-purple-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">১৫৫ টি</span>
+          <Scissors className="w-5 h-5 sm:w-8 sm:h-8 text-purple-600 dark:text-purple-400 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-purple-700 dark:text-purple-400 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">মোট কাজ</span>
+          <span className="text-purple-900 dark:text-purple-100 font-extrabold text-sm sm:text-3xl md:text-4xl leading-tight truncate w-full">১৫৫ টি</span>
         </div>
         <div className="aspect-square bg-amber-50/80 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <Receipt className="w-5 h-5 sm:w-8 sm:h-8 text-amber-600 dark:text-amber-500 mb-1.5 sm:mb-3" />
-          <span className="text-amber-700 dark:text-amber-500 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">মোট বিল</span>
-          <span className="text-amber-900 dark:text-amber-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">৳১,১০,৫০০</span>
+          <Receipt className="w-5 h-5 sm:w-8 sm:h-8 text-amber-600 dark:text-amber-500 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-amber-700 dark:text-amber-500 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">মোট বিল</span>
+          <span className="text-amber-900 dark:text-amber-100 font-extrabold text-[13px] sm:text-3xl md:text-4xl leading-tight truncate w-full">৳১,১০,৫০০</span>
         </div>
         <div className="aspect-square bg-blue-50/80 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <Wallet className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 mb-1.5 sm:mb-3" />
-          <span className="text-blue-700 dark:text-blue-400 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">মোট পরিশোধ</span>
-          <span className="text-blue-900 dark:text-blue-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">৳১,০৫,৫০০</span>
+          <Wallet className="w-5 h-5 sm:w-8 sm:h-8 text-blue-600 dark:text-blue-400 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-blue-700 dark:text-blue-400 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">মোট পরিশোধ</span>
+          <span className="text-blue-900 dark:text-blue-100 font-extrabold text-[13px] sm:text-3xl md:text-4xl leading-tight truncate w-full">৳১,০৫,৫০০</span>
         </div>
         <div className="aspect-square bg-rose-50/80 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800 rounded-2xl p-2 sm:p-5 md:p-6 flex flex-col items-center justify-center text-center shadow-sm">
-          <ClipboardList className="w-5 h-5 sm:w-8 sm:h-8 text-rose-600 dark:text-rose-400 mb-1.5 sm:mb-3" />
-          <span className="text-rose-700 dark:text-rose-400 font-bold text-xs sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight">বকেয়া ব্যালেন্স</span>
-          <span className="text-rose-900 dark:text-rose-100 font-extrabold text-xl sm:text-3xl md:text-4xl leading-tight">৳৫,০০০</span>
+          <ClipboardList className="w-5 h-5 sm:w-8 sm:h-8 text-rose-600 dark:text-rose-400 mb-1.5 sm:mb-3 shrink-0" />
+          <span className="text-rose-700 dark:text-rose-400 font-bold text-[10px] sm:text-base md:text-lg mb-1 sm:mb-2 leading-tight line-clamp-1">বকেয়া ব্যালেন্স</span>
+          <span className="text-rose-900 dark:text-rose-100 font-extrabold text-sm sm:text-3xl md:text-4xl leading-tight truncate w-full">৳৫,০০০</span>
         </div>
       </div>
 
